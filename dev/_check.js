@@ -24,7 +24,7 @@ a_train:'Train',a_study:'Study',a_work:'Work',a_adventure:'Adventure',a_rest:'Re
 a_tip_train:'Run & lift weights. Power↑ Stamina↑',a_tip_study:'Books & puzzles. Brains↑',a_tip_work:'Earn coins. Stamina↑ a little Charm',a_tip_adventure:'Explore outside. Luck decides the spoils',a_tip_rest:'Sleep. Energy♥ cures tired & illness',a_tip_play:'Play together. Mood↑♥ Charm↑',a_tip_hobby:'Make & create. Spirit↑ Brains↑ Mood↑',a_tip_shop:'Fresh outfit. Charm↑ Mood↑ (coins)',a_tip_groom:'Brush & polish. Charm↑ Mood↑',a_tip_medicine:'Take medicine. Cures illness (free)',a_tip_social:'Meet friends in town. Mood↑♥ Brains↑',a_tip_clean:'Tidy up the hut. Mood↑ Stamina↑',
 e_train:'Training montage!',e_study:'Deep in a book…',e_work:'Off to work!',e_adventure:'The adventure begins!',e_rest:'A cozy nap.',e_play:'Play-play-play!',e_hobby:'Lost in a hobby…',e_shop:'Shopping trip!',e_groom:'Brush, brush, polish!',e_medicine:'Yikes, medicine time…',e_social:'A stroll into town.',e_clean:'Cleaning time!',
 no_energy:'Too tired for that…',no_coins:'Not enough coins…',no_medicine:'Not sick right now.',tired_now:'You\'re exhausted! Only easy activities until you rest.',
-ad_pre:'Too worn out for a real adventure — rest or train first!',ad_great_tre:'You found an ancient artifact!',ad_bad:'Rain, mud and grumbles…',ad_wonder:'You glimpse a wonder of nature…',saved_ok:'Saved!',
+ad_pre:'Too worn out for a real adventure — rest or train first!',ad_great_tre:'You found an ancient artifact!',ad_bad:'Rain, mud and grumbles…',ad_wonder:'You glimpse a wonder of nature…',saved_ok:'Saved!',save_failed:'Save failed. Check browser storage settings.',
 g_pw:'Power',g_br:'Brains',g_ch:'Charm',g_st:'Stamina',g_sp:'Spirit',g_mood:'Mood',g_coins:'coins',g_energy:'Energy',
 daysep:'— Day {d} —',day60:'Day 60. The final day…',
 evo_l1:'{n} evolved into {f}!',evo_l2:'{n} has changed…',evolve_title:'EVOLUTION!',
@@ -36,11 +36,11 @@ f_cup_t:'Tournament day!',f_cup_m:'All eyes on your {n} in the arena…',f_cup_b
 f_sick_t:'Cough… sniffle…',f_sick_m:'Your {n} caught a cold! Growth slows. Medicine?',f_sick_m2:'Your {n} is still under the weather.',f_sick_b1:'Take medicine (free)',f_sick_b2:'Power through it',f_sick_r1:'Medicine works! Right as rain.',f_sick_r2:'You toughed it out… barely.',
 f_dream_t:'A vivid dream',f_dream_m:'Your {n} hums a melody in its sleep.',f_dream_b1:'Sit by its side',f_dream_b2:'Let it sleep',f_dream_r1:'You shared a dream. Spirits soared!',f_dream_r2:'A quiet, peaceful night.',
 f_tre_t:'Sparkle in the dirt',f_tre_m:"What's this glinting in the dirt?",f_tre_b1:'Take it to a shop',f_tre_b2:'Polish it as a treasure',f_tre_r1:'Sold for {c} coins!',f_tre_r2:'A precious keepsake. Mood soared!',
-f_friend_t:'A shy visitor',f_friend_m:'A wild sprite peeks in and waves.',f_friend_b1:'Chat together',f_friend_b2:'Share your snacks',f_friend_b3:'A polite wave goodbye',f_friend_r1:'You traded stories. Charm +{a}!',f_friend_r2:'It nibbled happily. Mood +{a}!',f_friend_r3:'It left a tiny gift: {c} coins.',
+f_friend_t:'A shy visitor',f_friend_m:'A wild sprite peeks in and waves.',f_friend_b1:'Chat together',f_friend_b2:'Share a snack (4 coins)',f_friend_b3:'A polite wave goodbye',f_friend_r1:'You traded stories. Charm +{a}!',f_friend_r2:'It nibbled happily. Mood +{a}!',f_friend_r3:'It left a tiny gift: {c} coins.',
 f_insp_t:'A spark of genius',f_insp_m:'Suddenly — Eureka! The idea won\'t leave you alone.',f_insp_b1:'Follow the idea',f_insp_b2:'Scribble it in a notebook',f_insp_r1:'Genius unlocked! Brains +{a}!',f_insp_r2:'A modest insight. Brains +{a}.',
 f_storm_t:'The howling storm',f_storm_m:'Thunder surrounds the hut tonight.',f_storm_b1:'Shield your {n}',f_storm_b2:'Face the storm together',f_storm_r1:'A safe night. Stamina +{a}.',f_storm_r2:'Scary but thrilling! Spirit +{a}, Power +{a2}.',
 f_star_t:'The night of shooting stars',f_star_m:'The sky rains starlight. A once-in-a-lifetime night.',f_star_b1:'Make a wish together',f_star_b2:'Watch it in silence',f_star_r1:'Your bond sparkles. Mood +{a}!',f_star_r2:'A wonder: Spirit +{a}!',
-f_fest_t:'The town festival!',f_fest_m:'Lanterns everywhere! Join the booth games?',f_fest_b1:'Join — {c} coins',f_fest_b2:'Watch from the crowd',f_fest_r1:'You won a goldfish! Charm +{a}, Mood +{a2}.',f_fest_r2:'Food costs: {c} coins. Mood +{a}.',
+f_fest_t:'The town festival!',f_fest_m:'Lanterns everywhere! Join the booth games?',f_fest_b1:'Join — {c} coins',f_fest_b2:'Buy a festival snack — 5 coins',f_fest_r1:'You won a goldfish! Charm +{a}, Mood +{a2}.',f_fest_r2:'Food costs: {c} coins. Mood +{a}.',
 f_gift_t:'A mysterious package',f_gift_m:'A wrapped box… from a fan?',f_gift_b1:'Open it',f_gift_b2:'Send it back',f_gift_r1:'Inside: premium snacks and {c} coins!',f_gift_r2:'Polite decline. The fan respects you. Mood +{a}.',
 f_cook_t:'The hungry traveler',f_cook_m:'"A chef? I could eat a horse!" How about it?',f_cook_b1:'Cook up a storm',f_cook_b2:'Point down the road',f_cook_r1:'"Incredible!!" Payment: {c} coins!',f_cook_r2:'"Aw… how much for a hug?" Mood +{a}!',
 f_egg_t:'?! A black egg?!',f_egg_m:'A mysterious black egg is humming softly…',f_egg_b1:'Keep it warm',f_egg_b2:'Call the authorities',f_egg_r1:'It hatched into… light! Spirit +{a}, Brains +{a2}.',f_egg_r2:'The egg just smiled. Nothing happened.',
@@ -67,7 +67,7 @@ a_train:'トレーニング',a_study:'おべんきょう',a_work:'アルバイ�
 a_tip_train:'走る・筋力トレ。ちから↑ たいりょく↑',a_tip_study:'本とパズル。あたま↑',a_tip_work:'お金を稼ぐ。たいりょく↑ おしゃれ↑ 少し',a_tip_adventure:'外へ探索。運しだいでごほうび',a_tip_rest:'ぐっすり。げんき♥ ねむさと病気を治す',a_tip_play:'いっしょに遊ぶ。きぶん↑♥ おしゃれ↑',a_tip_hobby:'ものづくり。せいしん↑ あたま↑ きぶん↑',a_tip_shop:'新しい服。おしゃれ↑ きぶん↑（お金）',a_tip_groom:'ブラッシングと磨き。おしゃれ↑ きぶん↑',a_tip_medicine:'くすり。病気を治す（無料）',a_tip_social:'町で友だち。きぶん↑♥ あたま↑',a_tip_clean:'部屋を片付ける。きぶん↑ たいりょく↑',
 e_train:'がんにトレーニング！',e_study:'本にふける…',e_work:'お仕事へ！',e_adventure:'ぼうけんに出発！',e_rest:'ぐっすりお昼寝。',e_play:'あそびに夢中！',e_hobby:'しゅみにふける…',e_shop:'かいものへ！',e_groom:'ブラッシング！',e_medicine:'くすりの時間…',e_social:'町へおでかけ。',e_clean:'そうじの時間！',
 no_energy:'げんきが足りない…',no_coins:'ゴールドが足りない…',no_medicine:'今は病気をかかえていない。',tired_now:'くたくだ！おやすみするまで楽な行動だけ。',
-ad_pre:'本格的なぼうけんにはまだヘトヘト。ねむたい・たいりょく不足。',ad_great_tre:'古代のアーティファクトを発見！',ad_bad:'雨と泥道。グチばかり…。',ad_wonder:'自然のふしぎを目撃した…',saved_ok:'セーブしたよ！',
+ad_pre:'本格的なぼうけんにはまだヘトヘト。ねむたい・たいりょく不足。',ad_great_tre:'古代のアーティファクトを発見！',ad_bad:'雨と泥道。グチばかり…。',ad_wonder:'自然のふしぎを目撃した…',saved_ok:'セーブしたよ！',save_failed:'セーブできませんでした。ブラウザーの保存設定を確認してください。',
 g_pw:'ちから',g_br:'あたま',g_ch:'おしゃれ',g_st:'たいりょく',g_sp:'せいしん',g_mood:'きぶん',g_coins:'G',g_energy:'げんき',
 daysep:'── Day {d} ──',day60:'Day 60。最後の日が明けた…',
 evo_l1:'{n}は{f}に進化した！',evo_l2:'{n}が変化している…',evolve_title:'しんか！',
@@ -79,11 +79,11 @@ f_cup_t:'大会の日！',f_cup_m:'闘技場に応援の声…{n}に注目が集
 f_sick_t:'ゴホッ…チュン…',f_sick_m:'{n}が風邪をひいた！成長が遅れる。くすりは？',f_sick_m2:'{n}はまだ本調子じゃない。',f_sick_b1:'くすりを飲む（無料）',f_sick_b2:'げんきで乗り切る',f_sick_r1:'くすりが効いた！ピッカピカ。',f_sick_r2:'気合で耐えた…ギリギリ。',
 f_dream_t:'ゆかのような夢',f_dream_m:'{n}が眠りながらメロディを口ずさんでいる。',f_dream_b1:'そばで耳をすます',f_dream_b2:'そっとしておく',f_dream_r1:'夢で再会。せいしんが高ぶった！',f_dream_r2:'しずかで平和な夜。',
 f_tre_t:'つちの中からキラリ',f_tre_m:'土の中になにか光るもの…！',f_tre_b1:'お店に持っていく',f_tre_b2:'宝物としてみがく',f_tre_r1:'{c}Gで売却！',f_tre_r2:'大切な宝物に。きぶん大幅アップ！',
-f_friend_t:'内気な訪問者',f_friend_m:'野生の精霊がこっそり手を振っている。',f_friend_b1:'いっしょにおしゃべり',f_friend_b2:'おやつをわける',f_friend_b3:'会釈して見送る',f_friend_r1:'物語を交換。おしゃれ+{a}！',f_friend_r2:'うれしそうにかじった。きぶん+{a}！',f_friend_r3:'お礼に{c}Gを置いていった。',
+f_friend_t:'内気な訪問者',f_friend_m:'野生の精霊がこっそり手を振っている。',f_friend_b1:'いっしょにおしゃべり',f_friend_b2:'おやつをわける（4G）',f_friend_b3:'会釈して見送る',f_friend_r1:'物語を交換。おしゃれ+{a}！',f_friend_r2:'うれしそうにかじった。きぶん+{a}！',f_friend_r3:'お礼に{c}Gを置いていった。',
 f_insp_t:'ひらめきの瞬間',f_insp_m:'キターッ！ひらめいたアイデアが離れない。',f_insp_b1:'とことん深める',f_insp_b2:'ノートにメモ',f_insp_r1:'大発明！あたま+{a}！',f_insp_r2:'ちょっとした収穫。あたま+{a}。',
 f_storm_t:'吠える嵐',f_storm_m:'今夜は家中に雷の音。',f_storm_b1:'{n}を守る',f_storm_b2:'いっしょに嵐へ',f_storm_r1:'無事に夜明け。たいりょく+{a}。',f_storm_r2:'怖いが痛快！せいしん+{a} ちから+{a2}。',
 f_star_t:'流れ星の夜',f_star_m:'空が星のシャワー。一生に一度の夜。',f_star_b1:'いっしょにねがう',f_star_b2:'しずかに見送る',f_star_r1:'絆がひかる。きぶん+{a}！',f_star_r2:'神秘の体験：せいしん+{a}！',
-f_fest_t:'町のまつり！',f_fest_m:'ちょうちんでいっぱい。屋台のゲームに挑戦？',f_fest_b1:'参加する −{c}G',f_fest_b2:'見物する',f_fest_r1:'金魚をゲット！おしゃれ+{a} きぶん+{a2}。',f_fest_r2:'ごちそう代{c}G。きぶん+{a}。',
+f_fest_t:'町のまつり！',f_fest_m:'ちょうちんでいっぱい。屋台のゲームに挑戦？',f_fest_b1:'参加する −{c}G',f_fest_b2:'屋台のおやつを買う（5G）',f_fest_r1:'金魚をゲット！おしゃれ+{a} きぶん+{a2}。',f_fest_r2:'ごちそう代{c}G。きぶん+{a}。',
 f_gift_t:'ふしぎな小包',f_gift_m:'包まれた箱…ファンからの贈り物？',f_gift_b1:'あけてみる',f_gift_b2:'お返しする',f_gift_r1:'特製おやつと{c}Gが入っていた！',f_gift_r2:'丁重にお断り。ファンはあなたを尊敬。きぶん+{a}。',
 f_cook_t:'お腹すいた旅人',f_cook_m:'「料理ができるのか？馬一頭はいけるぞ！」どうする？',f_cook_b1:'腕によりをかける',f_cook_b2:'道を教える',f_cook_r1:'「うますぎる！！」支払い{c}G！',f_cook_r2:'「ごちそうさま。ハグはいくら？」きぶん+{a}！',
 f_egg_t:'！？黒いタマゴ！？',f_egg_m:'ふしぎな黒いタマゴがうっすらうたっている…',f_egg_b1:'あったかくしてあげる',f_egg_b2:'まかせる',f_egg_r1:'かえったのは…ひかり！せいしん+{a} あたま+{a2}。',f_egg_r2:'タマゴはにっこり。何も起きなかった。',
@@ -110,7 +110,7 @@ a_train:'锻炼',a_study:'学习',a_work:'打工',a_adventure:'冒险',a_rest:'�
 a_tip_train:'跑步与力量。力量↑ 体力↑',a_tip_study:'读书与谜题。智慧↑',a_tip_work:'赚金币。体力↑ 魅力↑一点',a_tip_adventure:'外出探索，运气决定收获',a_tip_rest:'熟睡。体力值♥ 治愈疲劳与疾病',a_tip_play:'一起玩。心情↑♥ 魅力↑',a_tip_hobby:'手作。精神↑ 智慧↑ 心情↑',a_tip_shop:'新衣服。魅力↑ 心情↑（金币）',a_tip_groom:'梳理与抛光。魅力↑ 心情↑',a_tip_medicine:'吃药治病（免费）',a_tip_social:'镇上交友。心情↑♥ 智慧↑',a_tip_clean:'打扫小屋。心情↑ 体力↑',
 e_train:'努力锻炼！',e_study:'埋头读书…',e_work:'去打工！',e_adventure:'冒险出发！',e_rest:'香甜午睡。',e_play:'玩得开心！',e_hobby:'沉浸在爱好里…',e_shop:'购物去！',e_groom:'刷呀刷，擦呀擦！',e_medicine:'该吃药了…',e_social:'去镇上散步。',e_clean:'打扫时间！',
 no_energy:'体力不够…',no_coins:'金币不够…',no_medicine:'目前没有生病。',tired_now:'累坏了！休息之前只能做轻松的行动。',
-ad_pre:'太疲惫，无法真正冒险——先休息或锻炼！',ad_great_tre:'发现了古代神器！',ad_bad:'下雨、泥路，一路抱怨…',ad_wonder:'目击了自然的奇迹…',saved_ok:'已保存！',
+ad_pre:'太疲惫，无法真正冒险——先休息或锻炼！',ad_great_tre:'发现了古代神器！',ad_bad:'下雨、泥路，一路抱怨…',ad_wonder:'目击了自然的奇迹…',saved_ok:'已保存！',save_failed:'保存失败。请检查浏览器的存储设置。',
 g_pw:'力量',g_br:'智慧',g_ch:'魅力',g_st:'体力',g_sp:'精神',g_mood:'心情',g_coins:'金币',g_energy:'体力值',
 daysep:'── 第 {d} 天 ──',day60:'第60天，最后一天…',
 evo_l1:'{n}进化成了 {f}！',evo_l2:'{n}发生了变化…',evolve_title:'进化！',
@@ -122,11 +122,11 @@ f_cup_t:'大会之日！',f_cup_m:'竞技场万众瞩目，全都看着{n}…',f
 f_sick_t:'咳咳…阿嚏…',f_sick_m:'{n}感冒了！成长变慢。要吃药吗？',f_sick_m2:'{n}还没有完全好。',f_sick_b1:'吃药（免费）',f_sick_b2:'硬撑过去',f_sick_r1:'药到病除！精神抖擞。',f_sick_r2:'硬扛过去了…勉强。',
 f_dream_t:'清晰的梦',f_dream_m:'{n}在睡梦中哼着旋律。',f_dream_b1:'守在床边',f_dream_b2:'让它继续睡',f_dream_r1:'共享了一个梦。精神高涨！',f_dream_r2:'安静平和的夜晚。',
 f_tre_t:'土里闪一闪',f_tre_m:'土里有东西在发光！',f_tre_b1:'拿去店里卖',f_tre_b2:'擦拭成宝物',f_tre_r1:'卖了{c}金币！',f_tre_r2:'变成了珍贵的宝物。心情大涨！',
-f_friend_t:'害羞的访客',f_friend_m:'野生精灵探头跟你打招呼。',f_friend_b1:'一起聊天',f_friend_b2:'分它点心',f_friend_b3:'点头送别',f_friend_r1:'互诉故事。魅力+{a}！',f_friend_r2:'它吃得开心。心情+{a}！',f_friend_r3:'它留下谢礼：{c}金币。',
+f_friend_t:'害羞的访客',f_friend_m:'野生精灵探头跟你打招呼。',f_friend_b1:'一起聊天',f_friend_b2:'分享点心（4金币）',f_friend_b3:'点头送别',f_friend_r1:'互诉故事。魅力+{a}！',f_friend_r2:'它吃得开心。心情+{a}！',f_friend_r3:'它留下谢礼：{c}金币。',
 f_insp_t:'灵光一闪',f_insp_m:'灵光乍现——这个点子挥之不去！',f_insp_b1:'钻研到底',f_insp_b2:'记在笔记本上',f_insp_r1:'大发明！智慧+{a}！',f_insp_r2:'小小的收获。智慧+{a}。',
 f_storm_t:'咆哮的暴风雨',f_storm_m:'今夜雷声包围小屋。',f_storm_b1:'护住{n}',f_storm_b2:'一起迎击暴风雨',f_storm_r1:'平安到天亮。体力+{a}。',f_storm_r2:'可怕但痛快！精神+{a} 力量+{a2}。',
 f_star_t:'流星的夜晚',f_star_m:'天空下起星光之雨，一生一次的夜晚。',f_star_b1:'一起许愿',f_star_b2:'静静观赏',f_star_r1:'羁绊闪光。心情+{a}！',f_star_r2:'奇迹体验：精神+{a}！',
-f_fest_t:'小镇庆典！',f_fest_m:'到处是灯笼。要参加摊位游戏吗？',f_fest_b1:'参加 −{c}金币',f_fest_b2:'光是看就好',f_fest_r1:'赢得金鱼！魅力+{a} 心情+{a2}。',f_fest_r2:'小吃花了{c}金币。心情+{a}。',
+f_fest_t:'小镇庆典！',f_fest_m:'到处是灯笼。要参加摊位游戏吗？',f_fest_b1:'参加 −{c}金币',f_fest_b2:'购买庆典点心（5金币）',f_fest_r1:'赢得金鱼！魅力+{a} 心情+{a2}。',f_fest_r2:'小吃花了{c}金币。心情+{a}。',
 f_gift_t:'神秘包裹',f_gift_m:'一个包好的盒子…是粉丝送的？',f_gift_b1:'打开看看',f_gift_b2:'退回去了',f_gift_r1:'里面有高级点心和{c}金币！',f_gift_r2:'礼貌回绝。粉丝更尊敬你了。心情+{a}。',
 f_cook_t:'饥饿的旅人',f_cook_m:'“你会做饭？我能吃下一头马！”怎么办？',f_cook_b1:'大显身手',f_cook_b2:'指个路',f_cook_r1:'“太好吃了！！”付款{c}金币！',f_cook_r2:'“谢谢款待。拥抱收费吗？”心情+{a}！',
 f_egg_t:'！？黑色的蛋！？',f_egg_m:'神秘的黑蛋在轻轻歌唱…',f_egg_b1:'帮它保温',f_egg_b2:'交给管理处',f_egg_r1:'孵出来的是…光！精神+{a} 智慧+{a2}。',f_egg_r2:'蛋只是笑了笑。什么也没发生。',
@@ -275,7 +275,14 @@ let S=null;
 function saveSet(){try{localStorage.setItem(SETKEY,JSON.stringify(SET));}catch(e){}}
 try{const s=JSON.parse(localStorage.getItem(SETKEY)||'null');if(s){if(LANGS.indexOf(s.lang)>=0)SET.lang=s.lang;SET.sound=!!s.sound;}}catch(e){}
 function slotData(i){try{const d=JSON.parse(localStorage.getItem(SAVEKEY(i))||'null');return (d&&d.sp)?d:null;}catch(e){return null;}}
-function saveGame(){if(!S)return;try{localStorage.setItem(SAVEKEY(S.slot),JSON.stringify(S));localStorage.setItem(LASTKEY,String(S.slot));}catch(e){}}
+function saveGame(){
+if(!S)return false;
+try{localStorage.setItem(SAVEKEY(S.slot),JSON.stringify(S));}
+catch(e){console.error('Stardia save failed',e);return false;}
+try{localStorage.setItem(LASTKEY,String(S.slot));}
+catch(e){console.error('Stardia last-slot update failed',e);}
+return true;
+}
 function deleteSlot(i){try{localStorage.removeItem(SAVEKEY(i));}catch(e){}}
 function endingColl(){try{const a=JSON.parse(localStorage.getItem(ENDKEY)||'[]');return Array.isArray(a)?a:[];}catch(e){return[];}}
 function lastSlot(){try{const v=+(localStorage.getItem(LASTKEY));return isNaN(v)?-1:v;}catch(e){return -1;}}
@@ -366,7 +373,8 @@ function doAction(a){
 if(!S||S.ended||ovlOpen)return;
 if(S.actLeft<=0&&!a.free){SFX.no();return;}
 if(S.flags.tired&&['train','study','work','adventure','hobby','shop'].indexOf(a.id)>=0){SFX.no();return;}
-if(S.energy<a.e||S.coins<a.c){SFX.no();logLine(a.e>a.energy?'no_energy':'no_coins',null,'sys');return;}
+if(S.energy<a.e){SFX.no();logLine('no_energy',null,'sys');return;}
+if(S.coins<a.c){SFX.no();logLine('no_coins',null,'sys');return;}
 if(a.id==='medicine'&&!S.flags.sick){logLine('no_medicine',null,'sys');SFX.no();return;}
 if(a.id==='adventure'&&(S.energy<30||S.st<15)){SFX.no();logLine('ad_pre',null,'sys');return;}
 logLine(a.log,null,'');
@@ -470,7 +478,7 @@ b(L('f_cup_b2'),()=>{const a=5;addMood(a);logLine('f_cup_r3',{a:a},'ev');closeOv
 function evFestival(){
 return evt({title:L('f_fest_t'),msg:L('f_fest_m'),buttons:[
 b(L('f_fest_b1',{c:10}),()=>{if(S.coins>=10){S.coins-=10;const a1=applyGain('ch',4),a2=8;addMood(a2);logLine('f_fest_r1',{a:a1,a2:a2},'ev');SFX.coin();G3.hearts(3);}closeOvl();}),
-b(L('f_fest_b2'),()=>{if(S.coins>=5)S.coins-=5;const a=6;addMood(a);logLine('f_fest_r2',{c:5,a:a},'ev');closeOvl();})
+b(L('f_fest_b2'),()=>{if(S.coins<5){$('#ovMsg').textContent=L('no_coins');SFX.no();return;}S.coins-=5;const a=6;addMood(a);logLine('f_fest_r2',{c:5,a:a},'ev');closeOvl();})
 ]});
 }
 function evSickRepeat(){
@@ -492,7 +500,7 @@ const EVENT_POOL=[
 ]})},
 {id:'sick',one:false,cond:()=>S.flags.sick,make:evSickRepeat},
 {id:'dream',one:true,cond:()=>(S.ev.sp||0)>=6,make:()=>evt({title:L('f_dream_t'),emo:'💭',msg:L('f_dream_m',{n:S.name}),buttons:[
- b(L('f_dream_b1'),()=>{addMood(8);addAff(3);const a=applyGain('sp',2);logLine('f_dream_r1 '+gainMsg({g_sp:a,mood:8}),'ev');G3.hearts(3);closeOvl();}),
+ b(L('f_dream_b1'),()=>{addMood(8);addAff(3);const a=applyGain('sp',2);logLine('f_dream_r1',null,'ev');logLine(gainMsg({g_sp:a,mood:8}),null,'sys');G3.hearts(3);closeOvl();}),
  b(L('f_dream_b2'),()=>{addMood(4);logLine('f_dream_r2',null,'ev');closeOvl();})
 ]})},
 {id:'treasure',one:true,cond:()=>S.day>=8,make:()=>evt({title:L('f_tre_t'),emo:'💎',msg:L('f_tre_m'),buttons:[
@@ -501,7 +509,7 @@ const EVENT_POOL=[
 ]})},
 {id:'friend',one:false,cond:()=>S.day>=4&&S.day%3!==0,make:()=>evt({title:L('f_friend_t'),emo:'👋',msg:L('f_friend_m'),buttons:[
  b(L('f_friend_b1'),()=>{const a=applyGain('ch',3);logLine('f_friend_r1',{a:a},'ev');closeOvl();}),
- b(L('f_friend_b2'),()=>{if(S.coins>=4)S.coins-=4;const a=7;addMood(a);logLine('f_friend_r2',{a:a},'ev');closeOvl();}),
+ b(L('f_friend_b2'),()=>{if(S.coins<4){$('#ovMsg').textContent=L('no_coins');SFX.no();return;}S.coins-=4;const a=7;addMood(a);logLine('f_friend_r2',{a:a},'ev');closeOvl();}),
  b(L('f_friend_b3'),()=>{const c=6;S.coins+=c;logLine('f_friend_r3',{c:c},'ev');SFX.coin();closeOvl();})
 ]})},
 {id:'insp',one:true,cond:()=>S.br>=20,make:()=>evt({title:L('f_insp_t'),emo:'💡',msg:L('f_insp_m'),buttons:[
@@ -783,7 +791,7 @@ $('#btnSlotsBack').addEventListener('click',()=>{SFX.click();goTitle();});
 $('#btnGalBack').addEventListener('click',()=>{SFX.click();goTitle();});
 $('#btnStart').addEventListener('click',startGame);
 $('#btnEndDay').addEventListener('click',endDay);
-$('#btnSave').addEventListener('click',()=>{if(S&&!S.ended){saveGame();logLine('saved_ok',null,'sys');SFX.ok();}});
+$('#btnSave').addEventListener('click',()=>{if(S&&!S.ended){if(saveGame()){logLine('saved_ok',null,'sys');SFX.ok();}else{logLine('save_failed',null,'sys');SFX.no();}}});
 $('#btnTitle').addEventListener('click',()=>{SFX.click();if(S)saveGame();stopBgm();goTitle();});
 }
 function boot(){

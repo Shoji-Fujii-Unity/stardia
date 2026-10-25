@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0c0f1d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Stardia 竏呈弌縺ｮ縺ｨ繧ゅ□縺｡閧ｲ謌先律險倪・</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:"Segoe UI","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans CJK SC","Microsoft YaHei","Yu Gothic",system-ui,sans-serif;background:radial-gradient(120% 90% at 50% 0%,#1b2140 0%,#0c0f1d 55%,#070912 100%);color:#e8ecf8;min-height:100dvh;display:flex;justify-content:center;-webkit-user-select:none;user-select:none;overscroll-behavior:none}
+#app{width:100%;max-width:470px;height:100dvh;display:flex;flex-direction:column;position:relative;padding:0 10px}
+#topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 2px;gap:6px;flex:0 0 auto}
+#daylbl{font-weight:700;font-size:14px;letter-spacing:.4px}
+.tbtns{display:flex;gap:6px}
+.tb{border:1px solid #3a4468;background:#1a2138;color:#dfe6ff;border-radius:9px;padding:6px 10px;font-size:12px;cursor:pointer;font-family:inherit}
+.tb:active{transform:scale(.95)}
+#stage{position:relative;flex:1 1 auto;min-height:200px;border-radius:14px;overflow:hidden;background:linear-gradient(#232c50,#141a30)}
+#stage.off{display:none}
+#c3{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#stage-emoji{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:110px;pointer-events:none}
+#stage.off3 #c3{display:none}
+#stage.off3 #stage-emoji{display:flex}
+#main{flex:1 1 auto;display:flex;flex-direction:column;min-height:0}
+.screen{flex:1 1 auto;display:flex;flex-direction:column;min-height:0}
+.hidden{display:none!important}
+.scroller{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 2px 10px}
+#hud{display:flex;flex-direction:column;gap:6px;padding:8px 10px;background:#141a2e;border:1px solid #2a3352;border-radius:12px;flex:0 0 auto}
+.hudrow{display:flex;gap:8px}
+.chip{flex:1 1 auto;background:#1d2642;border-radius:9px;padding:5px 8px;font-size:12.5px;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden}
+.bar{height:8px;background:#0d1222;border-radius:6px;overflow:hidden;flex:1 1 auto}
+.bar i{display:block;height:100%;border-radius:6px;transition:width .35s}
+#bE i{background:linear-gradient(90deg,#35d07f,#8ef0b6)}
+#bM i{background:linear-gradient(90deg,#ff9f68,#ffd08a)}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-top:2px}
+.stat{display:flex;align-items:center;gap:5px;font-size:11.5px}
+.stat b{min-width:26px;text-align:left}
+.stat .bar{height:6px}
+#b0 i{background:#ff6b81}#b1 i{background:#5aa2ff}#b2 i{background:#ff8fd0}#b3 i{background:#48d2a8}#b4 i{background:#ffd166}
+.stat em{font-style:normal;width:24px;text-align:right;color:#aeb8dd}
+#acts{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0;flex:0 0 auto}
+.abtn{background:linear-gradient(180deg,#243056,#1a2340);border:1px solid #3a4a7a;color:#eef2ff;border-radius:11px;padding:8px 8px;text-align:left;cursor:pointer;font-family:inherit;min-height:52px}
+.abtn .ai{font-size:17px}
+.abtn .an{display:block;font-weight:700;font-size:13px;margin:1px 0}
+.abtn .ac{display:block;font-size:10.5px;color:#93a0c8}
+.abtn:active{transform:scale(.96)}
+.abtn.dis{opacity:.35;pointer-events:none}
+.endrow{display:flex;gap:7px;flex:0 0 auto}
+.bigbtn{flex:1;background:linear-gradient(180deg,#4c3a7d,#332757);border:1px solid #6f57ae;color:#fff;border-radius:11px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.ghbtn{flex:0 0 auto;background:#1a2138;border:1px solid #3a4468;color:#cfd8f5;border-radius:11px;padding:11px 13px;font-size:13px;cursor:pointer;font-family:inherit}
+.bigbtn:active,.ghbtn:active{transform:scale(.97)}
+#glog{flex:1 1 auto;min-height:110px;overflow-y:auto;background:#101526;border:1px solid #26304e;border-radius:12px;padding:8px 10px;font-size:12.5px;line-height:1.75}
+#glog p{margin:0;padding:1px 0;border-bottom:1px dashed #1d2540}
+#glog .sep{color:#5a6690;text-align:center;border:0}
+#glog .ev{color:#8fd7ff}
+#glog .evo{color:#ffd166;font-weight:700}
+#glog .sys{color:#93a0c8}
+.titlewrap{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:16px 6px}
+.logo{font-size:46px;font-weight:800;letter-spacing:3px;background:linear-gradient(180deg,#ffe9a8,#ff9d6b);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 30px rgba(255,190,110,.25)}
+.tag{color:#aeb8dd;font-size:14px;line-height:1.7}
+#screen-title .btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:300px;margin-top:6px}
+.big{padding:14px;border-radius:14px;border:0;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;color:#fff;background:linear-gradient(180deg,#ff9d5c,#e2612f);box-shadow:0 6px 20px rgba(226,97,47,.35)}
+.big2{padding:14px;border-radius:14px;border:1px solid #3a4a7a;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;color:#dfe6ff;background:#1a2340}
+.rowbtns{display:flex;gap:10px}
+.rowbtns .tb{flex:1;padding:11px;font-size:13px}
+.hint{color:#6a76a0;font-size:11.5px;margin-top:4px}
+.cardlist{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px;margin:0 auto;padding:10px 4px}
+.slot{background:#151c31;border:1px solid #2a3352;border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;color:#e8ecf8;font-family:inherit}
+.slot .semo{font-size:34px}
+.slot .sinfo{flex:1 1 auto;min-width:0}
+.slot .st1{font-weight:700;font-size:14px}
+.slot .st2{font-size:11.5px;color:#93a0c8;margin-top:2px}
+.slot .sbtns{display:flex;gap:6px;align-items:center}
+.slot .go{background:#2f6b46;border:0;color:#fff;border-radius:9px;padding:8px 12px;font-weight:700;cursor:pointer;font-family:inherit}
+.slot .del{background:#5b2430;border:0;color:#ffd7dd;border-radius:9px;padding:8px 10px;cursor:pointer;font-family:inherit}
+.stitle{font-size:19px;font-weight:800;margin:14px 0 2px;text-align:center}
+.ssub{text-align:center;color:#93a0c8;font-size:12px;margin-bottom:8px}
+.starter{display:flex;align-items:center;gap:12px;width:100%;max-width:340px;margin:0 auto;background:#151c31;border:2px solid #2a3352;border-radius:14px;padding:12px;cursor:pointer;color:#e8ecf8;text-align:left;font-family:inherit}
+.starter.sel{border-color:#ffb45c;background:#22192e;box-shadow:0 0 18px rgba(255,180,92,.15)}
+.starter .semo{font-size:40px}
+.starter b{font-size:15px}
+.starter span{display:block;font-size:11.5px;color:#93a0c8}
+.namebox{max-width:340px;margin:10px auto 0;width:100%}
+.namebox label{font-size:12px;color:#93a0c8;display:block;margin-bottom:4px}
+.namebox input{width:100%;padding:11px 12px;border-radius:11px;border:1px solid #3a4468;background:#0d1222;color:#fff;font-size:15px;font-family:inherit}
+#ov{position:absolute;inset:0;background:rgba(5,8,18,.74);display:flex;align-items:center;justify-content:center;padding:14px;z-index:30;backdrop-filter:blur(3px)}
+#ovcard{width:100%;max-width:380px;background:linear-gradient(180deg,#1a2140,#131a2e);border:1px solid #3a4674;border-radius:16px;padding:18px 16px;text-align:center;max-height:88%;overflow-y:auto;box-shadow:0 14px 50px rgba(0,0,0,.5)}
+#ovcard h3{font-size:18px;margin-bottom:8px}
+#ovcard p{font-size:13.5px;line-height:1.85;color:#cfd8f5}
+#ovcard .eemo{font-size:72px;line-height:1.25;margin:2px 0 6px;filter:drop-shadow(0 0 16px rgba(255,210,120,.35))}
+#ovbtns{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+#ovbtns button{padding:12px;border-radius:11px;border:1px solid #3a4a7a;background:#20294a;color:#eef2ff;font-size:14px;cursor:pointer;font-family:inherit}
+#ovbtns button:active{transform:scale(.97)}
+#ovbtns button.hi{background:linear-gradient(180deg,#ff9d5c,#e2612f);border:0;color:#fff;font-weight:700}
+#ovbtns .res{color:#8fd7ff;font-size:12.5px}
+#ovcard .rank{display:inline-block;font-weight:800;padding:3px 12px;border-radius:9px;margin:2px 0 8px;font-size:15px}
+.rankS{background:#ffd166;color:#3a2b00}.rankA{background:#7ee0a3;color:#0c3320}.rankB{background:#7fb4ff;color:#0c2142}.rankC{background:#a9b2cf;color:#1c2338}.rankD{background:#57607f;color:#dfe6ff}
+.endstats{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px}
+.endstats span{background:#1d2642;border-radius:8px;padding:4px 9px;font-size:11.5px}
+.gal{display:flex;flex-direction:column;gap:7px;width:100%;max-width:340px;margin:0 auto}
+.galitem{background:#151c31;border:1px solid #2a3352;border-radius:11px;padding:9px 11px;text-align:left;font-size:13px}
+.galitem.lock{color:#5a6690}
+.galitem .gr{display:inline-block;min-width:20px;text-align:center;border-radius:6px;font-weight:800;font-size:12px;padding:2px 6px;margin-right:8px}
+.notec{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:11px;color:#8a94b8;pointer-events:none}
+.notec span{background:rgba(10,14,26,.7);padding:3px 10px;border-radius:8px}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+#ovcard{animation:pop .28s ease-out}
+.evoanim #stage{box-shadow:0 0 0 2px #ffd166,0 0 40px rgba(255,209,102,.5)}
+:root{color-scheme:dark;--line:rgba(156,178,255,.2);--panel:rgba(20,27,49,.88);--muted:#aab8df;--gold:#ffd58a}
+body{position:relative;background:radial-gradient(ellipse at 50% -12%,rgba(87,105,184,.38),transparent 48%),radial-gradient(ellipse at 15% 70%,rgba(54,69,130,.14),transparent 38%),linear-gradient(160deg,#11172a 0%,#090d19 60%,#070912 100%)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.45;background-image:radial-gradient(1px 1px at 8% 18%,#fff 98%,transparent),radial-gradient(1.5px 1.5px at 76% 12%,#cbd9ff 98%,transparent),radial-gradient(1px 1px at 91% 38%,#fff 98%,transparent),radial-gradient(1px 1px at 24% 63%,#d7e2ff 98%,transparent),radial-gradient(1.5px 1.5px at 67% 78%,#fff 98%,transparent),radial-gradient(1px 1px at 42% 32%,#b9c9ff 98%,transparent);background-size:100% 100%}
+#app{z-index:1}
+#topbar{padding:10px 4px}
+#daylbl{color:#f0f3ff;letter-spacing:.6px}
+.tb,.big2,.ghbtn{background:linear-gradient(145deg,rgba(34,44,75,.96),rgba(21,28,50,.96));border-color:var(--line);transition:transform .16s ease,border-color .16s ease,filter .16s ease}
+.tb:hover,.big2:hover,.ghbtn:hover{border-color:rgba(166,193,255,.55);filter:brightness(1.12)}
+#stage{border:1px solid rgba(175,194,255,.2);border-radius:20px;background:radial-gradient(ellipse at 50% 20%,#35436f 0%,#202b4c 52%,#141b31 100%);box-shadow:0 16px 42px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.07)}
+#app:has(#screen-title:not(.hidden)) #stage{flex:0 0 clamp(220px,34dvh,350px)}
+#main{padding-top:8px}
+#screen-title .titlewrap{gap:12px}
+.logo{font-size:clamp(48px,12vw,64px);letter-spacing:4px;filter:drop-shadow(0 8px 20px rgba(255,164,103,.18))}
+.tag{max-width:34ch;color:#c0c9e4}
+#screen-title .btns{max-width:340px;gap:9px}
+.big{background:linear-gradient(135deg,#ffbd72,#f0784c 58%,#df5948);box-shadow:0 10px 26px rgba(228,100,66,.28),inset 0 1px 0 rgba(255,255,255,.22);transition:transform .16s ease,filter .16s ease}
+.big:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.big2{border-radius:13px}
+.hint{color:#94a2ca}
+#hud{background:linear-gradient(145deg,rgba(25,33,58,.96),rgba(16,22,40,.96));border-color:var(--line);box-shadow:0 8px 24px rgba(0,0,0,.16)}
+.chip{background:rgba(37,48,80,.78);border:1px solid rgba(153,177,255,.08)}
+.abtn{background:linear-gradient(145deg,rgba(40,53,91,.96),rgba(27,37,65,.96));border-color:rgba(156,178,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.04);transition:transform .16s ease,border-color .16s ease,filter .16s ease}
+.abtn:hover{border-color:rgba(173,194,255,.55);filter:brightness(1.12)}
+.abtn .ac{color:#aab8df}
+.bigbtn{background:linear-gradient(135deg,#7961b6,#514080);border-color:rgba(194,169,255,.45);box-shadow:0 5px 16px rgba(70,51,124,.22)}
+#glog{background:rgba(13,19,35,.9);border-color:var(--line)}
+.slot,.starter,.galitem{background:linear-gradient(145deg,rgba(26,35,61,.98),rgba(17,24,43,.98));border-color:var(--line);box-shadow:0 8px 22px rgba(0,0,0,.12)}
+.slot:hover,.starter:hover{border-color:rgba(173,194,255,.5)}
+.stitle{font-size:21px;letter-spacing:.02em}
+#ovcard{background:linear-gradient(155deg,#222c4d,#131a2e 72%);border-color:rgba(164,184,255,.3);box-shadow:0 24px 70px rgba(0,0,0,.55)}
+button,input{font:inherit}
+button:focus-visible,input:focus-visible{outline:2px solid #ffd58a;outline-offset:3px}
+@media(min-width:700px){
+ body{align-items:center;padding:24px 0}
+ #app{height:min(900px,calc(100dvh - 48px));max-width:500px;padding:8px 14px 12px;border:1px solid rgba(166,184,255,.18);border-radius:28px;background:linear-gradient(155deg,rgba(20,27,48,.94),rgba(9,13,25,.96));box-shadow:0 30px 100px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06)}
+ #app:has(#screen-title:not(.hidden)) #stage{flex-basis:clamp(260px,34dvh,370px)}
+}
+@media(max-height:720px){
+ #app:has(#screen-title:not(.hidden)) #stage{flex-basis:28dvh}
+ #topbar{padding-top:6px;padding-bottom:6px}
+ #main{padding-top:5px}
+ .titlewrap{gap:8px;padding-top:8px;padding-bottom:8px}
+ .logo{font-size:42px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="topbar">
+    <div id="daylbl">Stardia 笨ｦ</div>
+    <div class="tbtns">
+      <button id="btnLang" class="tb"></button>
+      <button id="btnSound" class="tb"></button>
+    </div>
+  </header>
+  <div id="stage"><canvas id="c3"></canvas><div id="stage-emoji">･・/div><div id="offnote" class="notec hidden"><span></span></div></div>
+  <div id="flash"></div>
+  <main id="main">
+    <section id="screen-title" class="screen">
+      <div class="titlewrap">
+        <h1 class="logo">Stardia</h1>
+        <p class="tag" id="titleTag"></p>
+        <div class="btns">
+          <button id="btnNew" class="big"></button>
+          <button id="btnCont" class="big2 hidden"></button>
+          <button id="btnGal" class="tb" style="padding:11px"></button>
+          <div class="rowbtns">
+            <button id="btnHelpT" class="tb"></button>
+          </div>
+          <p class="hint" id="titleHint"></p>
+        </div>
+      </div>
+    </section>
+    <section id="screen-slots" class="screen hidden">
+      <div class="scroller">
+        <h2 class="stitle" id="slotsTitle"></h2>
+        <p class="ssub" id="slotsSub"></p>
+        <div class="cardlist" id="slotsList"></div>
+        <div style="max-width:340px;margin:12px auto"><button class="big2" id="btnSlotsBack" style="width:100%"></button></div>
+      </div>
+    </section>
+    <section id="screen-new" class="screen hidden">
+      <div class="scroller">
+        <h2 class="stitle" id="newTitle"></h2>
+        <p class="ssub" id="newSub"></p>
+        <div id="starterList" class="cardlist"></div>
+        <div class="namebox"><label id="nameLabel"></label><input id="nameInput" maxlength="10"></div>
+        <div style="max-width:340px;margin:14px auto"><button id="btnStart" class="big" style="width:100%"></button></div>
+      </div>
+    </section>
+    <section id="screen-game" class="screen hidden">
+      <div id="hud">
+        <div class="hudrow">
+          <div class="chip" id="hForm"></div>
+          <div class="chip" id="hCoins">ｪ・0</div>
+        </div>
+        <div class="hudrow">
+          <div class="chip">笞｡<div class="bar" id="bE"><i></i></div><em id="vE">0</em></div>
+          <div class="chip">笙･<div class="bar" id="bM"><i></i></div><em id="vM">0</em></div>
+        </div>
+        <div class="statgrid" id="statgrid"></div>
+        <div class="hint" id="hNote"></div>
+      </div>
+      <div id="acts"></div>
+      <div class="endrow">
+        <button id="btnEndDay" class="bigbtn"></button>
+        <button id="btnSave" class="ghbtn"></button>
+        <button id="btnTitle" class="ghbtn"></button>
+      </div>
+      <div id="glog"></div>
+    </section>
+    <section id="screen-gallery" class="screen hidden">
+      <div class="scroller">
+        <h2 class="stitle" id="galTitle"></h2>
+        <p class="ssub" id="galSub"></p>
+        <div id="galList" class="gal"></div>
+        <div style="max-width:340px;margin:12px auto"><button class="big2" id="btnGalBack" style="width:100%"></button></div>
+      </div>
+    </section>
+  </main>
+  <div id="ov" class="hidden"><div id="ovcard">
+    <div id="ovemo" class="eemo hidden"></div>
+    <h3 id="ovTitle"></h3>
+    <p id="ovMsg"></p>
+    <div id="ovbtns"></div>
+  </div></div>
+</div>
+<script>
+document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>');
+</script>
+<script src="three.min.js"></script>
+<script>
+"use strict";
+
+/* ================= helpers ================= */
+const $=s=>document.querySelector(s);
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function ri(a,b){return Math.floor(a+Math.random()*(b-a+1));}
+function fmt(t,p){return String(t).replace(/\{(\w+)\}/g,(m,k)=>(p&&p[k]!==undefined)?p[k]:m);}
+/* ================= i18n ================= */
+const LANGS=['ja','en','zh'];
+const LANGNAME={ja:'譌･譛ｬ隱・,en:'English',zh:'荳ｭ譁・};
+function detectLang(){const n=(navigator.language||'en').toLowerCase();if(n.indexOf('ja')===0)return 'ja';if(n.indexOf('zh')===0)return 'zh';return 'en';}
+let SET={lang:detectLang(),sound:true};
+if(LANGS.indexOf(SET.lang)<0)SET.lang='en';
+const EN={
+app:'Stardia',
+tag:'Raise a star-born creature through 60 days of adventure!',
+menu_title:'Title',menu_new:'New Journey',menu_cont:'Continue 笆ｶ',menu_del:'笨・,menu_slots:'Select a Save',menu_slots_sub:'Choose a slot to begin',
+menu_start:'Start',menu_delq:'Delete this save data?',menu_yes:'Yes',menu_no:'Cancel',menu_back:'Back',
+m_save:'Save',m_title:'Title',m_help:'Help',
+help_text:'Drag the view to rotate 窶｢ Tap the creature to pet it 笙･\n2 actions each day, then "End Day" to rest.\nEvolutions happen around day 20 and day 45 窶・the branch is decided by how you raise it.\n21 endings 窶｢ 30 forms. Mood changes how much you grow.\nAuto-saves every action (local storage, 3 slots).',
+new_title:'Choose your partner',new_sub:'Pick a starter, then give it a name.',starter_t1:'Lively flame child 窶｢ likes training and adventures',starter_t2:'Calm sprout child 窶｢ likes studying and hobbies',starter_t3:'Cheerful wave child 窶｢ likes play and grooming',name_label:'Nickname',start_btn:'Hatch the egg 笨ｦ',replace:'Replace this save?',n_extra:'Tip: stat gains scale with Mood, and illness slows growth.',
+d:'Day {d}/{max}',ph1:'Morning',ph2:'Daytime',ph3:'Evening',stage_l:'Stage',
+st_pw:'Power',st_br:'Brains',st_ch:'Charm',st_st:'Stamina',st_sp:'Spirit',mood:'Mood',energy:'Energy',coins:'Coins',total:'Total',
+a_end:'End the Day 笨ｦ',
+a_train:'Train',a_study:'Study',a_work:'Work',a_adventure:'Adventure',a_rest:'Rest',a_play:'Play',a_hobby:'Hobby',a_shop:'Shop',a_groom:'Groom',a_medicine:'Medicine',a_social:'Visit Town',a_clean:'Clean',
+a_tip_train:'Run & lift weights. Power竊・Stamina竊・,a_tip_study:'Books & puzzles. Brains竊・,a_tip_work:'Earn coins. Stamina竊・a little Charm',a_tip_adventure:'Explore outside. Luck decides the spoils',a_tip_rest:'Sleep. Energy笙･ cures tired & illness',a_tip_play:'Play together. Mood竊鯛勍 Charm竊・,a_tip_hobby:'Make & create. Spirit竊・Brains竊・Mood竊・,a_tip_shop:'Fresh outfit. Charm竊・Mood竊・(coins)',a_tip_groom:'Brush & polish. Charm竊・Mood竊・,a_tip_medicine:'Take medicine. Cures illness (free)',a_tip_social:'Meet friends in town. Mood竊鯛勍 Brains竊・,a_tip_clean:'Tidy up the hut. Mood竊・Stamina竊・,
+e_train:'Training montage!',e_study:'Deep in a book窶ｦ',e_work:'Off to work!',e_adventure:'The adventure begins!',e_rest:'A cozy nap.',e_play:'Play-play-play!',e_hobby:'Lost in a hobby窶ｦ',e_shop:'Shopping trip!',e_groom:'Brush, brush, polish!',e_medicine:'Yikes, medicine time窶ｦ',e_social:'A stroll into town.',e_clean:'Cleaning time!',
+no_energy:'Too tired for that窶ｦ',no_coins:'Not enough coins窶ｦ',no_medicine:'Not sick right now.',tired_now:'You\'re exhausted! Only easy activities until you rest.',
+ad_pre:'Too worn out for a real adventure 窶・rest or train first!',ad_great_tre:'You found an ancient artifact!',ad_bad:'Rain, mud and grumbles窶ｦ',ad_wonder:'You glimpse a wonder of nature窶ｦ',saved_ok:'Saved!',save_failed:'Save failed. Check browser storage settings.',
+g_pw:'Power',g_br:'Brains',g_ch:'Charm',g_st:'Stamina',g_sp:'Spirit',g_mood:'Mood',g_coins:'coins',g_energy:'Energy',
+daysep:'窶・Day {d} 窶・,day60:'Day 60. The final day窶ｦ',
+evo_l1:'{n} evolved into {f}!',evo_l2:'{n} has changed窶ｦ',evolve_title:'EVOLUTION!',
+log_pet:'You pet your {n}. It leans into you 笙･',
+w_ill:'Your {n} looks pale窶ｦ',w_heal:'You\'re all better!',w_tired:'Dead tired窶ｦ rest is a must!',w_food:'Meals cost {c} coins.',
+f_market_t:'Market day!',f_market_m:'Coins jingle in the square. Where to?',f_b1:'A safe fund',f_b2:'A dice stall',f_b3:'Just window-shop',f_market_r1:'Steady savings: +{c} coins.',f_market_r2:'You won big! +{c} coins!',f_market_r3:'You lost窶ｦ -{c} coins.',f_market_r4:'Window-shopping is free. Mood +{a}.',
+f_rival_t:'A rival appears!',f_rival_m:'A flashy sprite smirks: "Think you can beat me?"',f_b4:'Raise the white flag',f_b5:'Pretend not to notice',f_b6:'Wave friendly',f_rival_r1:'A rivalry begins! Power +{a}, Stamina +{a2}.',f_rival_r2:'It vanishes. Spirit +{a}.',f_rival_r3:'You swap numbers. Charm +{a}, Mood +{a2}!',
+f_cup_t:'Tournament day!',f_cup_m:'All eyes on your {n} in the arena窶ｦ',f_cup_b1:'Fight!',f_cup_b2:'Cheer from the stands',f_cup_r1:'CHAMPION!! +{c} coins, Power +{a}, Mood +{a2}!',f_cup_r2:'So close窶ｦ but it learned a lot. Stamina +{a}, Mood +{a2}.',f_cup_r3:'You cheered hard. Mood +{a}.',
+f_sick_t:'Cough窶ｦ sniffle窶ｦ',f_sick_m:'Your {n} caught a cold! Growth slows. Medicine?',f_sick_m2:'Your {n} is still under the weather.',f_sick_b1:'Take medicine (free)',f_sick_b2:'Power through it',f_sick_r1:'Medicine works! Right as rain.',f_sick_r2:'You toughed it out窶ｦ barely.',
+f_dream_t:'A vivid dream',f_dream_m:'Your {n} hums a melody in its sleep.',f_dream_b1:'Sit by its side',f_dream_b2:'Let it sleep',f_dream_r1:'You shared a dream. Spirits soared!',f_dream_r2:'A quiet, peaceful night.',
+f_tre_t:'Sparkle in the dirt',f_tre_m:"What's this glinting in the dirt?",f_tre_b1:'Take it to a shop',f_tre_b2:'Polish it as a treasure',f_tre_r1:'Sold for {c} coins!',f_tre_r2:'A precious keepsake. Mood soared!',
+f_friend_t:'A shy visitor',f_friend_m:'A wild sprite peeks in and waves.',f_friend_b1:'Chat together',f_friend_b2:'Share a snack (4 coins)',f_friend_b3:'A polite wave goodbye',f_friend_r1:'You traded stories. Charm +{a}!',f_friend_r2:'It nibbled happily. Mood +{a}!',f_friend_r3:'It left a tiny gift: {c} coins.',
+f_insp_t:'A spark of genius',f_insp_m:'Suddenly 窶・Eureka! The idea won\'t leave you alone.',f_insp_b1:'Follow the idea',f_insp_b2:'Scribble it in a notebook',f_insp_r1:'Genius unlocked! Brains +{a}!',f_insp_r2:'A modest insight. Brains +{a}.',
+f_storm_t:'The howling storm',f_storm_m:'Thunder surrounds the hut tonight.',f_storm_b1:'Shield your {n}',f_storm_b2:'Face the storm together',f_storm_r1:'A safe night. Stamina +{a}.',f_storm_r2:'Scary but thrilling! Spirit +{a}, Power +{a2}.',
+f_star_t:'The night of shooting stars',f_star_m:'The sky rains starlight. A once-in-a-lifetime night.',f_star_b1:'Make a wish together',f_star_b2:'Watch it in silence',f_star_r1:'Your bond sparkles. Mood +{a}!',f_star_r2:'A wonder: Spirit +{a}!',
+f_fest_t:'The town festival!',f_fest_m:'Lanterns everywhere! Join the booth games?',f_fest_b1:'Join 窶・{c} coins',f_fest_b2:'Buy a festival snack 窶・5 coins',f_fest_r1:'You won a goldfish! Charm +{a}, Mood +{a2}.',f_fest_r2:'Food costs: {c} coins. Mood +{a}.',
+f_gift_t:'A mysterious package',f_gift_m:'A wrapped box窶ｦ from a fan?',f_gift_b1:'Open it',f_gift_b2:'Send it back',f_gift_r1:'Inside: premium snacks and {c} coins!',f_gift_r2:'Polite decline. The fan respects you. Mood +{a}.',
+f_cook_t:'The hungry traveler',f_cook_m:'"A chef? I could eat a horse!" How about it?',f_cook_b1:'Cook up a storm',f_cook_b2:'Point down the road',f_cook_r1:'"Incredible!!" Payment: {c} coins!',f_cook_r2:'"Aw窶ｦ how much for a hug?" Mood +{a}!',
+f_egg_t:'?! A black egg?!',f_egg_m:'A mysterious black egg is humming softly窶ｦ',f_egg_b1:'Keep it warm',f_egg_b2:'Call the authorities',f_egg_r1:'It hatched into窶ｦ light! Spirit +{a}, Brains +{a2}.',f_egg_r2:'The egg just smiled. Nothing happened.',
+shop_t:'Shop',shop_ok:'You bought {it}!',shop_no:'You don\'t have the coins窶ｦ',
+fin_t:'And then窶ｦ',fin_m:'Day 60 is done. Time to see how far your {n} has come.',form_l:'Final form:',the_end:'笨ｦ THE END 笨ｦ',
+end_title:'ENDING',rank_l:'Rank',days_l:'Days together: 60',end_stats:'Stats',btn_toTitle:'Back to Title',btn_newRun:'New Journey',
+col_t:'Ending Collection',col_sub:'{n}/{m} discovered',col_locked:'???',
+off_note:'3D library unavailable 窶・playing in simple mode.',
+s_emblem:'Emblem',s_totem:'Totem',s_blessing:'Blessing',
+form_l1:'Hatchling',form_l2:'Youth',form_l3:'Adult'
+};
+const JA={
+app:'Stardia 竏呈弌縺ｮ縺ｨ繧ゅ□縺｡閧ｲ謌先律險倪・',
+tag:'譏溘°繧臥函縺ｾ繧後◆螟ｧ蛻・↑蟄舌ｒ縲・0譌･髢楢ご縺ｦ縺ゅ￡繧医≧縲・,
+menu_title:'繧ｿ繧､繝医Ν',menu_new:'譁ｰ縺励￥縺昴□縺ｦ繧・,menu_cont:'縺､縺･縺阪°繧牙ｧ九ａ繧・笆ｶ',menu_del:'笨・,menu_slots:'繧ｻ繝ｼ繝悶ョ繝ｼ繧ｿ驕ｸ謚・,menu_slots_sub:'繧ｹ繝ｭ繝・ヨ繧帝∈繧薙〒蟋九ａ繧医≧',
+menu_start:'蟋九ａ繧・,menu_delq:'縺薙・繧ｻ繝ｼ繝悶ョ繝ｼ繧ｿ繧貞炎髯､縺励∪縺吶°・・,menu_yes:'蜑企勁縺吶ｋ',menu_no:'繧・ａ繧・,menu_back:'繧ゅ←繧・,
+m_save:'繧ｻ繝ｼ繝・,m_title:'繧ｿ繧､繝医Ν縺ｸ',m_help:'縺ゅ◎縺ｳ縺九◆',
+help_text:'逕ｻ髱｢繧偵ラ繝ｩ繝・げ縺ｧ隕也せ蝗櫁ｻ｢繝ｻ逕溘″迚ｩ繧偵ち繝・・縺ｧ縺ｪ縺ｧ繧銀勍\n1譌･2蝗槭∪縺ｧ陦悟虚縺励※縲梧律繧堤ｵゅ∴繧九阪〒鄙梧律縺ｸ縲・n20譌･逶ｮ縺ｨ45譌･逶ｮ縺ｫ騾ｲ蛹悶ょ・蟯舌・閧ｲ縺ｦ譁ｹ縺励□縺・〒邏・0遞ｮ鬘槭・n繧ｨ繝ｳ繝・ぅ繝ｳ繧ｰ縺ｯ21遞ｮ鬘槭よｰ怜・縺碁ｫ倥＞縺ｻ縺ｩ謌宣聞縺励ｄ縺吶＞繧医・n陦悟虚縺斐→縺ｫ閾ｪ蜍輔そ繝ｼ繝厄ｼ医Ο繝ｼ繧ｫ繝ｫ菫晏ｭ倥・3繧ｹ繝ｭ繝・ヨ・峨・,
+new_title:'逶ｸ譽偵ｒ縺医ｉ縺ｼ縺・,new_sub:'逶ｸ譽偵ｒ驕ｸ繧薙〒縲√↑縺ｾ縺医ｒ縺､縺代ｈ縺・・,starter_t1:'蜈・ｰ励↓縺ｻ縺医ｋ轤弱・蟄舌ゅヨ繝ｬ繝ｼ繝九Φ繧ｰ繝ｻ蜀帝匱蜷代″',starter_t2:'縺翫→縺ｪ縺励＞闃ｽ縺ｮ蟄舌ゅ♀縺ｹ繧薙″繧・≧繝ｻ縺励ｅ縺ｿ縺悟ｾ玲э',starter_t3:'縺翫■繧・ａ縺ｪ豕｢縺ｮ蟄舌ゅ≠縺昴・繝ｻ縺頑焔蜈･繧悟髄縺・,name_label:'繝九ャ繧ｯ繝阪・繝',start_btn:'繧ｿ繝槭ざ繧偵ｏ縺九☆ 笨ｦ',replace:'縺薙・繧ｻ繝ｼ繝悶ョ繝ｼ繧ｿ繧剃ｸ頑嶌縺阪＠縺ｾ縺吶°・・,n_extra:'繝偵Φ繝茨ｼ壽ｰ怜・縺碁ｫ倥＞縺ｻ縺ｩ謌宣聞縺悟､ｧ縺阪￥縲∫羅豌励・謌宣聞繧帝・繧峨○繧九・,
+d:'Day {d}/{max}',ph1:'縺ゅ＆',ph2:'縺ｲ繧・,ph3:'繧医ｋ',stage_l:'谿ｵ髫・,
+st_pw:'縺｡縺九ｉ',st_br:'縺ゅ◆縺ｾ',st_ch:'縺翫＠繧・ｌ',st_st:'縺溘＞繧翫ｇ縺・,st_sp:'縺帙＞縺励ｓ',mood:'縺阪・繧・,energy:'縺偵ｓ縺・,coins:'繧ｴ繝ｼ繝ｫ繝・,total:'蜷郁ｨ・,
+a_end:'譌･繧堤ｵゅ∴繧・笨ｦ',
+a_train:'繝医Ξ繝ｼ繝九Φ繧ｰ',a_study:'縺翫∋繧薙″繧・≧',a_work:'繧｢繝ｫ繝舌う繝・,a_adventure:'縺ｼ縺・￠繧・,a_rest:'縺翫ｄ縺吶∩',a_play:'縺ゅ◎縺ｶ',a_hobby:'縺励ｅ縺ｿ',a_shop:'縺九＞繧ゅ・',a_groom:'縺頑焔蜈･繧・,a_medicine:'縺上☆繧翫ｒ鬟ｲ繧',a_social:'逕ｺ縺ｸ縺ｧ繧・,a_clean:'縺昴≧縺・,
+a_tip_train:'襍ｰ繧九・遲句鴨繝医Ξ縲ゅ■縺九ｉ竊・縺溘＞繧翫ｇ縺鞘・',a_tip_study:'譛ｬ縺ｨ繝代ぜ繝ｫ縲ゅ≠縺溘∪竊・,a_tip_work:'縺企≡繧堤ｨｼ縺舌ゅ◆縺・ｊ繧・￥竊・縺翫＠繧・ｌ竊・蟆代＠',a_tip_adventure:'螟悶∈謗｢邏｢縲る°縺励□縺・〒縺斐⊇縺・・',a_tip_rest:'縺舌▲縺吶ｊ縲ゅ￡繧薙″笙･ 縺ｭ繧縺輔→逞・ｰ励ｒ豐ｻ縺・,a_tip_play:'縺・▲縺励ｇ縺ｫ驕翫・縲ゅ″縺ｶ繧凪・笙･ 縺翫＠繧・ｌ竊・,a_tip_hobby:'繧ゅ・縺･縺上ｊ縲ゅ○縺・＠繧凪・ 縺ゅ◆縺ｾ竊・縺阪・繧凪・',a_tip_shop:'譁ｰ縺励＞譛阪ゅ♀縺励ｃ繧娯・ 縺阪・繧凪・・医♀驥托ｼ・,a_tip_groom:'繝悶Λ繝・す繝ｳ繧ｰ縺ｨ逎ｨ縺阪ゅ♀縺励ｃ繧娯・ 縺阪・繧凪・',a_tip_medicine:'縺上☆繧翫ら羅豌励ｒ豐ｻ縺呻ｼ育┌譁呻ｼ・,a_tip_social:'逕ｺ縺ｧ蜿九□縺｡縲ゅ″縺ｶ繧凪・笙･ 縺ゅ◆縺ｾ竊・,a_tip_clean:'驛ｨ螻九ｒ迚・ｻ倥￠繧九ゅ″縺ｶ繧凪・ 縺溘＞繧翫ｇ縺鞘・',
+e_train:'縺後ｓ縺ｫ繝医Ξ繝ｼ繝九Φ繧ｰ・・,e_study:'譛ｬ縺ｫ縺ｵ縺代ｋ窶ｦ',e_work:'縺贋ｻ穂ｺ九∈・・,e_adventure:'縺ｼ縺・￠繧薙↓蜃ｺ逋ｺ・・,e_rest:'縺舌▲縺吶ｊ縺頑仂蟇昴・,e_play:'縺ゅ◎縺ｳ縺ｫ螟｢荳ｭ・・,e_hobby:'縺励ｅ縺ｿ縺ｫ縺ｵ縺代ｋ窶ｦ',e_shop:'縺九＞繧ゅ・縺ｸ・・,e_groom:'繝悶Λ繝・す繝ｳ繧ｰ・・,e_medicine:'縺上☆繧翫・譎る俣窶ｦ',e_social:'逕ｺ縺ｸ縺翫〒縺九￠縲・,e_clean:'縺昴≧縺倥・譎る俣・・,
+no_energy:'縺偵ｓ縺阪′雜ｳ繧翫↑縺・ｦ',no_coins:'繧ｴ繝ｼ繝ｫ繝峨′雜ｳ繧翫↑縺・ｦ',no_medicine:'莉翫・逞・ｰ励ｒ縺九°縺医※縺・↑縺・・,tired_now:'縺上◆縺上□・√♀繧・☆縺ｿ縺吶ｋ縺ｾ縺ｧ讌ｽ縺ｪ陦悟虚縺縺代・,
+ad_pre:'譛ｬ譬ｼ逧・↑縺ｼ縺・￠繧薙↓縺ｯ縺ｾ縺繝倥ヨ繝倥ヨ縲ゅ・繧縺溘＞繝ｻ縺溘＞繧翫ｇ縺丈ｸ崎ｶｳ縲・,ad_great_tre:'蜿､莉｣縺ｮ繧｢繝ｼ繝・ぅ繝輔ぃ繧ｯ繝医ｒ逋ｺ隕具ｼ・,ad_bad:'髮ｨ縺ｨ豕･驕薙ゅげ繝√・縺九ｊ窶ｦ縲・,ad_wonder:'閾ｪ辟ｶ縺ｮ縺ｵ縺励℃繧堤岼謦・＠縺溪ｦ',saved_ok:'繧ｻ繝ｼ繝悶＠縺溘ｈ・・,save_failed:'繧ｻ繝ｼ繝悶〒縺阪∪縺帙ｓ縺ｧ縺励◆縲ゅヶ繝ｩ繧ｦ繧ｶ繝ｼ縺ｮ菫晏ｭ倩ｨｭ螳壹ｒ遒ｺ隱阪＠縺ｦ縺上□縺輔＞縲・,
+g_pw:'縺｡縺九ｉ',g_br:'縺ゅ◆縺ｾ',g_ch:'縺翫＠繧・ｌ',g_st:'縺溘＞繧翫ｇ縺・,g_sp:'縺帙＞縺励ｓ',g_mood:'縺阪・繧・,g_coins:'G',g_energy:'縺偵ｓ縺・,
+daysep:'笏笏 Day {d} 笏笏',day60:'Day 60縲よ怙蠕後・譌･縺梧・縺代◆窶ｦ',
+evo_l1:'{n}縺ｯ{f}縺ｫ騾ｲ蛹悶＠縺滂ｼ・,evo_l2:'{n}縺悟､牙喧縺励※縺・ｋ窶ｦ',evolve_title:'縺励ｓ縺具ｼ・,
+log_pet:'{n}繧偵↑縺ｧ縺ｪ縺ｧ縲ゅ☆繧翫ｈ縺｣縺ｦ縺上ｋ笙･',
+w_ill:'{n}縺ｮ鬘碑牡縺後☆縺舌ｌ縺ｪ縺・ｦ',w_heal:'縺吶▲縺阪ｊ螳梧ｲｻ・・,w_tired:'縺上◆縺上◆縺窶ｦ譌ｩ縺丈ｼ代∪縺帙ｈ縺・ｼ・,w_food:'鬟滉ｺ倶ｻ｣ {c}G 繧剃ｽｿ縺｣縺溘・,
+f_market_t:'縺・■縺ｰ縺ｮ譌･・・,f_market_m:'蠎・ｴ縺後さ繧､繝ｳ縺ｮ髻ｳ縺ｧ縺・▲縺ｱ縺・ゅ←縺薙∈陦後￥・・,f_b1:'縺ゅｓ縺励ｓ遨咲ｫ・,f_b2:'繧ｵ繧､繧ｳ繝ｭ繝悶・繧ｹ',f_b3:'隕九※縺・ｋ縺縺・,f_market_r1:'遒ｺ螳溘↓雋ｯ繧√◆・・{c}G縲・,f_market_r2:'螟ｧ蠖薙◆繧奇ｼ・+{c}G・・,f_market_r3:'雋縺代※縺励∪縺｣縺溪ｦ -{c}G縲・,f_market_r4:'隕九※繧九□縺醍┌譁吶ゅ″縺ｶ繧・{a}縲・,
+f_rival_t:'繝ｩ繧､繝舌Ν縺ゅｉ繧上ｋ・・,f_rival_m:'豢ｾ謇九↑邊ｾ髴翫′繝九Ζ繝ｪ・壹悟享縺ｦ繧九・縺具ｼ溘・,f_b4:'逵溘▲蜷代°繧牙女縺代ｋ',f_b5:'遏･繧峨ｓ縺ｷ繧・,f_b6:'縺ｦ縺阪ｉ縺九↓謇九・繧・,f_rival_r1:'蜍晁ｲ髢句ｧ具ｼ・縺｡縺九ｉ+{a} 縺溘＞繧翫ｇ縺・{a2}縲・,f_rival_r2:'縺ゅ＞縺ｦ縺ｯ蜴ｻ縺｣縺溘ゅ○縺・＠繧・{a}縲・,f_rival_r3:'騾｣邨｡蜈医ｒ莠､謠帙＠縺溘ゅ♀縺励ｃ繧・{a} 縺阪・繧・{a2}・・,
+f_cup_t:'螟ｧ莨壹・譌･・・,f_cup_m:'髣俶橿蝣ｴ縺ｫ蠢懈抄縺ｮ螢ｰ窶ｦ{n}縺ｫ豕ｨ逶ｮ縺碁寔縺ｾ繧具ｼ・,f_cup_b1:'縺溘◆縺九≧・・,f_cup_b2:'蠢懈抄縺吶ｋ',f_cup_r1:'蜆ｪ蜍晢ｼ・ｼ・+{c}G 縺｡縺九ｉ+{a} 縺阪・繧・{a2}・・,f_cup_r2:'諠懈風窶ｦ縺ｧ繧ょ､ｧ蜿守ｩｫ縲ゅ◆縺・ｊ繧・￥+{a} 縺阪・繧・{a2}縲・,f_cup_r3:'螢ｰ謠ｴ繧帝√▲縺溘ゅ″縺ｶ繧・{a}縲・,
+f_sick_t:'繧ｴ繝帙ャ窶ｦ繝√Η繝ｳ窶ｦ',f_sick_m:'{n}縺碁｢ｨ驍ｪ繧偵・縺・◆・∵・髟ｷ縺碁≦繧後ｋ縲ゅ￥縺吶ｊ縺ｯ・・,f_sick_m2:'{n}縺ｯ縺ｾ縺譛ｬ隱ｿ蟄舌§繧・↑縺・・,f_sick_b1:'縺上☆繧翫ｒ鬟ｲ繧・育┌譁呻ｼ・,f_sick_b2:'縺偵ｓ縺阪〒荵励ｊ蛻・ｋ',f_sick_r1:'縺上☆繧翫′蜉ｹ縺・◆・√ヴ繝・き繝斐き縲・,f_sick_r2:'豌怜粋縺ｧ閠舌∴縺溪ｦ繧ｮ繝ｪ繧ｮ繝ｪ縲・,
+f_dream_t:'繧・°縺ｮ繧医≧縺ｪ螟｢',f_dream_m:'{n}縺檎悛繧翫↑縺後ｉ繝｡繝ｭ繝・ぅ繧貞哨縺壹＆繧薙〒縺・ｋ縲・,f_dream_b1:'縺昴・縺ｧ閠ｳ繧偵☆縺ｾ縺・,f_dream_b2:'縺昴▲縺ｨ縺励※縺翫￥',f_dream_r1:'螟｢縺ｧ蜀堺ｼ壹ゅ○縺・＠繧薙′鬮倥・縺｣縺滂ｼ・,f_dream_r2:'縺励★縺九〒蟷ｳ蜥後↑螟懊・,
+f_tre_t:'縺､縺｡縺ｮ荳ｭ縺九ｉ繧ｭ繝ｩ繝ｪ',f_tre_m:'蝨溘・荳ｭ縺ｫ縺ｪ縺ｫ縺句・繧九ｂ縺ｮ窶ｦ・・,f_tre_b1:'縺雁ｺ励↓謖√▲縺ｦ縺・￥',f_tre_b2:'螳晉黄縺ｨ縺励※縺ｿ縺後￥',f_tre_r1:'{c}G縺ｧ螢ｲ蜊ｴ・・,f_tre_r2:'螟ｧ蛻・↑螳晉黄縺ｫ縲ゅ″縺ｶ繧灘､ｧ蟷・い繝・・・・,
+f_friend_t:'蜀・ｰ励↑險ｪ蝠剰・,f_friend_m:'驥守函縺ｮ邊ｾ髴翫′縺薙▲縺昴ｊ謇九ｒ謖ｯ縺｣縺ｦ縺・ｋ縲・,f_friend_b1:'縺・▲縺励ｇ縺ｫ縺翫＠繧・∋繧・,f_friend_b2:'縺翫ｄ縺､繧偵ｏ縺代ｋ・・G・・,f_friend_b3:'莨夐㊧縺励※隕矩√ｋ',f_friend_r1:'迚ｩ隱槭ｒ莠､謠帙ゅ♀縺励ｃ繧・{a}・・,f_friend_r2:'縺・ｌ縺励◎縺・↓縺九§縺｣縺溘ゅ″縺ｶ繧・{a}・・,f_friend_r3:'縺顔､ｼ縺ｫ{c}G繧堤ｽｮ縺・※縺・▲縺溘・,
+f_insp_t:'縺ｲ繧峨ａ縺阪・迸ｬ髢・,f_insp_m:'繧ｭ繧ｿ繝ｼ繝・ｼ√・繧峨ａ縺・◆繧｢繧､繝・い縺碁屬繧後↑縺・・,f_insp_b1:'縺ｨ縺薙→繧捺ｷｱ繧√ｋ',f_insp_b2:'繝弱・繝医↓繝｡繝｢',f_insp_r1:'螟ｧ逋ｺ譏趣ｼ√≠縺溘∪+{a}・・,f_insp_r2:'縺｡繧・▲縺ｨ縺励◆蜿守ｩｫ縲ゅ≠縺溘∪+{a}縲・,
+f_storm_t:'蜷縺医ｋ蠏・,f_storm_m:'莉雁､懊・螳ｶ荳ｭ縺ｫ髮ｷ縺ｮ髻ｳ縲・,f_storm_b1:'{n}繧貞ｮ医ｋ',f_storm_b2:'縺・▲縺励ｇ縺ｫ蠏舌∈',f_storm_r1:'辟｡莠九↓螟懈・縺代ゅ◆縺・ｊ繧・￥+{a}縲・,f_storm_r2:'諤悶＞縺檎李蠢ｫ・√○縺・＠繧・{a} 縺｡縺九ｉ+{a2}縲・,
+f_star_t:'豬√ｌ譏溘・螟・,f_star_m:'遨ｺ縺梧弌縺ｮ繧ｷ繝｣繝ｯ繝ｼ縲ゆｸ逕溘↓荳蠎ｦ縺ｮ螟懊・,f_star_b1:'縺・▲縺励ｇ縺ｫ縺ｭ縺後≧',f_star_b2:'縺励★縺九↓隕矩√ｋ',f_star_r1:'邨・′縺ｲ縺九ｋ縲ゅ″縺ｶ繧・{a}・・,f_star_r2:'逾樒ｧ倥・菴馴ｨ難ｼ壹○縺・＠繧・{a}・・,
+f_fest_t:'逕ｺ縺ｮ縺ｾ縺､繧奇ｼ・,f_fest_m:'縺｡繧・≧縺｡繧薙〒縺・▲縺ｱ縺・ょｱ句床縺ｮ繧ｲ繝ｼ繝縺ｫ謖第姶・・,f_fest_b1:'蜿ょ刈縺吶ｋ 竏畜c}G',f_fest_b2:'螻句床縺ｮ縺翫ｄ縺､繧定ｲｷ縺・ｼ・G・・,f_fest_r1:'驥鷹ｭ壹ｒ繧ｲ繝・ヨ・√♀縺励ｃ繧・{a} 縺阪・繧・{a2}縲・,f_fest_r2:'縺斐■縺昴≧莉｣{c}G縲ゅ″縺ｶ繧・{a}縲・,
+f_gift_t:'縺ｵ縺励℃縺ｪ蟆丞桁',f_gift_m:'蛹・∪繧後◆邂ｱ窶ｦ繝輔ぃ繝ｳ縺九ｉ縺ｮ雍医ｊ迚ｩ・・,f_gift_b1:'縺ゅ￠縺ｦ縺ｿ繧・,f_gift_b2:'縺願ｿ斐＠縺吶ｋ',f_gift_r1:'迚ｹ陬ｽ縺翫ｄ縺､縺ｨ{c}G縺悟・縺｣縺ｦ縺・◆・・,f_gift_r2:'荳・㍾縺ｫ縺頑妙繧翫ゅヵ繧｡繝ｳ縺ｯ縺ゅ↑縺溘ｒ蟆頑噴縲ゅ″縺ｶ繧・{a}縲・,
+f_cook_t:'縺願・縺吶＞縺滓羅莠ｺ',f_cook_m:'縲梧侭逅・′縺ｧ縺阪ｋ縺ｮ縺具ｼ滄ｦｬ荳鬆ｭ縺ｯ縺・￠繧九◇・√阪←縺・☆繧具ｼ・,f_cook_b1:'閻輔↓繧医ｊ繧偵°縺代ｋ',f_cook_b2:'驕薙ｒ謨吶∴繧・,f_cook_r1:'縲後≧縺ｾ縺吶℃繧具ｼ・ｼ√肴髪謇輔＞{c}G・・,f_cook_r2:'縲後＃縺｡縺昴≧縺輔∪縲ゅワ繧ｰ縺ｯ縺・￥繧会ｼ溘阪″縺ｶ繧・{a}・・,
+f_egg_t:'・・ｼ滄ｻ偵＞繧ｿ繝槭ざ・・ｼ・,f_egg_m:'縺ｵ縺励℃縺ｪ鮟偵＞繧ｿ繝槭ざ縺後≧縺｣縺吶ｉ縺・◆縺｣縺ｦ縺・ｋ窶ｦ',f_egg_b1:'縺ゅ▲縺溘°縺上＠縺ｦ縺ゅ￡繧・,f_egg_b2:'縺ｾ縺九○繧・,f_egg_r1:'縺九∴縺｣縺溘・縺ｯ窶ｦ縺ｲ縺九ｊ・√○縺・＠繧・{a} 縺ゅ◆縺ｾ+{a2}縲・,f_egg_r2:'繧ｿ繝槭ざ縺ｯ縺ｫ縺｣縺薙ｊ縲ゆｽ輔ｂ襍ｷ縺阪↑縺九▲縺溘・,
+shop_t:'繧ｷ繝ｧ繝・・',shop_ok:'{it}繧定ｲｷ縺｣縺滂ｼ・,shop_no:'繧ｴ繝ｼ繝ｫ繝峨′雜ｳ繧翫↑縺・ｦ',
+fin_t:'縺昴＠縺ｦ窶披・,fin_m:'Day 60縺ｮ螟懊・n}縺後←縺薙∪縺ｧ謌宣聞縺励◆縺玖ｦ句ｱ翫￠繧医≧縲・,form_l:'譛蠕後・縺吶′縺滂ｼ・,the_end:'笨ｦ THE END 笨ｦ',
+end_title:'繧ｨ繝ｳ繝・ぅ繝ｳ繧ｰ',rank_l:'繝ｩ繝ｳ繧ｯ',days_l:'蜈ｱ縺ｫ驕弱＃縺励◆譌･謨ｰ・・0譌･',end_stats:'譛邨り・蜉・,btn_toTitle:'繧ｿ繧､繝医Ν縺ｸ繧ゅ←繧・,btn_newRun:'譁ｰ縺励￥閧ｲ縺ｦ繧・,
+col_t:'繧ｨ繝ｳ繝・ぅ繝ｳ繧ｰ蝗ｳ髑・,col_sub:'{n}/{m} 逋ｺ隕・,col_locked:'・滂ｼ滂ｼ・,
+off_note:'3D繝ｩ繧､繝悶Λ繝ｪ繧定ｪｭ縺ｿ霎ｼ繧√↑縺・◆繧√√°繧薙◆繧薙Δ繝ｼ繝峨〒驕翫・縺ｾ縺吶・,
+s_emblem:'繧ｨ繝ｳ繝悶Ξ繝',s_totem:'繝医・繝・Β',s_blessing:'逾晉ｦ・,
+form_l1:'襍､縺｡繧・ｓ',form_l2:'縺薙←繧・,form_l3:'縺翫→縺ｪ'
+};
+const ZH={
+app:'Stardia 竏呈弌荵倶ｼ吩ｼｴ蜈ｻ謌先律隶ｰ竏・,
+tag:'蜈ｻ閧ｲ莉取弌譏溯ｯ樒函逧・ｭｩ蟄撰ｼ悟ｺｦ霑・0螟ｩ逧・・髯ｩ・・,
+menu_title:'譬・｢・,menu_new:'蠑蟋区眠譌・ｨ・,menu_cont:'扈ｧ扈ｭ貂ｸ謌・笆ｶ',menu_del:'笨・,menu_slots:'騾画叫蟄俶｡｣',menu_slots_sub:'騾画叫荳荳ｪ讒ｽ菴榊ｼ蟋・,
+menu_start:'蠑蟋・,menu_delq:'遑ｮ螳壼唖髯､霑吩ｻｽ蟄俶｡｣蜷暦ｼ・,menu_yes:'蛻髯､',menu_no:'蜿匁ｶ・,menu_back:'霑泌屓',
+m_save:'菫晏ｭ・,m_title:'蝗樊・｢・,m_help:'邇ｩ豕・,
+help_text:'諡門勘逕ｻ髱｢譌玖ｽｬ隗・ｧ偵・轤ｹ蜃ｻ逕溽黄蜿ｯ莉･謚壽尊笙･\n豈丞､ｩ譛螟夊｡悟勘2谺｡・檎せ窶懃ｻ捺據荳螟ｩ窶晁ｿ帛・譏主､ｩ縲・n郤ｦ隨ｬ20螟ｩ蜥檎ｬｬ45螟ｩ霑帛喧・悟・謾ｯ逕ｱ菴逧・・閧ｲ譁ｹ蠑丞・螳夲ｼ悟・30遘榊ｽ｢諤√・n21遘咲ｻ灘ｱ縲ょｿ・ュ雜企ｫ俶・髟ｿ雜雁､夲ｼ檎函逞・ｼ壼㍼郛捺・髟ｿ縲・n豈乗ｬ｡陦悟勘閾ｪ蜉ｨ蟄俶｡｣・域悽蝨ｰ菫晏ｭ倥・3荳ｪ讒ｽ菴搾ｼ峨・,
+new_title:'騾画叫莨吩ｼｴ',new_sub:'騾画叫蛻晏ｧ倶ｼ吩ｼｴ蟷ｶ蜿紋ｸｪ蜷榊ｭ励・,starter_t1:'豢ｻ豕ｼ逧・↓荵句ｭｩ蟄舌・謫・柄髞ｻ轤ｼ荳主・髯ｩ',starter_t2:'螳蛾撕逧・歓荵句ｭｩ蟄舌・謫・柄蟄ｦ荵荳守鯵螂ｽ',starter_t3:'隹・坩逧・ｳ｢荵句ｭｩ蟄舌・謫・柄邇ｩ閠堺ｸ取遠謇ｮ',name_label:'譏ｵ遘ｰ',start_btn:'蟄ｵ陋・笨ｦ',replace:'隕・尠霑吩ｻｽ蟄俶｡｣・・,n_extra:'謠千､ｺ・壼ｿ・ュ雜企ｫ俶・髟ｿ雜雁､ｧ・檎函逞・ｼ壽許諷｢謌宣柄縲・,
+d:'隨ｬ {d}/{max} 螟ｩ',ph1:'譎ｨ',ph2:'譏ｼ',ph3:'螟・,stage_l:'髦ｶ谿ｵ',
+st_pw:'蜉幃㍼',st_br:'譎ｺ諷ｧ',st_ch:'鬲・鴨',st_st:'菴灘鴨',st_sp:'邊ｾ逾・,mood:'蠢・ュ',energy:'菴灘鴨蛟ｼ',coins:'驥大ｸ・,total:'蜷郁ｮ｡',
+a_end:'扈捺據荳螟ｩ 笨ｦ',
+a_train:'髞ｻ轤ｼ',a_study:'蟄ｦ荵',a_work:'謇灘ｷ･',a_adventure:'蜀帝勦',a_rest:'莨第・',a_play:'邇ｩ閠・,a_hobby:'辷ｱ螂ｽ',a_shop:'雍ｭ迚ｩ',a_groom:'謇捺屋',a_medicine:'蜷・艮',a_social:'蜴ｻ髟・ｸ・,a_clean:'謇捺沖',
+a_tip_train:'霍第ｭ･荳主鴨驥上ょ鴨驥鞘・ 菴灘鴨竊・,a_tip_study:'隸ｻ荵ｦ荳手ｰ憺｢倥よ匱諷ｧ竊・,a_tip_work:'襍夐≡蟶√ゆｽ灘鴨竊・鬲・鴨竊台ｸ轤ｹ',a_tip_adventure:'螟門・謗｢邏｢・瑚ｿ先ｰ泌・螳壽噺闔ｷ',a_tip_rest:'辭溽擅縲ゆｽ灘鴨蛟ｼ笙･ 豐ｻ諢育夢蜉ｳ荳守明逞・,a_tip_play:'荳襍ｷ邇ｩ縲ょｿ・ュ竊鯛勍 鬲・鴨竊・,a_tip_hobby:'謇倶ｽ懊らｲｾ逾樞・ 譎ｺ諷ｧ竊・蠢・ュ竊・,a_tip_shop:'譁ｰ陦｣譛阪るｭ・鴨竊・蠢・ュ竊托ｼ磯≡蟶・ｼ・,a_tip_groom:'譴ｳ逅・ｸ取鴨蜈峨るｭ・鴨竊・蠢・ュ竊・,a_tip_medicine:'蜷・艮豐ｻ逞・ｼ亥・雍ｹ・・,a_tip_social:'髟・ｸ贋ｺ､蜿九ょｿ・ュ竊鯛勍 譎ｺ諷ｧ竊・,a_tip_clean:'謇捺沖蟆丞ｱ九ょｿ・ュ竊・菴灘鴨竊・,
+e_train:'蜉ｪ蜉幃判轤ｼ・・,e_study:'蝓句､ｴ隸ｻ荵ｦ窶ｦ',e_work:'蜴ｻ謇灘ｷ･・・,e_adventure:'蜀帝勦蜃ｺ蜿托ｼ・,e_rest:'鬥咏莫蜊育擅縲・,e_play:'邇ｩ蠕怜ｼ蠢・ｼ・,e_hobby:'豐画ｵｸ蝨ｨ辷ｱ螂ｽ驥娯ｦ',e_shop:'雍ｭ迚ｩ蜴ｻ・・,e_groom:'蛻ｷ蜻蛻ｷ・梧逃蜻謫ｦ・・,e_medicine:'隸･蜷・艮莠・ｦ',e_social:'蜴ｻ髟・ｸ頑淵豁･縲・,e_clean:'謇捺沖譌ｶ髣ｴ・・,
+no_energy:'菴灘鴨荳榊､溪ｦ',no_coins:'驥大ｸ∽ｸ榊､溪ｦ',no_medicine:'逶ｮ蜑肴ｲ｡譛臥函逞・・,tired_now:'邏ｯ蝮丈ｺ・ｼ∽ｼ第・荵句燕蜿ｪ閭ｽ蛛夊ｽｻ譚ｾ逧・｡悟勘縲・,
+ad_pre:'螟ｪ逍ｲ諠ｫ・梧裏豕慕悄豁｣蜀帝勦窶披泌・莨第・謌夜判轤ｼ・・,ad_great_tre:'蜿醍鴫莠・商莉｣逾槫勣・・,ad_bad:'荳矩岑縲∵ｳ･霍ｯ・御ｸ霍ｯ謚ｱ諤ｨ窶ｦ',ad_wonder:'逶ｮ蜃ｻ莠・・辟ｶ逧・･・ｿｹ窶ｦ',saved_ok:'蟾ｲ菫晏ｭ假ｼ・,save_failed:'菫晏ｭ伜､ｱ雍･縲りｯｷ譽譟･豬剰ｧ亥勣逧・ｭ伜お隶ｾ鄂ｮ縲・,
+g_pw:'蜉幃㍼',g_br:'譎ｺ諷ｧ',g_ch:'鬲・鴨',g_st:'菴灘鴨',g_sp:'邊ｾ逾・,g_mood:'蠢・ュ',g_coins:'驥大ｸ・,g_energy:'菴灘鴨蛟ｼ',
+daysep:'笏笏 隨ｬ {d} 螟ｩ 笏笏',day60:'隨ｬ60螟ｩ・梧怙蜷惹ｸ螟ｩ窶ｦ',
+evo_l1:'{n}霑帛喧謌蝉ｺ・{f}・・,evo_l2:'{n}蜿醍函莠・序蛹問ｦ',evolve_title:'霑帛喧・・,
+log_pet:'菴謚壽尊莠・n}・悟ｮ・ｹｭ莠・ｹｭ菴笙･',
+w_ill:'{n}逧・┷濶ｲ荳榊､ｪ螂ｽ窶ｦ',w_heal:'螳悟・蠎ｷ螟搾ｼ・,w_tired:'邊ｾ逍ｲ蜉帷ｫｭ・悟ｿ・｡ｻ莨第・・・,w_food:'鬢占ｴｹ闃ｱ莠・{c} 驥大ｸ√・,
+f_market_t:'蟶る寔譌･・・,f_market_m:'蟷ｿ蝨ｺ貊｡譏ｯ驥大ｸ∫噪蜩榊｣ｰ縲ょ悉蜩ｪ驥鯉ｼ・,f_b1:'遞ｳ螯･逅・ｴ｢',f_b2:'鬪ｰ蟄先相',f_b3:'蜿ｪ逵狗恚',f_market_r1:'遞ｳ遞ｳ蟄倅ｸ具ｼ・{c}驥大ｸ√・,f_market_r2:'襍｢螟ｧ莠・ｼ・{c}驥大ｸ・ｼ・,f_market_r3:'霎謎ｺ・ｦ-{c}驥大ｸ√・,f_market_r4:'逋ｽ逵倶ｹ溷ｼ蠢・ょｿ・ュ+{a}縲・,
+f_rival_t:'蜉ｲ謨悟・邇ｰ・・,f_rival_m:'荳荳ｪ蠑謇ｬ逧・ｲｾ轣ｵ蝮冗ｬ托ｼ壺應ｽ謇灘ｾ苓ｿ・・蜷暦ｼ溪・,f_b4:'豁｣髱｢蠎疲・',f_b5:'陬・ｽ懈ｲ｡逵玖ｧ・,f_b6:'蜿句･ｽ蝨ｰ謖･謇・,f_rival_r1:'蟇ｹ蜀ｳ蠑蟋具ｼ∝鴨驥・{a} 菴灘鴨+{a2}縲・,f_rival_r2:'螳・ｵｰ莠・らｲｾ逾・{a}縲・,f_rival_r3:'莠､謐｢莠・＃扈懈婿蠑上るｭ・鴨+{a} 蠢・ュ+{a2}・・,
+f_cup_t:'螟ｧ莨壻ｹ区律・・,f_cup_m:'遶樊橿蝨ｺ荳・ｼ礼棠逶ｮ・悟・驛ｽ逵狗捩{n}窶ｦ',f_cup_b1:'荳雁惻謌俶沫・・,f_cup_b2:'蝨ｨ蝨ｺ霎ｹ蜉豐ｹ',f_cup_r1:'蜀蜀幢ｼ・ｼ・{c}驥大ｸ・蜉幃㍼+{a} 蠢・ュ+{a2}・・,f_cup_r2:'諠懆ｴ･窶ｦ菴・噺闔ｷ蠕亥､ｧ縲ゆｽ灘鴨+{a} 蠢・ュ+{a2}縲・,f_cup_r3:'蜊門鴨蜉豐ｹ縲ょｿ・ュ+{a}縲・,
+f_sick_t:'蜥ｳ蜥ｳ窶ｦ髦ｿ蝴鞘ｦ',f_sick_m:'{n}諢溷・莠・ｼ∵・髟ｿ蜿俶・縲りｦ∝帥闕ｯ蜷暦ｼ・,f_sick_m2:'{n}霑俶ｲ｡譛牙ｮ悟・螂ｽ縲・,f_sick_b1:'蜷・艮・亥・雍ｹ・・,f_sick_b2:'遑ｬ謦題ｿ・悉',f_sick_r1:'闕ｯ蛻ｰ逞・勁・∫ｲｾ逾樊竃謫槭・,f_sick_r2:'遑ｬ謇幄ｿ・悉莠・ｦ蜍牙ｼｺ縲・,
+f_dream_t:'貂・匆逧・｢ｦ',f_dream_m:'{n}蝨ｨ逹｡譴ｦ荳ｭ蜩ｼ逹譌句ｾ九・,f_dream_b1:'螳亥惠蠎願ｾｹ',f_dream_b2:'隶ｩ螳・ｻｧ扈ｭ逹｡',f_dream_r1:'蜈ｱ莠ｫ莠・ｸ荳ｪ譴ｦ縲らｲｾ逾樣ｫ俶ｶｨ・・,f_dream_r2:'螳蛾撕蟷ｳ蜥檎噪螟懈劒縲・,
+f_tre_t:'蝨滄㈹髣ｪ荳髣ｪ',f_tre_m:'蝨滄㈹譛我ｸ懆･ｿ蝨ｨ蜿大・・・,f_tre_b1:'諡ｿ蜴ｻ蠎鈴㈹蜊・,f_tre_b2:'謫ｦ諡ｭ謌仙ｮ晉黄',f_tre_r1:'蜊紋ｺ・c}驥大ｸ・ｼ・,f_tre_r2:'蜿俶・莠・渚雍ｵ逧・ｮ晉黄縲ょｿ・ュ螟ｧ豸ｨ・・,
+f_friend_t:'螳ｳ鄒樒噪隶ｿ螳｢',f_friend_m:'驥守函邊ｾ轣ｵ謗｢螟ｴ霍滉ｽ謇捺魚蜻ｼ縲・,f_friend_b1:'荳襍ｷ閨雁､ｩ',f_friend_b2:'蛻・ｺｫ轤ｹ蠢・ｼ・驥大ｸ・ｼ・,f_friend_b3:'轤ｹ螟ｴ騾∝悪',f_friend_r1:'莠定ｯ画腐莠九るｭ・鴨+{a}・・,f_friend_r2:'螳・帥蠕怜ｼ蠢・ょｿ・ュ+{a}・・,f_friend_r3:'螳・蕗荳玖ｰ｢遉ｼ・嘴c}驥大ｸ√・,
+f_insp_t:'轣ｵ蜈我ｸ髣ｪ',f_insp_m:'轣ｵ蜈我ｹ咲鴫窶披碑ｿ吩ｸｪ轤ｹ蟄先硯荵倶ｸ榊悉・・,f_insp_b1:'髓ｻ遐泌芦蠎・,f_insp_b2:'隶ｰ蝨ｨ隨碑ｮｰ譛ｬ荳・,f_insp_r1:'螟ｧ蜿第・・∵匱諷ｧ+{a}・・,f_insp_r2:'蟆丞ｰ冗噪謾ｶ闔ｷ縲よ匱諷ｧ+{a}縲・,
+f_storm_t:'蜥・動逧・垓鬟朱岑',f_storm_m:'莉雁､憺峭螢ｰ蛹・峩蟆丞ｱ九・,f_storm_b1:'謚､菴旬n}',f_storm_b2:'荳襍ｷ霑主・證ｴ鬟朱岑',f_storm_r1:'蟷ｳ螳牙芦螟ｩ莠ｮ縲ゆｽ灘鴨+{a}縲・,f_storm_r2:'蜿ｯ諤穂ｽ・李蠢ｫ・∫ｲｾ逾・{a} 蜉幃㍼+{a2}縲・,
+f_star_t:'豬∵弌逧・､懈劒',f_star_m:'螟ｩ遨ｺ荳玖ｵｷ譏溷・荵矩岑・御ｸ逕滉ｸ谺｡逧・､懈劒縲・,f_star_b1:'荳襍ｷ隶ｸ諢ｿ',f_star_b2:'髱咎撕隗りｵ・,f_star_r1:'鄒∫ｻ企略蜈峨ょｿ・ュ+{a}・・,f_star_r2:'螂・ｿｹ菴馴ｪ鯉ｼ夂ｲｾ逾・{a}・・,
+f_fest_t:'蟆城芙蠎・・・・,f_fest_m:'蛻ｰ螟・弍轣ｯ隨ｼ縲りｦ∝盾蜉鞫贋ｽ肴ｸｸ謌丞雛・・,f_fest_b1:'蜿ょ刈 竏畜c}驥大ｸ・,f_fest_b2:'雍ｭ荵ｰ蠎・・轤ｹ蠢・ｼ・驥大ｸ・ｼ・,f_fest_r1:'襍｢蠕鈴≡魍ｼ・・ｭ・鴨+{a} 蠢・ュ+{a2}縲・,f_fest_r2:'蟆丞帥闃ｱ莠・c}驥大ｸ√ょｿ・ュ+{a}縲・,
+f_gift_t:'逾樒ｧ伜桁陬ｹ',f_gift_m:'荳荳ｪ蛹・･ｽ逧・將蟄絶ｦ譏ｯ邊我ｸ晞∫噪・・,f_gift_b1:'謇灘ｼ逵狗恚',f_gift_b2:'騾蝗槫悉莠・,f_gift_r1:'驥碁擇譛蛾ｫ倡ｺｧ轤ｹ蠢・柱{c}驥大ｸ・ｼ・,f_gift_r2:'遉ｼ雋悟屓扈昴らｲ我ｸ晄峩蟆頑噴菴莠・ょｿ・ュ+{a}縲・,
+f_cook_t:'鬣･鬣ｿ逧・羅莠ｺ',f_cook_m:'窶應ｽ莨壼★鬣ｭ・滓・閭ｽ蜷・ｸ倶ｸ螟ｴ鬩ｬ・≫晄惹ｹ亥萱・・,f_cook_b1:'螟ｧ譏ｾ霄ｫ謇・,f_cook_b2:'謖・ｸｪ霍ｯ',f_cook_r1:'窶懷､ｪ螂ｽ蜷・ｺ・ｼ・ｼ≫昜ｻ俶ｬｾ{c}驥大ｸ・ｼ・,f_cook_r2:'窶懆ｰ｢隹｢谺ｾ蠕・よ凶謚ｱ謾ｶ雍ｹ蜷暦ｼ溪晏ｿ・ュ+{a}・・,
+f_egg_t:'・・ｼ滄ｻ題牡逧・寞・・ｼ・,f_egg_m:'逾樒ｧ倡噪鮟題寞蝨ｨ霓ｻ霓ｻ豁悟罰窶ｦ',f_egg_b1:'蟶ｮ螳・ｿ晄ｸｩ',f_egg_b2:'莠､扈咏ｮ｡逅・､・,f_egg_r1:'蟄ｵ蜃ｺ譚･逧・弍窶ｦ蜈会ｼ∫ｲｾ逾・{a} 譎ｺ諷ｧ+{a2}縲・,f_egg_r2:'陋句宵譏ｯ隨台ｺ・ｬ代ゆｻ荵井ｹ滓ｲ｡蜿醍函縲・,
+shop_t:'蝠・ｺ・,shop_ok:'荵ｰ荳倶ｺ・it}・・,shop_no:'驥大ｸ∽ｸ榊､溪ｦ',
+fin_t:'莠取弍窶披・,fin_m:'隨ｬ60螟ｩ逧・､懈劒縲よ擂隗∬ｯ＋n}謌宣柄蛻ｰ莠・ｻ荵亥慍豁･蜷ｧ縲・,form_l:'譛扈亥ｽ｢諤・ｼ・,the_end:'笨ｦ THE END 笨ｦ',
+end_title:'扈灘ｱ',rank_l:'隸・ｺｧ',days_l:'蜈ｱ蠎ｦ螟ｩ謨ｰ・・0螟ｩ',end_stats:'譛扈郁・蜉・,btn_toTitle:'蝗槫芦譬・｢・,btn_newRun:'譁ｰ逧・羅遞・,
+col_t:'扈灘ｱ蝗ｾ驩ｴ',col_sub:'蟾ｲ蜿醍鴫 {n}/{m}',col_locked:'・滂ｼ滂ｼ・,
+off_note:'譌豕募刈霓ｽ3D蠎難ｼ悟ｰ・ｻ･邂蜊墓ｨ｡蠑乗ｸｸ邇ｩ縲・,
+s_emblem:'郤ｹ遶',s_totem:'蝗ｾ閻ｾ',s_blessing:'逾晉ｦ・,
+form_l1:'蟷ｼ蟷ｴ',form_l2:'蟆大ｹｴ',form_l3:'謌仙ｹｴ'
+};
+const TR={en:EN,ja:JA,zh:ZH};
+function t(k,p){const s=(TR[SET.lang]&&TR[SET.lang][k])!==undefined?TR[SET.lang][k]:(EN[k]!==undefined?EN[k]:k);return fmt(s,p);}
+/* ================= form data (30) ================= */
+const FORMS={
+ember0:{sp:'ember',st:0,emo:'櫨',name:{en:'Emby',ja:'繝偵リ繝｢',zh:'蟆冗↓闍・},spec:{color:0xff7a3c,accent:0xffd166,shape:'blob',scale:1.0,tail:'flame',glow:true}},
+ember1_p:{sp:'ember',st:2,emo:'雛',name:{en:'Grulga',ja:'繝｢繧ｰ繝ｩ繝・す繝･',zh:'蟯ｩ遯・},spec:{color:0xd9542b,accent:0xffc94d,shape:'wide',scale:1.15,horns:1,tail:'flame'}},
+ember1_b:{sp:'ember',st:2,emo:'ｦ・,name:{en:'Vitreo',ja:'繧ｬ繝ｩ繧ｹ繝ｼ繝・,zh:'逅臥茶陷･'},spec:{color:0xe86a4a,accent:0x9fe3ff,shape:'tall',scale:1.1,wings:'crystal',tail:'flame',glow:true}},
+ember1_c:{sp:'ember',st:2,emo:'ｦ・,name:{en:'Woolflame',ja:'繝｢繧ｳ繝｢繝輔ぃ繧､',zh:'扈堤┣'},spec:{color:0xf58a50,accent:0xffe29a,shape:'blob',scale:1.2,tail:'flame',tuft:true}},
+ember2_p:{sp:'ember',st:3,emo:'栖',name:{en:'Ignarok',ja:'繧､繧ｰ繝翫Ο繧ｯ',zh:'轤主ｲｩ鮴・},spec:{color:0xc23b24,accent:0xffb14d,shape:'wide',scale:1.32,horns:3,tail:'flame',mane:true}},
+ember2_b:{sp:'ember',st:3,emo:'翠',name:{en:'Crystaliam',ja:'繧ｯ繝ｪ繧ｹ繧ｿ繝ｪ繧｢',zh:'譎ｶ霎蛾ｾ・},spec:{color:0xd8547c,accent:0xa8ecff,shape:'tall',scale:1.25,wings:'crystal',tail:'flame',glow:true}},
+ember2_c:{sp:'ember',st:3,emo:'ｦ・,name:{en:'Manealuce',ja:'繝槭ル繝ｼ繝ｫ繝√ぉ',zh:'鬯・・迢ｮ'},spec:{color:0xf2a13c,accent:0xffefa6,shape:'blob',scale:1.3,tail:'flame',mane:true,tuft:true}},
+ember2_s:{sp:'ember',st:3,emo:'検',name:{en:'Solarama',ja:'繧ｽ繝ｩ繝ｩ繝・,zh:'譖懈級邇・},spec:{color:0xff9a3c,accent:0xfff0b0,shape:'blob',scale:1.28,tail:'flame',aura:true,glow:true,tuft:true}},
+sprout0:{sp:'sprout',st:0,emo:'験',name:{en:'Sprig',ja:'繝｡繝｢縺｡繧・ｓ',zh:'蟆剰歓'},spec:{color:0x59c36a,accent:0xffc7d5,shape:'blob',scale:1.0,tail:'leaf'}},
+sprout1_p:{sp:'sprout',st:2,emo:'据',name:{en:'Barkot',ja:'繝舌・繧ｯ繝医Φ',zh:'譬大｢ｩ'},spec:{color:0x4fae5e,accent:0x9a6b3f,shape:'wide',scale:1.15,legs:true,tail:'leaf'}},
+sprout1_b:{sp:'sprout',st:2,emo:'ｦ・,name:{en:'Lyrain',ja:'繝ｩ繧､繝ｬ繧､繝ｳ',zh:'鄙守ｾｽ'},spec:{color:0x63c98a,accent:0xbde8ff,shape:'tall',scale:1.1,wings:'leaf',tail:'leaf',glow:true}},
+sprout1_c:{sp:'sprout',st:2,emo:'弦',name:{en:'Tulpen',ja:'繝√Η繧ｦ繝ｪ繝ｼ繝・,zh:'驛・塔'},spec:{color:0x7cc86f,accent:0xff9ec4,shape:'blob',scale:1.2,tuft:true,tail:'leaf'}},
+sprout2_p:{sp:'sprout',st:3,emo:'元',name:{en:'Grandelph',ja:'繧ｰ繝ｩ繝ｳ繝・Ν繝・,zh:'蟾ｨ讖｡'},spec:{color:0x3f9a52,accent:0x8a5a33,shape:'wide',scale:1.35,legs:true,tail:'leaf',mane:true}},
+sprout2_b:{sp:'sprout',st:3,emo:'ｦ・,name:{en:'Aurewyn',ja:'繧｢繧ｦ繝ｬ繧ｦ繧｣繝ｳ',zh:'驥醍ｿｼ'},spec:{color:0x55bd7d,accent:0xdff7ff,shape:'tall',scale:1.28,wings:'leaf',tail:'leaf',glow:true,horns:1}},
+sprout2_c:{sp:'sprout',st:3,emo:'聴',name:{en:'Bloomeo',ja:'繝輔Ν繝ｼ繝ｫ繝ｼ',zh:'郢∬干'},spec:{color:0x6cc06a,accent:0xffb7d2,shape:'blob',scale:1.32,tuft:true,tail:'leaf',mane:true}},
+sprout2_s:{sp:'sprout',st:3,emo:'項',name:{en:'Quadmania',ja:'繧ｯ繧｢繝・ラ繝九い',zh:'蝗帛掌轣ｵ'},spec:{color:0x66cf7c,accent:0xeaffb0,shape:'blob',scale:1.28,aura:true,glow:true,tuft:true,tail:'leaf'}},
+bubble0:{sp:'bubble',st:0,emo:'挑',name:{en:'Bubu',ja:'繧ｷ繧ｺ繧ｯ',zh:'豕｢豕｢'},spec:{color:0x4fa8e8,accent:0xcfeeff,shape:'blob',scale:1.0,tail:'fin',ears:true}},
+bubble1_p:{sp:'bubble',st:2,emo:'世',name:{en:'Carapash',ja:'繧ｫ繝ｩ繝懊ャ繧ｷ繝･',zh:'逕ｲ螢ｶ'},spec:{color:0x3f8fc9,accent:0x9fe0c8,shape:'wide',scale:1.15,tail:'fin'}},
+bubble1_b:{sp:'bubble',st:2,emo:'成',name:{en:'Delphini',ja:'繝・Ν繝輔ぅ繝・,zh:'霍・ｱ・},spec:{color:0x55b6ef,accent:0xe6f7ff,shape:'tall',scale:1.1,tail:'fin',glow:true,horns:1}},
+bubble1_c:{sp:'bubble',st:2,emo:'杉',name:{en:'Takoela',ja:'繧ｿ繧ｳ繧ｨ繝ｼ繝ｩ',zh:'蜈ｫ閻・},spec:{color:0x6a9ef0,accent:0xffd3e2,shape:'blob',scale:1.2,tail:'fin',legs:true}},
+bubble2_p:{sp:'bubble',st:3,emo:'遂',name:{en:'Leviatune',ja:'繝ｬ繝ｴ繧｣繝√Η繝ｼ繝ｳ',zh:'豬ｷ蜷・},spec:{color:0x2f76b8,accent:0xa8d8ff,shape:'wide',scale:1.38,tail:'fin',mane:true}},
+bubble2_b:{sp:'bubble',st:3,emo:'ｦ・,name:{en:'Sharkneel',ja:'繧ｵ繝ｼ繧ｭ繝ｳ繧ｨ繝ｼ繝ｫ',zh:'貎ｮ迚・},spec:{color:0x3fa0d8,accent:0xeef9ff,shape:'tall',scale:1.3,tail:'fin',glow:true,horns:3}},
+bubble2_c:{sp:'bubble',st:3,emo:'ｪｼ',name:{en:'Jellynn',ja:'繧ｸ繧ｧ繝ｪ繧｣繝ｳ',zh:'豌ｴ豈咲ｲｾ'},spec:{color:0x8fb8f5,accent:0xffc7e8,shape:'blob',scale:1.3,ears:true,tail:'fin',glow:true,mane:true}},
+bubble2_s:{sp:'bubble',st:3,emo:'醗',name:{en:'Lunaria',ja:'繝ｫ繝翫Μ繧｢',zh:'譛育・'},spec:{color:0x7fa8ee,accent:0xf4ecff,shape:'blob',scale:1.28,aura:true,glow:true,ears:true,tail:'fin'}},
+ail_p:{sp:null,st:2,emo:'亶',name:{en:'Shadowpup',ja:'繧ｫ繧ｲ荳ｸ',zh:'蠖ｱ荳ｸ'},spec:{color:0x6b6f8a,accent:0xb9a6ff,shape:'wide',scale:1.05,tail:'flame'}},
+ail_b:{sp:null,st:2,emo:'ｫｧ',name:{en:'Foglet',ja:'繧ｭ繝ｪ繝・ヨ',zh:'髮ｾ莉・},spec:{color:0x8f9ab5,accent:0xcfe0ff,shape:'tall',scale:1.0,tail:'fin'}},
+ail_c:{sp:null,st:2,emo:'･',name:{en:'Duskpetal',ja:'繝懊ち繝九Ε',zh:'谿玖干'},spec:{color:0x8a6f9e,accent:0xd8b8ff,shape:'blob',scale:1.1,tail:'leaf'}},
+ail2:{sp:null,st:3,emo:'･',name:{en:'Grayember',ja:'繝上う繧ｨ繝槭・繝ｫ',zh:'轣ｰ辟ｰ'},spec:{color:0x5d6478,accent:0xff9a8c,shape:'wide',scale:1.15,tail:'flame'}},
+egg:{sp:null,st:-1,emo:'･・,name:{en:'Egg',ja:'繧ｿ繝槭ざ',zh:'陋・},spec:{color:0xf3ead8,accent:0xffb14d,shape:'egg',scale:1.0}}
+};
+const SPECIES={
+ember:{emo:'櫨',t:'starter_t1',default:{en:'Ember',ja:'繝帙Β繧ｸ',zh:'蟆冗↓'}},
+sprout:{emo:'験',t:'starter_t2',default:{en:'Fern',ja:'繝｢繧ｯ繧ｾ繧ｦ',zh:'蟆剰物'}},
+bubble:{emo:'挑',t:'starter_t3',default:{en:'Bubbles',ja:'繧ｷ繝･繝ｯ',zh:'豕｡豕｡'}}
+};
+/* ================= actions ================= */
+const ACTS=[
+{id:'train',ic:'暑・・,e:22,c:0,min:25,g:{pw:6,st:3},log:'e_train'},
+{id:'study',ic:'答',e:18,c:4,min:10,g:{br:6},log:'e_study'},
+{id:'work',ic:'直',e:22,c:0,min:20,g:{st:2,ch:1},coins:[12,17],log:'e_work'},
+{id:'adventure',ic:'亮・・,e:30,c:6,min:30,special:1,log:'e_adventure'},
+{id:'rest',ic:'亢',e:0,c:0,min:0,free:1,log:'e_rest'},
+{id:'play',ic:'疾',e:12,c:0,min:10,g:{ch:2},mood:10,aff:2,log:'e_play'},
+{id:'hobby',ic:'耳',e:15,c:2,min:10,g:{br:2,sp:3},mood:5,flag:'hobby',log:'e_hobby'},
+{id:'shop',ic:'寫・・,e:10,c:25,min:5,g:{ch:5},mood:8,flag:'shop',log:'e_shop'},
+{id:'groom',ic:'笨ｨ',e:10,c:0,min:5,g:{ch:4},mood:4,log:'e_groom'},
+{id:'medicine',ic:'抽',e:6,c:0,min:0,special:2,log:'e_medicine'},
+{id:'social',ic:'ｫ・,e:14,c:4,min:10,g:{br:2,ch:1},mood:8,aff:2,log:'e_social'},
+{id:'clean',ic:'ｧｹ',e:8,c:0,min:0,g:{st:1},mood:6,log:'e_clean'}
+];
+const STATKEYS=['pw','br','ch','st','sp'];
+const STATICON=['潮','ｧ','茶','純','ｧ・];
+/* ================= endings (21) ================= */
+const ENDINGS=[
+{id:'legendary',rank:'S',cond:s=>/_(p|b|c|s)$/.test(s.form)&&s.form.indexOf('ail')<0&&s.sp>=70&&s.mood>=70&&s.aff>=60,
+name:{en:'Legend of the Star Lineage',ja:'譏溯ц縺ｮ莨晁ｪｬ',zh:'譏溯ч莨隸ｴ'},
+text:{en:'Bards will sing of you two for a hundred years. The bond you forged became an actual constellation.',ja:'縺ゅ↑縺溘◆縺｡縺ｮ邨・・譏溯ц縺昴・繧ゅ・縲ら卆蟷ｴ蜈医∪縺ｧ豁後＞邯吶′繧後ｋ莨晁ｪｬ縺ｨ縺ｪ縺｣縺溘・,zh:'菴莉ｬ逧・ｾ∫ｻ雁喧菴應ｺ・悄豁｣逧・弌蠎ｧ・悟ｰ・｢ｫ豁悟衷逋ｾ蟷ｴ縲・}},
+{id:'champion',rank:'S',cond:s=>/2_(p|s)$/.test(s.form)&&s.flags.champion&&s.pw>=70,
+name:{en:'Unbeaten Champion',ja:'辟｡謨励・繝√Ε繝ｳ繝斐が繝ｳ',zh:'荳崎ｴ･蜀蜀・},
+text:{en:'Four tournaments, four trophies. Your name is engraved on the arena\'s hall of fame.',ja:'蝗帛ｺｦ縺ｮ螟ｧ闊槫床繧貞宛縺励∝錐縺ｯ髣俶橿蝣ｴ縺ｮ蜷崎ｪ峨・螢√↓蛻ｻ縺ｾ繧後◆縲・,zh:'蝗帶・蝗幄・・御ｽ逧・錐蟄苓｢ｫ蛻ｻ霑帑ｺ・ｫ樊橿蝨ｺ逧・錐莠ｺ蝣ゅ・}},
+{id:'scholar',rank:'S',cond:s=>/2_(b|p)$/.test(s.form)&&s.br>=75&&!s.flags.rival,
+name:{en:'The Academy Never Sleeps',ja:'蟄ｦ蝨偵・逵繧峨↑縺・,zh:'荳咲悛逧・ｭｦ髯｢'},
+text:{en:'An honorary degree, three papers, and a dorm full of admirers. Knowledge sparkles.',ja:'蜷崎ｪ牙ｭｦ菴阪→荳峨▽縺ｮ隲匁枚縲ょｭｦ縺ｳ縺ｮ譏溘→縺励※蟄ｦ髯｢縺ｫ莨晁ｪｬ縺梧ｮ九▲縺溘・,zh:'闕｣隱牙ｭｦ菴堺ｸ惹ｸ臥ｯ・ｮｺ譁・ｼ御ｽ謌蝉ｸｺ蟄ｦ髯｢驥碁略閠逧・弌縲・}},
+{id:'duo',rank:'S',cond:s=>s.flags.rival&&s.flags.champion&&s.br>=50,
+name:{en:'Rivals, Side by Side',ja:'荳ｦ繧薙□螂ｽ謨ｵ謇・,zh:'蟷ｶ閧ｩ逧・幹謨・},
+text:{en:'The final was decided in extra time. Afterwards, the two of you trained together.',ja:'豎ｺ蜍昴・蟒ｶ髟ｷ謌ｦ縺ｫ繧ゅ▽繧瑚ｾｼ繧薙□縲ゅ◎縺ｮ縺ゅ→縲∽ｺ御ｺｺ縺ｯ蝗ｺ縺・升謇九ｒ莠､繧上＠縺溘・,zh:'蜀ｳ襍帶遠蛻ｰ蜉譌ｶ縲りｵ帛錘逧・ぅ荳谺｡謠｡謇具ｼ瑚ｮｩ蜉ｲ謨悟序謌蝉ｺ・建蜿九・}},
+{id:'idol',rank:'S',cond:s=>/2_(c|b)$/.test(s.form)&&s.ch>=75,
+name:{en:'Standing Ovation',ja:'蜑ｲ繧後ｓ縺ｰ縺九ｊ縺ｮ諡肴焔',zh:'襍ｷ遶矩ｼ捺詞'},
+text:{en:'The hall sways in a sea of light sticks. Your smile is canon now.',ja:'莨壼ｴ縺後・繝ｳ繝ｩ繧､繝医・豬ｷ縺ｫ謠ｺ繧後ｋ縲ゅ≠縺ｪ縺溘・隨鷹｡斐・繧ゅ≧莨晁ｪｬ縺縲・,zh:'莨壼惻蛹紋ｽ懆懇蜈画ｵｷ逧・ｵｪ貎ｮ・御ｽ逧・ｬ大ｮｹ蟾ｲ謌千ｻ丞・縲・}},
+{id:'starperfect',rank:'S',cond:s=>s.pw>=50&&s.br>=50&&s.ch>=50&&s.st>=50&&s.sp>=50&&s.mood>=50&&s.aff>=55,
+name:{en:'Consummate Star-Raiser',ja:'閧ｲ縺ｦ謇九・螳梧・',zh:'蜈ｻ謌仙､ｧ蟶・},
+text:{en:'Power, wits, style, stamina, spirit 窶・a flawless garden you tended day by day.',ja:'縺吶∋縺ｦ繧定ご縺ｦ荳翫￡縲・0譌･髢薙・蠎ｭ縺ｯ縺ｩ縺ｮ蛹ｺ逕ｻ繧り干縺悟調縺・◆縲・,zh:'蜉幃㍼縲∵匱諷ｧ縲・ｭ・鴨縲∽ｽ灘鴨縲∫ｲｾ逾樞披・0螟ｩ逧・干蝗ｭ豈丈ｸ逡ｦ驛ｽ蠑莠・干縲・}},
+{id:'hero',rank:'A',cond:s=>s.ev.adventure>=4&&s.sp>=55&&!s.flags.sick,
+name:{en:'The Hero Returns',ja:'譌・・闍ｱ髮・∝・譌・,zh:'蜃ｯ譌狗噪闍ｱ髮・},
+text:{en:'Your travel-worn map has more stamps than anyone in town. Next route, already planned.',ja:'蝨ｰ蝗ｳ縺ｮ繧ｹ繧ｿ繝ｳ繝励・逕ｺ荳逡ｪ縲よｬ｡縺ｮ譌・・險育判縺ｯ繧ゅ≧蟋九∪縺｣縺ｦ縺・ｋ縲・,zh:'菴逧・慍蝗ｾ蜊ｰ遶譏ｯ蜈ｨ髟・怙螟夲ｼ御ｸ区ｮｵ譌・ｨ句ｷｲ蝨ｨ隶｡蛻剃ｸｭ縲・}},
+{id:'dojo',rank:'A',cond:s=>/2_(p|s)$/.test(s.form)&&s.pw>=75&&s.st>=45,
+name:{en:'Dojo Legacy',ja:'驕灘ｴ縺ｮ邉ｻ隴・,zh:'驕灘惻螳怜ｸ・},
+text:{en:'Little sprites now line up at your gate to learn the First Swing.',ja:'蟆上＆縺ｪ邊ｾ髴翫◆縺｡縺後檎ｬｬ荳縺ｮ蝙九阪ｒ蟄ｦ縺ｶ縺溘ａ縲√≠縺ｪ縺溘・髢繧貞娼縺上・,zh:'蟆冗ｲｾ轣ｵ莉ｬ謗帝弌諡懷・髣ｨ荳具ｼ悟ｭｦ荵窶懃ｬｬ荳荵句梛窶昴・}},
+{id:'rivalwin',rank:'A',cond:s=>s.flags.rival&&s.flags.champion,
+name:{en:'Eternal Rivals',ja:'豌ｸ驕縺ｮ螂ｽ謨ｵ謇・,zh:'豌ｸ霑懃噪蜉ｲ謨・},
+text:{en:'"Rematch next spring." You both know that is a promise, not a threat.',ja:'縲梧擂譏･繧ょ・謌ｦ縺縲阪ゅ◎繧後・閼・＠縺ｧ縺ｯ縺ｪ縺上∽ｺ御ｺｺ縺ｮ邏・據縺ｫ縺ｪ縺｣縺溘・,zh:'窶懈・蟷ｴ蜀肴・縲や晞ぅ荳榊・譏ｯ謖題｡・ｼ瑚梧弍菴莉ｬ逧・ｺｦ螳壹・}},
+{id:'family',rank:'A',cond:s=>s.flags.love&&!s.flags.sick&&s.mood>=60,
+name:{en:'The Richest Morning',ja:'縺・■縺ｰ繧楢ｱ翫°縺ｪ譛・,zh:'譛蟇梧怏逧・ｸ・勣'},
+text:{en:'Breakfast for two, sunlit table. This ordinary morning is the treasure.',ja:'譛昴＃鬟ｯ縺ｯ莠御ｺｺ蛻・ゅ≠繧翫・繧後◆譛昴′縲√≠縺ｪ縺溘↓縺ｨ縺｣縺ｦ縺ｮ螳晉黄縺縺｣縺溘・,zh:'譌ｩ鬢先漕荳贋ｸ､莠ｺ莉ｽ縲ょｹｳ蟶ｸ逧・ｸ・勣・悟ｰｱ譏ｯ譛迴崎ｴｵ逧・ｮ晉黄縲・}},
+{id:'skyfarer',rank:'B',cond:s=>s.ev.explore>=3&&s.st>=50,
+name:{en:'Skyfarer',ja:'遨ｺ繧呈ｸ｡縺｣縺溯・,zh:'貂｡遨ｺ閠・},
+text:{en:'You crossed the Cloud Sea. The pilot\'s license frame is already on the wall.',ja:'縺ゅ↑縺溘・髮ｲ豬ｷ繧呈ｸ｡縺｣縺溘よ桃邵ｦ險ｱ蜿ｯ險ｼ縺ｮ鬘咲ｸ√・繧ゅ≧螢√↓謗帙°縺｣縺ｦ縺・ｋ縲・,zh:'菴鬟櫁ｶ贋ｺ・ｺ第ｵｷ・碁｣櫁｡梧鴬辣ｧ譌ｩ蟾ｲ謖ゆｸ雁｢吩ｸ翫・}},
+{id:'alchemist',rank:'B',cond:s=>s.ev.hobby>=3&&s.ev.medicine>=1&&s.sp>=45,
+name:{en:'The Hidden Apothecary',ja:'縺ｿ縺｡縺上＆縺ｮ骭ｬ驥題｡・,zh:'霍ｯ霎ｹ轤ｼ驥第惘'},
+text:{en:'Your homemade remedies now sit on the town shelf. Sold out by noon.',ja:'閾ｪ菴懊・阮ｬ縺ｯ逕ｺ縺ｮ譽壹↓荳ｦ縺ｳ縲∵仂蜑阪↓螢ｲ蛻・ｌ繧九ｈ縺・↓縺ｪ縺｣縺溘・,zh:'菴閾ｪ蛻ｶ逧・艮蜑よ漕荳贋ｺ・芙驥檎噪雍ｧ譫ｶ・悟壕蜑榊ｰｱ蜚ｮ鄂・・}},
+{id:'toymaker',rank:'B',cond:s=>s.ev.hobby>=5,
+name:{en:'The Little Toy Workshop',ja:'蟆上＆縺ｪ縺翫ｂ縺｡繧・ｷ･謌ｿ',zh:'蟆丞ｰ冗自蜈ｷ蟾･蝮・},
+text:{en:'Workshop sign: open at ten. The line of children forms at nine.',ja:'蟾･謌ｿ縺ｮ逵区攸縺ｯ10譎る幕蠎励ょｭ舌←繧ゅ◆縺｡縺ｮ蛻励・9譎ゅ°繧峨〒縺阪ｋ縲・,zh:'蟾･蝮頑魚迚悟・逹10轤ｹ蠑荳夲ｼ悟ｭｩ蟄蝉ｻｬ9轤ｹ蟆ｱ謗定ｵｷ莠・弌縲・}},
+{id:'muse',rank:'B',cond:s=>/_(c|b)$/.test(s.form)&&s.ch>=60&&s.br<70,
+name:{en:'Muse of the Valley',ja:'隹ｷ縺ｮ繝溘Η繝ｼ繧ｺ',zh:'貅ｪ隹ｷ郛ｪ譁ｯ'},
+text:{en:'Painters migrate to your valley each spring now. You inspire without trying.',ja:'譏･縺斐→縺ｫ逕ｻ螳ｶ縺溘■縺後％縺ｮ隹ｷ縺ｸ髮・∪繧九ょ巻蜉帙ぞ繝ｭ縺ｮ縺ｲ繧峨ａ縺阪・,zh:'豈丞ｹｴ譏･螟ｩ逕ｻ螳ｶ莉ｬ驛ｽ霑∵擂貅ｪ隹ｷ縲ゆｽ荳榊綾諢丞唆閾ｪ謌千・諢溘・}},
+{id:'championmid',rank:'A',cond:s=>/^sprout1|^ember1|^bubble1/.test(s.form)&&s.flags.champion,
+name:{en:'The Neighborhood Champion',ja:'蝨ｰ蛹ｺ螟ｧ莨壹ｒ豐ｸ縺九○縺・,zh:'轤ｸ陬ょ慍蛹ｺ螟ｧ襍・},
+text:{en:'The youth division trophy. The first of many, you both promise.',ja:'繧ｸ繝･繝九い驛ｨ髢縺ｮ蜆ｪ蜍昴き繝・・縲ゆｺ御ｺｺ縺ｧ縲梧ｬ｡縺ｯ譛ｬ謌ｦ縲阪→邏・據縺励◆縲・,zh:'蟆大ｹｴ扈・・蜀帛･匁擶縲ゆｽ莉ｬ郤ｦ螳夲ｼ壺應ｸ区ｬ｡譏ｯ豁｣襍帙や・}},
+{id:'troublemaker',rank:'B',cond:s=>s.ev.fight>=2,
+name:{en:'Trouble Follows You',ja:'繝医Λ繝悶Ν縺ｯ縺ゅ↑縺溘・髫｣縺ｫ',zh:'鮗ｻ辜ｦ菴丞惠菴髫泌｣・},
+text:{en:'Three broken windows, two repaired. The town grumbles, but it misses you when you\'re gone.',ja:'蜑ｲ縺｣縺溽ｪ・譫壹∫峩縺励◆遯・譫壹ら伴縺ｯ譁・唱繧定ｨ縺・↑縺後ｉ繧ゅ√≠縺ｪ縺溘ｒ蠕・▲縺ｦ縺・ｋ縲・,zh:'謇鍋｢惹ｸ牙摎遯励∽ｿｮ螂ｽ荳､蝮励る芙荳贋ｸ霎ｹ謚ｱ諤ｨ荳霎ｹ遲我ｽ蝗樊擂縲・}},
+{id:'sickailment',rank:'B',cond:s=>s.form.indexOf('ail2')>=0,
+name:{en:'Together Till the End',ja:'譛譛溘∪縺ｧ蜈ｱ縺ｫ',zh:'髯ｪ莨ｴ蛻ｰ譛蜷・},
+text:{en:'The long nights at the sickbed. The blanket, the medicine smell, your hand held out. Not regret.',ja:'髟ｷ縺・利逞・・螟懊り脈縺ｮ蛹ゅ＞縺ｨ蟾ｮ縺怜・縺励◆謇九ゅ≠縺ｪ縺溘・縺昴ｌ繧呈ｔ繧・ｓ縺ｧ縺ｯ縺・↑縺・・,zh:'貍ｫ髟ｿ逧・羅蠎贋ｹ句､懊り艮蜻ｳ荳惹ｼｸ蜃ｺ逧・焔縲ゆｽ蟷ｶ荳榊錘謔斐・}},
+{id:'sickteen',rank:'C',cond:s=>/^ail/.test(s.form),
+name:{en:'The Long Vigil',ja:'逵狗羅縺ｮ蟄｣遽',zh:'螳域侃逧・ｭ｣闃・},
+text:{en:'The growth stalled, but every day you sat by the bed. That is its own kind of star.',ja:'謌宣聞縺ｯ豁｢縺ｾ縺｣縺溘ゅ〒繧よｯ取律縲√≠縺ｪ縺溘・繝吶ャ繝峨・蛛ｴ縺ｫ縺・◆縲・,zh:'謌宣柄蛛應ｸ倶ｺ・ｼ御ｽ・ｽ豈丞､ｩ驛ｽ螳亥惠蠎願ｾｹ縲・}},
+{id:'couch',rank:'D',cond:s=>s.mood>=60&&(s.pw+s.br+s.ch+s.st+s.sp)<80,
+name:{en:'Professional Loungers',ja:'繧ｴ繝ｭ繧ｴ繝ｭ縺ｮ讌ｵ縺ｿ',zh:'霄ｺ蟷ｳ螟ｧ蟶・},
+text:{en:'No medals. No trophies. Just two experts on napping in sunbeams.',ja:'繝｡繝繝ｫ繧ゅヨ繝ｭ繝輔ぅ繝ｼ繧ゅ↑縺・ゅ〒繧よ律蜷代〒譏ｼ蟇昴ｒ縺吶ｋ閻募燕縺ｪ繧我ｸ也阜荳縺縲・,zh:'豐｡譛牙･也煙荵滓ｲ｡譛牙･匁擶・御ｽ・剪螟ｪ髦ｳ謇鍋峪逧・焔閻穂ｸ也阜隨ｬ荳縲・}},
+{id:'vigil2',rank:'C',cond:s=>s.flags.sick&&/1_/.test(s.form),
+name:{en:'Medicine and Patience',ja:'阮ｬ縺ｨ譬ｹ豌・,zh:'闕ｯ荳手仙ｿ・},
+text:{en:'You learned the exact temperature of a good medicine. One day, the fever will break.',ja:'縺ゅ↑縺溘・濶ｯ縺・脈縺ｮ貂ｩ蠎ｦ繧堤衍縺｣縺溘ゅ＞縺､縺狗・縺ｯ蠢・★荳九′繧九・,zh:'菴諛ょｾ嶺ｺ・憶闕ｯ逧・ｸｩ蠎ｦ縲よｻ譛我ｸ螟ｩ・檎Ο蠎ｦ莨夐蜴ｻ縲・}},
+{id:'companion',rank:'C',cond:s=>true,
+name:{en:'Happiness, As Is',ja:'縺溘□莉翫・縺励≠繧上○',zh:'豁､蛻ｻ逧・ｹｸ遖・},
+text:{en:'An ordinary 60 days. And yet the ordinary was, you both agree, the best.',ja:'縺ゅｊ縺ｵ繧後◆60譌･髢薙ゅ〒繧ゅ≠繧翫・繧後※縺・ｋ縺薙→縺後∽ｸ逡ｪ繧医°縺｣縺溘・縲・,zh:'蟷ｳ蜃｡逧・0螟ｩ縲り御ｽ莉ｬ荳閾ｴ蜷梧э・壼ｹｳ蜃｡蜊ｳ譛螂ｽ縲・}}
+];
+const SHOPITEMS=[
+{it:'book',price:15,g:{br:4}},
+{it:'vitamin',price:12,st:12},
+{it:'outfit',price:25,g:{ch:3}},
+{it:'art',price:18,g:{sp:4}}
+];
+const SHOPNAME={book:{en:'Special Book',ja:'迚ｹ蛻･縺ｪ縺翫→縺取悽',zh:'迚ｹ蛻ｫ扈俶悽'},vitamin:{en:'Vitamins',ja:'繝薙ち繝溘Φ蜑､',zh:'扈ｴ逕溽ｴ'},outfit:{en:'Stage Outfit',ja:'繧ｹ繝・・繧ｸ陦｣陬・,zh:'闊槫床譛崎｣・},art:{en:'Art Set',ja:'縺顔ｵｵ縺九″繧ｻ繝・ヨ',zh:'扈倡判螂苓｣・}};
+
+/* ================= state & save ================= */
+const SAVEKEY=i=>'stardia_save'+i, LASTKEY='stardia_last', SETKEY='stardia_set', ENDKEY='stardia_endings';
+const MAXDAY=60;
+let S=null;
+function saveSet(){try{localStorage.setItem(SETKEY,JSON.stringify(SET));}catch(e){}}
+try{const s=JSON.parse(localStorage.getItem(SETKEY)||'null');if(s){if(LANGS.indexOf(s.lang)>=0)SET.lang=s.lang;SET.sound=!!s.sound;}}catch(e){}
+function slotData(i){try{const d=JSON.parse(localStorage.getItem(SAVEKEY(i))||'null');return (d&&d.sp)?d:null;}catch(e){return null;}}
+function saveGame(){
+if(!S)return false;
+try{localStorage.setItem(SAVEKEY(S.slot),JSON.stringify(S));}
+catch(e){console.error('Stardia save failed',e);return false;}
+try{localStorage.setItem(LASTKEY,String(S.slot));}
+catch(e){console.error('Stardia last-slot update failed',e);}
+return true;
+}
+function deleteSlot(i){try{localStorage.removeItem(SAVEKEY(i));}catch(e){}}
+function endingColl(){try{const a=JSON.parse(localStorage.getItem(ENDKEY)||'[]');return Array.isArray(a)?a:[];}catch(e){return[];}}
+function lastSlot(){try{const v=+(localStorage.getItem(LASTKEY));return isNaN(v)?-1:v;}catch(e){return -1;}}
+function addEndingColl(id){const a=endingColl();if(a.indexOf(id)<0){a.push(id);try{localStorage.setItem(ENDKEY,JSON.stringify(a));}catch(e){}}}
+/* ================= audio ================= */
+const AU={ctx:null,master:null,timer:0,step:0,mel:[]};
+function audioInit(){if(AU.ctx||!SET.sound)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;AU.ctx=new C();AU.master=AU.ctx.createGain();AU.master.gain.value=SET.sound?0.9:0;AU.master.connect(AU.ctx.destination);}catch(e){}}
+function tone(f,dur,type,vol,delay,slide){if(!SET.sound||!AU.ctx)return;try{const c=AU.ctx,t0=c.currentTime+(delay||0);const o=c.createOscillator(),g=c.createGain();o.type=type||'sine';o.frequency.setValueAtTime(f,t0);if(slide)o.frequency.linearRampToValueAtTime(slide,t0+dur);g.gain.setValueAtTime(0.0001,t0);g.gain.linearRampToValueAtTime(vol||0.2,t0+0.015);g.gain.exponentialRampToValueAtTime(0.0001,t0+dur);o.connect(g);g.connect(AU.master);o.start(t0);o.stop(t0+dur+0.05);}catch(e){}}
+const SFX={
+click(){tone(900,0.07,'triangle',0.12);},
+ok(){tone(660,0.12,'sine',0.16);tone(880,0.14,'sine',0.12,0.09);},
+no(){tone(200,0.2,'sawtooth',0.1);},
+coin(){tone(980,0.09,'square',0.08);tone(1320,0.12,'square',0.08,0.07);},
+chime(){tone(1568,0.25,'sine',0.14);tone(2093,0.3,'sine',0.1,0.12);},
+fanfare(){[523,659,784,1047,1319].forEach((f,i)=>tone(f,0.28,'triangle',0.2,i*0.11));[1319].forEach(f=>tone(f,0.7,'triangle',0.16,0.62));},
+pet(){tone(520,0.09,'sine',0.12,0,760);},
+end(){[392,523,659,784,659,784,1047].forEach((f,i)=>tone(f,0.4,'sine',0.18,i*0.22));}
+};
+function bgmScale(){const base=[220,262,294,329,392,440,523,587];let seed=0;const nm=SPECIES[S.species].default[SET.lang]||'x'+S.slot;for(let i=0;i<nm.length;i++)seed=(seed*31+nm.charCodeAt(i))>>>0;const arr=base.slice();for(let i=arr.length-1;i>0;i--){seed=(seed*1103515245+12345)>>>0;const j=seed%(i+1);const t=arr[i];arr[i]=arr[j];arr[j]=t;}AU.mel=arr;}
+function startBgm(){stopBgm();bgmScale();AU.timer=setInterval(()=>{if(!SET.sound||!AU.ctx||screen!=='game')return;const m=AU.mel,st=AU.step++;const n=m[(st*3+((st>>3)*5))%m.length]*(st%8===7?0.5:1);tone(n,0.16,'triangle',0.045);if(st%8===0)tone(m[0]*0.5,0.4,'sine',0.05);if(st%8===4)tone(m[2]*1,0.3,'sine',0.035);},350);}
+function stopBgm(){if(AU.timer){clearInterval(AU.timer);AU.timer=0;}}
+function applySound(){if(AU.master)AU.master.gain.value=SET.sound?0.9:0;if(SET.sound){audioInit();if(AU.ctx&&AU.ctx.state==='suspended')AU.ctx.resume();}$('#btnSound').textContent=SET.sound?'矧 ON':'這 OFF';saveSet();}
+/* ================= UI ================= */
+let screen='title', evQueue=[], ovlOpen=false, petLock=0, chosenStarter='ember', pendingSlot=0;
+function showScreen(name){screen=name;['title','slots','new','game','gallery'].forEach(n=>{$('#screen-'+n).classList.toggle('hidden',n!==name);$('#screen-'+n).classList.toggle('screen',true);});$('#stage').classList.toggle('off',name==='slots'||name==='new'||name==='gallery');updateTopbar();}
+function dayPhase(d){return d<=19?1:d<=44?2:3;}
+function updateTopbar(){if(S&&screen==='game'){$('#daylbl').textContent=t('d',{d:S.day,max:MAXDAY})+' 笨ｦ '+t('ph'+dayPhase(S.day));}else{$('#daylbl').textContent='Stardia 笨ｦ';}}
+function L(k,p){return t(k,p);}
+function applyLabels(){
+document.documentElement.lang=SET.lang;
+$('#btnLang').textContent='倹 '+LANGNAME[SET.lang];
+$('#titleTag').textContent=L('tag');
+$('#btnNew').textContent=L('menu_new');
+$('#btnCont').textContent=L('menu_cont');
+$('#btnGal').textContent=L('col_t');
+$('#btnHelpT').textContent=L('m_help');
+$('#btnEndDay').textContent=L('a_end');
+$('#btnSave').textContent=L('m_save');
+$('#btnTitle').textContent=L('m_title');
+$('#hNote').textContent=L('n_extra');
+$('#nameLabel').textContent=L('name_label');
+$('#btnStart').textContent=L('start_btn');
+buildStatGrid();
+updateTopbar();renderLog();renderActs();renderHUD();}
+/* log */
+function logLine(key,par,cls){if(!S)return;S.log.push({k:key,p:par||null,c:cls||''});if(S.log.length>80)S.log.shift();renderLog();}
+function renderLog(){const el=$('#glog');if(!S){el.innerHTML='';return;}let h='';for(let i=Math.max(0,S.log.length-40);i<S.log.length;i++){const e=S.log[i];h+='<p class="'+(e.c||'')+'">'+esc(t(e.k,e.p))+'</p>';}el.innerHTML=h;el.scrollTop=el.scrollHeight;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+/* HUD */
+function renderHUD(){if(!S)return;
+const f=FORMS[S.form];
+$('#hForm').innerHTML='<span>'+f.emo+'</span><b>'+esc(f.name[SET.lang]||f.name.en)+'</b><span style="color:#93a0c8">'+L('form_l'+(f.st===0?1:f.st===2?2:3))+'</span>';
+$('#hCoins').textContent='ｪ・'+S.coins;
+$('#bE').firstElementChild.style.width=S.energy+'%';$('#vE').textContent=S.energy;
+$('#bM').firstElementChild.style.width=S.mood+'%';$('#vM').textContent=S.mood;
+STATKEYS.forEach((k,i)=>{const v=S[k];const bar=$('#bar'+i),val=$('#val'+i);if(bar){bar.style.width=Math.min(100,v)+'%';val.textContent=Math.round(v);}});}
+function buildStatGrid(){let h='';STATKEYS.forEach((k,i)=>{h+='<div class="stat">'+STATICON[i]+'<b>'+esc(L('st_'+k))+'</b><div class="bar" id="bar'+i+'"><i></i></div><em id="val'+i+'">0</em></div>';});$('#statgrid').innerHTML=h;}
+function renderActs(){const el=$('#acts');if(!S){el.innerHTML='';return;}el.innerHTML='';
+ACTS.forEach(a=>{const b=document.createElement('button');b.className='abtn';
+let dis=false;
+if(S.ended)dis=true;
+else if(S.actLeft<=0&&!a.free)dis=true;
+else if(S.flags.tired&&['train','study','work','adventure','hobby','shop'].indexOf(a.id)>=0)dis=true;
+else if(a.id==='medicine'&&!S.flags.sick)dis=true;
+else if(S.energy<a.e||S.coins<a.c)dis=true;
+if(dis)b.classList.add('dis');
+b.title=L('a_tip_'+a.id);
+const cost=(a.e?'笞｡'+a.e:'笞｡0')+(a.c?' ｪ・+a.c:'')+(a.free?'':'')+(a.free?'':' ﾃ・+S.actLeft);
+b.innerHTML='<span class="ai">'+a.ic+'</span><span class="an">'+esc(L('a_'+a.id))+'</span><span class="ac">'+esc(cost)+'</span>';
+b.addEventListener('click',()=>doAction(a));el.appendChild(b);});}
+/* overlay */
+function showOvl(o){ovlOpen=true;$('#ov').classList.remove('hidden');
+const em=$('#ovemo');if(o.emo){em.textContent=o.emo;em.classList.remove('hidden');}else em.classList.add('hidden');
+if(o.rank){$('#ovTitle').innerHTML='<span class="rank rank'+o.rank+'">'+L('rank_l')+' '+o.rank+'</span><br>'+esc(o.title);}else $('#ovTitle').textContent=o.title||'';
+$('#ovMsg').innerHTML=o.html?o.msg:'<span style="white-space:pre-line">'+esc(o.msg||'')+'</span>';
+const bb=$('#ovbtns');bb.innerHTML='';(o.btns||[{l:L('menu_yes'),cb:closeOvl}]).forEach(b=>{const x=document.createElement('button');if(b.hi)x.className='hi';if(b.res){x.className='res';x.textContent=b.res;}else{x.textContent=b.l;x.addEventListener('click',()=>{SFX.click();b.cb();});}bb.appendChild(x);});}
+function closeOvl(){ovlOpen=false;$('#ov').classList.add('hidden');if(S)renderPending();}
+function renderPending(){if(evQueue.length&&!ovlOpen){const e=evQueue.shift();showEventOvl(e);}}
+function showEventOvl(e){if(e.evo){G3.evolveFx();showOvl({emo:e.emo,title:e.title,msg:e.msg,btns:[{l:'OK 笨・,cb:closeOvl}]});return;}showOvl({title:e.title,msg:e.msg,btns:e.buttons});}
+/* ================= gain helpers ================= */
+function moodMult(){return S.mood>=70?1.15:(S.mood<40?0.8:1);}
+function applyGain(stat,base){const v=Math.max(1,Math.round(base*moodMult()*(S.flags.sick?0.6:1)*(0.85+Math.random()*0.3)));S[stat]=clamp(S[stat]+v,0,99);return v;}
+function addMood(v){S.mood=clamp(S.mood+v,0,100);}
+function addAff(v){S.aff=clamp(S.aff+v,0,100);}
+function gainMsg(parts){const g=[];STATKEYS.forEach(k=>{if(parts['g_'+k])g.push(L('g_'+k)+' +'+parts['g_'+k]);});if(parts.mood)g.push(L('g_mood')+' '+(parts.mood>0?'+':'')+parts.mood);if(parts.coins)g.push('+'+parts.coins+' '+L('g_coins'));return g.join(' ﾂｷ ');}
+/* ================= actions ================= */
+function doAction(a){
+if(!S||S.ended||ovlOpen)return;
+if(S.actLeft<=0&&!a.free){SFX.no();return;}
+if(S.flags.tired&&['train','study','work','adventure','hobby','shop'].indexOf(a.id)>=0){SFX.no();return;}
+if(S.energy<a.e){SFX.no();logLine('no_energy',null,'sys');return;}
+if(S.coins<a.c){SFX.no();logLine('no_coins',null,'sys');return;}
+if(a.id==='medicine'&&!S.flags.sick){logLine('no_medicine',null,'sys');SFX.no();return;}
+if(a.id==='adventure'&&(S.energy<30||S.st<15)){SFX.no();logLine('ad_pre',null,'sys');return;}
+logLine(a.log,null,'');
+if(a.id==='adventure'){adventure();}
+else if(a.id==='medicine'){S.energy-=a.e;S.flags.sick=false;logLine('w_heal',null,'evo');S.ev.medicine=(S.ev.medicine||0)+1;SFX.ok();G3.jump();}
+else if(a.id==='rest'){S.energy=clamp(S.energy+45,0,100);addMood(8);const wasSick=S.flags.sick;S.flags.tired=false;if(wasSick){S.flags.sick=false;logLine('w_heal',null,'evo');}logLine('笞｡ +45 ﾂｷ '+L('g_mood')+' +8',null,'sys');SFX.ok();}
+else{
+S.energy-=a.e;S.coins-=a.c;
+const parts={};
+STATKEYS.forEach(k=>{if(a.g&&a.g[k]){parts['g_'+k]=applyGain(k,a.g[k]);}});
+if(a.coins){const m=a.coins[0]+ri(0,a.coins[1]-a.coins[0]);S.coins+=m;parts.coins=m;SFX.coin();}
+if(a.mood){addMood(a.mood);parts.mood=a.mood;}
+if(a.aff)addAff(a.aff);
+if(a.flag)S.ev[a.id]=(S.ev[a.id]||0)+1;
+if(a.id==='clean')S.cleanFlag=true;
+logLine(gainMsg(parts),null,'sys');
+SFX.ok();if(a.id==='play'||a.id==='shop'||a.id==='groom')G3.hearts(2);else G3.jump();
+if(a.id==='shop')openShop();
+}
+if(!a.free)S.actLeft--;
+if(S.energy<=1&&!S.flags.tired){S.flags.tired=true;logLine('w_tired',null,'evo');}
+tryEvolve();
+if(S.day>=MAXDAY&&!S.ended&&evQueue.length===0){/* waiting endDay */}
+saveGame();renderActs();renderHUD();updateTopbar();renderPending();
+}
+function adventure(){
+S.energy-=30;S.coins-=6;S.ev.adventure=(S.ev.adventure||0)+1;
+const roll=ri(1,10)+(S.pw+S.st+S.br)/40;
+if(roll>=8){
+const c=10+ri(5,15);S.coins+=c;const g1=applyGain('st',3),g2=applyGain('pw',2);
+if(Math.random()<0.3){S.ev.artifact=(S.ev.artifact||0)+1;addMood(6);S.ev.sp=(S.ev.sp||0)+1;logLine('ad_great_tre',null,'ev');}
+logLine(gainMsg({g_st:g1,g_pw:g2,coins:c}),null,'sys');SFX.coin();
+}else if(roll>=4.5){
+const c=5+ri(2,8);S.coins+=c;const g=applyGain('st',2);logLine(gainMsg({g_st:g,coins:c}),null,'sys');SFX.ok();
+}else{
+addMood(-8);S.flags.tired=true;const g=applyGain('sp',1);logLine('ad_bad',null,'ev');logLine(gainMsg({g_sp:g,mood:-8}),null,'sys');SFX.no();
+}
+if(Math.random()<0.35){S.ev.explore=(S.ev.explore||0)+1;const g=applyGain('sp',3);addMood(3);logLine('ad_wonder',null,'ev');logLine(gainMsg({g_sp:g,mood:3}),null,'sys');SFX.chime();}
+}
+/* ================= evolution ================= */
+function branchId(sp,st){
+if(st===1){
+if(S.flags.sick){const top=topStat(['pw','br','ch']);return 'ail_'+({pw:'p',br:'b',ch:'c'})[top];}
+const top=topStat(['pw','br','ch']);return sp+'1_'+({pw:'p',br:'b',ch:'c'})[top];
+}else{
+if(S.flags.sick)return 'ail2';
+if(S.aff>=75&&S.mood>=80)return sp+'2_s';
+const top=topStat(['pw','br','ch']);return sp+'2_'+({pw:'p',br:'b',ch:'c'})[top];
+}
+}
+function topStat(keys){let best=keys[0];keys.forEach(k=>{if(S[k]>S[best])best=k;});return best;}
+function tryEvolve(){
+const st=FORMS[S.form].st;
+if(st===0&&S.day>=19){evolveTo(branchId(S.species,1));}
+else if(st===2&&S.day>=44){evolveTo(branchId(S.species,2));}
+}
+function evolveTo(id){
+const old=FORMS[S.form],nf=FORMS[id];
+S.form=id;
+logLine('evo_l1',{n:S.name,f:nf.name[SET.lang]||nf.name.en},'evo');
+S.energy=clamp(S.energy+20,0,100);addMood(6);addAff(4);
+evQueue.push({evo:true,emo:nf.emo,title:L('evolve_title'),msg:L('evo_l1',{n:S.name,f:nf.name[SET.lang]||nf.name.en})});
+if(nf.st===3){S.flags.love=S.flags.love||(id.indexOf('_s')>=0);if(id.indexOf('_s')>=0)S.flags.love=true;}
+G3.buildCreature(id);G3.jump();SFX.fanfare();
+}
+/* ================= end of day ================= */
+function endDay(){
+if(!S||S.ended||ovlOpen)return;
+SFX.click();
+if(S.day>=MAXDAY){finishEnding();return;}
+if(S.energy>=40)S.flags.tired=false;
+S.coins=Math.max(0,S.coins-2);logLine('w_food',{c:2},'sys');
+addMood(-(S.cleanFlag?2:3));S.cleanFlag=false;
+if(!S.flags.sick&&S.ev.sickRoll===undefined)S.ev.sickRoll=0;
+if(!S.flags.sick&&(S.energy<25||S.mood<30)&&S.ev.sick<2&&Math.random()<0.16){S.flags.sick=true;S.ev.sick=(S.ev.sick||0)+1;logLine('w_ill',{n:S.name},'evo');}
+S.day++;S.energy=clamp(55+S.st/4,0,100);S.actLeft=2;
+logLine('daysep',{d:S.day},'sep');
+tryEvolve();
+if(S.day===MAXDAY)logLine('day60',null,'evo');
+rollDayEvents(S.day);
+saveGame();renderHUD();renderActs();updateTopbar();
+renderPending();
+}
+/* ================= events ================= */
+function rollDayEvents(d){
+if(d%15===12)evQueue.push(evCup());
+if(d%15===0)evQueue.push(evFestival());
+const pool=EVENT_POOL.filter(e=>{try{return (!e.one||!S.ev['ev_'+e.id])&&e.cond();}catch(err){return false;}});
+if(Math.random()<0.6&&pool.length){const e=pool[ri(0,pool.length-1)];S.ev['ev_'+e.id]=1;evQueue.push(e.make());}
+}
+function b(l,cb){return {l:l,cb:cb};}
+function evt(o){SFX.chime();return o;}
+function evCup(){
+return evt({title:L('f_cup_t'),msg:L('f_cup_m',{n:S.name}),buttons:[
+b(L('f_cup_b1'),()=>{S.ev.fight=(S.ev.fight||0)+1;const pw=S.pw+S.st/2+ri(1,15);const win=pw>=45&&Math.random()<clamp(pw/85,0.2,0.92);
+if(win){S.flags.champion=true;const c=35;S.coins+=c;const a1=applyGain('pw',4),a2=6;addMood(a2);logLine('f_cup_r1',{c:c,a:a1,a2:a2},'ev');SFX.fanfare();G3.jump();}
+else{const a1=applyGain('st',4),a2=4;addMood(a2);logLine('f_cup_r2',{c:0,a:a1,a2:a2},'ev');SFX.ok();}closeOvl();}),
+b(L('f_cup_b2'),()=>{const a=5;addMood(a);logLine('f_cup_r3',{a:a},'ev');closeOvl();})
+]});
+}
+function evFestival(){
+return evt({title:L('f_fest_t'),msg:L('f_fest_m'),buttons:[
+b(L('f_fest_b1',{c:10}),()=>{if(S.coins>=10){S.coins-=10;const a1=applyGain('ch',4),a2=8;addMood(a2);logLine('f_fest_r1',{a:a1,a2:a2},'ev');SFX.coin();G3.hearts(3);}closeOvl();}),
+b(L('f_fest_b2'),()=>{if(S.coins<5){$('#ovMsg').textContent=L('no_coins');SFX.no();return;}S.coins-=5;const a=6;addMood(a);logLine('f_fest_r2',{c:5,a:a},'ev');closeOvl();})
+]});
+}
+function evSickRepeat(){
+return evt({title:L('f_sick_t'),emo:'､・,msg:L('f_sick_m2',{n:S.name}),buttons:[
+b(L('f_sick_b1'),()=>{S.flags.sick=false;S.ev.medicine=(S.ev.medicine||0)+1;logLine('w_heal',null,'evo');SFX.ok();closeOvl();}),
+b(L('f_sick_b2'),()=>{logLine('f_sick_r2',null,'ev');closeOvl();})
+]});
+}
+const EVENT_POOL=[
+{id:'market',one:false,cond:()=>S.day>=5,make:()=>evt({title:L('f_market_t'),emo:'ｪ・,msg:L('f_market_m'),buttons:[
+ b(L('f_b1'),()=>{const c=8;S.coins+=c;logLine('f_market_r1',{c:c},'ev');SFX.coin();closeOvl();}),
+ b(L('f_b2'),()=>{if(Math.random()<0.5){const c=22;S.coins+=c;logLine('f_market_r2',{c:c},'ev');SFX.coin();}else{const c=Math.min(S.coins,12);S.coins-=c;logLine('f_market_r3',{c:c},'ev');SFX.no();}closeOvl();}),
+ b(L('f_b3'),()=>{const a=3;addMood(a);logLine('f_market_r4',{a:a},'ev');closeOvl();})
+]})},
+{id:'rival',one:true,cond:()=>S.day>=6&&!S.flags.rival,make:()=>evt({title:L('f_rival_t'),emo:'仂',msg:L('f_rival_m'),buttons:[
+ b(L('f_b4'),()=>{S.flags.rival=true;const a1=applyGain('pw',3),a2=applyGain('st',3);logLine('f_rival_r1',{a:a1,a2:a2},'ev');closeOvl();}),
+ b(L('f_b5'),()=>{const a=applyGain('sp',4);logLine('f_rival_r2',{a:a},'ev');closeOvl();}),
+ b(L('f_b6'),()=>{const a1=applyGain('ch',3),a2=6;addMood(a2);logLine('f_rival_r3',{a:a1,a2:a2},'ev');closeOvl();})
+]})},
+{id:'sick',one:false,cond:()=>S.flags.sick,make:evSickRepeat},
+{id:'dream',one:true,cond:()=>(S.ev.sp||0)>=6,make:()=>evt({title:L('f_dream_t'),emo:'眺',msg:L('f_dream_m',{n:S.name}),buttons:[
+ b(L('f_dream_b1'),()=>{addMood(8);addAff(3);const a=applyGain('sp',2);logLine('f_dream_r1',null,'ev');logLine(gainMsg({g_sp:a,mood:8}),null,'sys');G3.hearts(3);closeOvl();}),
+ b(L('f_dream_b2'),()=>{addMood(4);logLine('f_dream_r2',null,'ev');closeOvl();})
+]})},
+{id:'treasure',one:true,cond:()=>S.day>=8,make:()=>evt({title:L('f_tre_t'),emo:'虫',msg:L('f_tre_m'),buttons:[
+ b(L('f_tre_b1'),()=>{const c=24;S.coins+=c;logLine('f_tre_r1',{c:c},'ev');SFX.coin();closeOvl();}),
+ b(L('f_tre_b2'),()=>{S.ev.artifact=(S.ev.artifact||0)+1;addMood(10);logLine('f_tre_r2',null,'ev');SFX.chime();closeOvl();})
+]})},
+{id:'friend',one:false,cond:()=>S.day>=4&&S.day%3!==0,make:()=>evt({title:L('f_friend_t'),emo:'窓',msg:L('f_friend_m'),buttons:[
+ b(L('f_friend_b1'),()=>{const a=applyGain('ch',3);logLine('f_friend_r1',{a:a},'ev');closeOvl();}),
+ b(L('f_friend_b2'),()=>{if(S.coins<4){$('#ovMsg').textContent=L('no_coins');SFX.no();return;}S.coins-=4;const a=7;addMood(a);logLine('f_friend_r2',{a:a},'ev');closeOvl();}),
+ b(L('f_friend_b3'),()=>{const c=6;S.coins+=c;logLine('f_friend_r3',{c:c},'ev');SFX.coin();closeOvl();})
+]})},
+{id:'insp',one:true,cond:()=>S.br>=20,make:()=>evt({title:L('f_insp_t'),emo:'庁',msg:L('f_insp_m'),buttons:[
+ b(L('f_insp_b1'),()=>{const a=applyGain('br',6);logLine('f_insp_r1',{a:a},'ev');SFX.chime();closeOvl();}),
+ b(L('f_insp_b2'),()=>{const a=applyGain('br',3);logLine('f_insp_r2',{a:a},'ev');closeOvl();})
+]})},
+{id:'storm',one:true,cond:()=>S.day>=10&&dayPhase(S.day)===3,make:()=>evt({title:L('f_storm_t'),emo:'笵茨ｸ・,msg:L('f_storm_m',{n:S.name}),buttons:[
+ b(L('f_storm_b1'),()=>{const a=applyGain('st',4);logLine('f_storm_r1',{a:a},'ev');closeOvl();}),
+ b(L('f_storm_b2'),()=>{const a=applyGain('sp',4),a2=applyGain('pw',3);logLine('f_storm_r2',{a:a,a2:a2},'ev');G3.jump();closeOvl();})
+]})},
+{id:'star',one:true,cond:()=>dayPhase(S.day)===3&&S.day>=15,make:()=>evt({title:L('f_star_t'),emo:'権',msg:L('f_star_m'),buttons:[
+ b(L('f_star_b1'),()=>{const a=12;addMood(a);addAff(6);logLine('f_star_r1',{a:a},'ev');G3.hearts(4);closeOvl();}),
+ b(L('f_star_b2'),()=>{const a=applyGain('sp',5);logLine('f_star_r2',{a:a},'ev');SFX.chime();closeOvl();})
+]})},
+{id:'gift',one:true,cond:()=>S.aff>=55,make:()=>evt({title:L('f_gift_t'),emo:'氏',msg:L('f_gift_m'),buttons:[
+ b(L('f_gift_b1'),()=>{const c=20;S.coins+=c;addMood(6);logLine('f_gift_r1',{c:c},'ev');SFX.coin();closeOvl();}),
+ b(L('f_gift_b2'),()=>{const a=applyGain('sp',4);addMood(5);logLine('f_gift_r2',{a:a},'ev');closeOvl();})
+]})},
+{id:'cook',one:true,cond:()=>S.ch>=30,make:()=>evt({title:L('f_cook_t'),emo:'叉',msg:L('f_cook_m'),buttons:[
+ b(L('f_cook_b1'),()=>{if(S.ch+ri(1,10)>=S.day*0.8){const c=26;S.coins+=c;logLine('f_cook_r1',{c:c},'ev');SFX.coin();}else{addMood(-4);logLine('f_market_r3',{c:5},'ev');S.coins=Math.max(0,S.coins-5);SFX.no();}closeOvl();}),
+ b(L('f_cook_b2'),()=>{const a=6;addMood(a);logLine('f_cook_r2',{a:a},'ev');closeOvl();})
+]})},
+{id:'egg',one:true,cond:()=>S.day>=20&&Math.random()<0.5,make:()=>evt({title:L('f_egg_t'),emo:'･・,msg:L('f_egg_m'),buttons:[
+ b(L('f_egg_b1'),()=>{const a=applyGain('sp',6),a2=applyGain('br',4);logLine('f_egg_r1',{a:a,a2:a2},'ev');SFX.chime();closeOvl();}),
+ b(L('f_egg_b2'),()=>{logLine('f_egg_r2',null,'ev');closeOvl();})
+]})}
+];
+/* ================= ending ================= */
+function finishEnding(){
+let e=null;for(const E of ENDINGS){try{if(E.cond(S)){e=E;break;}}catch(err){}}
+if(!e)e=ENDINGS[ENDINGS.length-1];
+S.ended=e.id;addEndingColl(e.id);saveGame();stopBgm();SFX.end();
+logLine('fin_t',null,'evo');
+showOvl({emo:FORMS[S.form].emo,title:e.name[SET.lang]||e.name.en,rank:e.rank,msg:(e.text[SET.lang]||e.text.en)+'\n\n'+L('form_l')+': '+FORMS[S.form].emo+' '+(FORMS[S.form].name[SET.lang]||FORMS[S.form].name.en)+'\n'+L('end_stats')+': 潮'+Math.round(S.pw)+' ｧ'+Math.round(S.br)+' 茶'+Math.round(S.ch)+' 純'+Math.round(S.st)+' ｧ・+Math.round(S.sp)+'\n'+L('days_l'),btns:[
+ {l:L('btn_newRun'),hi:true,cb:()=>{closeOvlNoQueue();goNew(S.slot);}},
+ {l:L('btn_toTitle'),cb:()=>{closeOvlNoQueue();goTitle();}}
+]});
+}
+function closeOvlNoQueue(){ovlOpen=false;evQueue.length=0;$('#ov').classList.add('hidden');}
+/* ================= shop ================= */
+function openShop(){
+if(!S||S.ended||ovlOpen)return;SFX.click();
+const btns=SHOPITEMS.map(it=>b('ｪ・+it.price+' ﾂｷ '+SHOPNAME[it.it][SET.lang],()=>{
+ if(S.coins<it.price){logLine('shop_no',null,'sys');SFX.no();closeOvl();return;}
+ S.coins-=it.price;const parts={};
+ if(it.st){S.st=clamp(S.st+it.st,0,99);}
+ if(it.g)STATKEYS.forEach(k=>{if(it.g[k])parts['g_'+k]=applyGain(k,it.g[k]);});
+ logLine('shop_ok',{it:SHOPNAME[it.it][SET.lang]},'ev');logLine(gainMsg(parts),null,'sys');SFX.coin();closeOvl();}));
+btns.push(b(L('menu_no'),closeOvl));
+showOvl({title:L('shop_t'),emo:'將',msg:'',btns:btns});
+}
+/* ================= screens ================= */
+function goTitle(){stopBgm();showScreen('title');renderTitle();}
+function renderTitle(){
+const last=lastSlot();const d=slotData(last);
+$('#btnCont').classList.toggle('hidden',!(S||d));
+if(d)$('#btnCont').textContent=L('menu_cont')+'  (Day '+d.day+' ﾂｷ '+(d.name||'')+')';
+$('#titleHint').textContent=L('help_text').split('\n')[0];
+}
+function goSlots(){SFX.click();buildSlots();showScreen('slots');}
+function buildSlots(){
+$('#slotsTitle').textContent=L('menu_slots');$('#slotsSub').textContent=L('menu_slots_sub');
+$('#btnSlotsBack').textContent=L('menu_back');
+const el=$('#slotsList');el.innerHTML='';
+for(let i=0;i<3;i++){
+const d=slotData(i);const card=document.createElement('div');card.className='slot';
+if(d){const f=FORMS[d.form]||FORMS.egg;
+card.innerHTML='<div class="semo">'+f.emo+'</div><div class="sinfo"><div class="st1">'+esc(d.name||'')+' ('+esc(SPECIES[d.sp]?SPECIES[d.sp].default[SET.lang]:'')+')'+'</div><div class="st2">'+esc(L('d',{d:d.day,max:MAXDAY}))+' ﾂｷ '+esc(f.name[SET.lang]||f.name.en)+'</div></div>';
+const go=document.createElement('button');go.className='go';go.textContent=L('menu_start');go.addEventListener('click',ev=>{ev.stopPropagation();SFX.click();resumeGame(i);});
+const del=document.createElement('button');del.className='del';del.textContent=L('menu_del');del.addEventListener('click',ev=>{ev.stopPropagation();SFX.click();showOvl({title:L('menu_delq'),btns:[{l:L('menu_yes'),cb:()=>{deleteSlot(i);closeOvlNoQueue();buildSlots();},hi:true},{l:L('menu_no'),cb:closeOvlNoQueue}]});});
+const w=document.createElement('div');w.className='sbtns';w.appendChild(go);w.appendChild(del);card.appendChild(w);
+card.addEventListener('click',()=>{SFX.click();showOvl({title:L('replace'),btns:[{l:L('menu_start'),hi:true,cb:()=>{closeOvlNoQueue();goNew(i);}},{l:L('menu_cont'),cb:()=>{closeOvlNoQueue();resumeGame(i);}},{l:L('menu_no'),cb:closeOvlNoQueue}]});});
+}else{
+card.innerHTML='<div class="semo">筐・/div><div class="sinfo"><div class="st1">Slot '+(i+1)+'</div><div class="st2">'+L('menu_new')+'</div></div>';
+card.addEventListener('click',()=>{SFX.click();goNew(i);});
+}
+el.appendChild(card);}
+}
+function goNew(slot){pendingSlot=slot;chosenStarter='ember';
+$('#newTitle').textContent=L('new_title');$('#newSub').textContent=L('new_sub');
+const el=$('#starterList');el.innerHTML='';
+['ember','sprout','bubble'].forEach(sp=>{
+const c=document.createElement('button');c.className='starter'+(sp===chosenStarter?' sel':'');
+c.innerHTML='<span class="semo">'+SPECIES[sp].emo+'</span><span><b>'+esc(FORMS[sp+'0'].name[SET.lang]||FORMS[sp+'0'].name.en)+'</b><span>'+esc(L(SPECIES[sp].t))+'</span></span>';
+c.addEventListener('click',()=>{chosenStarter=sp;SFX.click();[...el.children].forEach(x=>x.classList.remove('sel'));c.classList.add('sel');$('#nameInput').value=SPECIES[sp].default[SET.lang];});
+el.appendChild(c);});
+$('#nameInput').value=SPECIES[chosenStarter].default[SET.lang];
+showScreen('new');
+}
+function startGame(){
+SFX.fanfare();
+const nm=($('#nameInput').value||'').trim().slice(0,10)||SPECIES[chosenStarter].default[SET.lang];
+S={slot:pendingSlot,sp:chosenStarter,species:chosenStarter,name:nm,day:1,actLeft:2,energy:70,coins:30,mood:70,aff:10,
+pw:5,br:5,ch:5,st:5,sp:5,form:chosenStarter+'0',ended:null,
+flags:{sick:false,tired:false,love:false,rival:false,champion:false},ev:{sick:0},log:[]};
+logLine('daysep',{d:1},'sep');
+buildStatGrid();showScreen('game');G3.setPhase(1);G3.buildCreature(S.form);
+saveGame();applyLabels();startBgm();
+G3.evolveFx();
+}
+function resumeGame(i){
+const d=slotData(i);if(!d)return;S=d;
+if(!S.ev)S.ev={};if(!S.flags)S.flags={};if(!S.log)S.log=[];
+buildStatGrid();showScreen('game');G3.setPhase(dayPhase(S.day));G3.buildCreature(S.form);
+applyLabels();startBgm();
+if(S.ended){const e=ENDINGS.find(x=>x.id===S.ended)||ENDINGS[ENDINGS.length-1];logLine('fin_t',null,'evo');finishShow(e);}
+}
+function finishShow(e){showOvl({emo:FORMS[S.form].emo,title:e.name[SET.lang]||e.name.en,rank:e.rank,msg:(e.text[SET.lang]||e.text.en),btns:[{l:L('btn_newRun'),hi:true,cb:()=>{closeOvlNoQueue();goNew(S.slot);}},{l:L('btn_toTitle'),cb:()=>{closeOvlNoQueue();goTitle();}}]});}
+function goGallery(){SFX.click();buildGallery();showScreen('gallery');}
+function buildGallery(){
+$('#galTitle').textContent=L('col_t');
+const got=endingColl();
+$('#galSub').textContent=L('col_sub',{n:got.length,m:ENDINGS.length});
+$('#btnGalBack').textContent=L('menu_back');
+const el=$('#galList');el.innerHTML='';
+ENDINGS.slice().sort((a,b)=>('SABCD'.indexOf(a.rank)-'SABCD'.indexOf(b.rank))).forEach(e=>{
+const div=document.createElement('div');div.className='galitem'+(got.indexOf(e.id)<0?' lock':'');
+if(got.indexOf(e.id)<0)div.innerHTML='<span class="gr rankD">?</span>'+L('col_locked');
+else div.innerHTML='<span class="gr rank'+e.rank+'">'+e.rank+'</span><b>'+esc(e.name[SET.lang]||e.name.en)+'</b><div style="font-size:11.5px;color:#93a0c8;margin-top:3px">'+esc(e.text[SET.lang]||e.text.en)+'</div>';
+el.appendChild(div);});
+}
+/* pet */
+function petPet(){
+if(!S||screen!=='game'||ovlOpen||S.ended)return;
+const now=Date.now();if(now-petLock<2000)return;petLock=now;
+addMood(2);addAff(1);logLine('log_pet',{n:S.name},'');
+SFX.pet();G3.hearts(2);saveGame();renderHUD();
+}
+
+/* ================= three.js visual ================= */
+const G3=(function(){
+let ok=false,renderer,scene,camera,hemi,dir,dirBase,rim,fx=[],CRE=null,t0=0,jumpT=0,flashV=0,blink=2,blinkT=0;
+let yaw=0.5,pitch=0.3,userYaw=0,userPitch=0,autoYaw=0,dragging=false,lastX=0,lastY=0,movedDist=0;
+let curSky=null,tarSky=null,tarDir=null,rocks=[],onPetCb=null,heartTex=null,starTex=null,lastW=0,lastH=0;
+const SKY=[0x000000,0x20294a,0x252c52,0x302a4c,0x131a30];
+const DIRC=[0x000000,0xdfe8ff,0xfff0d5,0xffc98a,0xbccfff];
+function fallback(){const st=$('#stage');st.classList.add('off3');$('#c3').style.display='none';const n=$('#offnote');n.classList.remove('hidden');n.firstElementChild.textContent=L('off_note');}
+function texHeart(){const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d');g.fillStyle='#ff5f7a';g.beginPath();g.moveTo(32,52);g.bezierCurveTo(4,34,10,8,32,20);g.bezierCurveTo(54,8,60,34,32,52);g.fill();return new THREE.CanvasTexture(c);}
+function texStar(){const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d');g.fillStyle='#ffd166';g.beginPath();for(let i=0;i<10;i++){const r=i%2?9:26,a=-Math.PI/2+i*Math.PI/5;g.lineTo(32+Math.cos(a)*r,32+Math.sin(a)*r);}g.closePath();g.fill();return new THREE.CanvasTexture(c);}
+function mat(col,emissive,glow){const m=new THREE.MeshStandardMaterial({color:col,roughness:0.85,metalness:0.02});if(emissive){m.emissive=new THREE.Color(emissive);m.emissiveIntensity=glow?0.45:0.25;}return m;}
+function addShadow(o){o.traverse(n=>{if(n.isMesh)n.castShadow=true;});}
+function disposeGroup(g){if(!g)return;g.traverse(n=>{if(n.geometry)n.geometry.dispose();if(n.material){(Array.isArray(n.material)?n.material:[n.material]).forEach(m=>m.dispose());}});if(g.parent)g.parent.remove(g);}
+function buildCreature(id){
+ const f=FORMS[id];if(!f)return null;
+ $('#stage-emoji').textContent=f.emo;
+ if(!ok)return null;
+ if(CRE)disposeGroup(CRE.group);
+ const sp=f.spec,col=sp.color,acc=sp.accent,glow=!!sp.glow;
+ const G=new THREE.Group();const bodyMats=[];const eyes=[];let tail=null,wings=[],aura=null,head=null,torso=null,headY=0;
+ const mainMat=mat(col,glow?col:null,glow);bodyMats.push(mainMat);
+ if(sp.shape==='egg'){
+  const e=new THREE.Mesh(new THREE.SphereGeometry(0.6,28,22),mat(0xf3ead8,null,false));e.scale.set(0.82,1.08,0.82);e.position.y=0.66;G.add(e);torso=e;
+  for(let i=0;i<7;i++){const s=new THREE.Mesh(new THREE.SphereGeometry(0.06,8,8),mat(0xffb14d,null,false));const a=Math.random()*Math.PI*2,p=Math.random()*Math.PI-Math.PI/2;s.position.set(Math.cos(a)*0.5*Math.cos(p),0.66+Math.sin(p)*0.64,Math.sin(a)*0.5*Math.cos(p));s.scale.set(1.4,1,0.4);G.add(s);}
+ }else if(sp.shape==='wide'){
+  torso=new THREE.Mesh(new THREE.SphereGeometry(0.8,26,20),mainMat);torso.scale.set(1.18,0.82,1.05);torso.position.y=0.66;G.add(torso);
+  headY=1.32;head=new THREE.Mesh(new THREE.SphereGeometry(0.44,24,18),mainMat);head.position.y=headY;G.add(head);
+ }else if(sp.shape==='tall'){
+  torso=new THREE.Mesh(new THREE.CylinderGeometry(0.4,0.56,1.0,22),mainMat);torso.position.y=0.92;G.add(torso);
+  const capm=new THREE.Mesh(new THREE.SphereGeometry(0.4,22,16),mainMat);capm.position.y=1.42;capm.scale.set(1,0.8,1);G.add(capm);
+  headY=1.62;head=new THREE.Mesh(new THREE.SphereGeometry(0.44,24,18),mainMat);head.position.y=headY;G.add(head);
+  if(sp.legs)[[-0.24,-0.18],[0.24,-0.18],[-0.24,0.22],[0.24,0.22]].forEach(p=>{const l=new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.12,0.45,10),mat(col,null,false));l.position.set(p[0],0.22,p[1]);G.add(l);});
+ }else{
+  torso=new THREE.Mesh(new THREE.SphereGeometry(0.66,26,20),mainMat);torso.scale.set(1,0.94,0.96);torso.position.y=0.7;G.add(torso);
+  headY=1.45;head=new THREE.Mesh(new THREE.SphereGeometry(0.5,24,18),mainMat);head.position.y=headY;G.add(head);
+ }
+ if(sp.shape!=='egg'){
+  const hr=(sp.shape==='wide')?0.44:(sp.shape==='tall')?0.44:0.5;
+  [-1,1].forEach(s=>{const w=new THREE.Mesh(new THREE.SphereGeometry(0.105,12,10),mat(0xffffff,null,false));w.position.set(0.17*s,headY+0.05,hr*0.72);const p=new THREE.Mesh(new THREE.SphereGeometry(0.05,10,8),mat(0x141a26,null,false));p.position.set(0.17*s,headY+0.05,hr*0.87);G.add(w);G.add(p);eyes.push(w);eyes.push(p);});
+  const mo=new THREE.Mesh(new THREE.TorusGeometry(0.09,0.02,8,16,Math.PI),mat(0x3a2a2a,null,false));mo.position.set(0,headY-0.13,hr*0.82);mo.rotation.x=Math.PI+0.2;G.add(mo);
+ }
+ if(sp.ears&&head)[[-1,1]].concat([]).forEach(()=>{[-1,1].forEach(s=>{const e=new THREE.Mesh(new THREE.SphereGeometry(0.16,12,10),mat(acc,glow?acc:false,glow));e.position.set(0.5*s,headY+0.28,0);e.scale.set(0.8,1,0.6);G.add(e);});});
+ if(sp.tuft&&head){const tg=new THREE.Group();tg.position.y=headY+0.45;const b=new THREE.Mesh(new THREE.SphereGeometry(0.12,10,8),mat(acc,acc,glow));tg.add(b);const c1=new THREE.Mesh(new THREE.ConeGeometry(0.07,0.3,8),mat(acc,acc,true));c1.position.y=0.2;tg.add(c1);const c2=new THREE.Mesh(new THREE.ConeGeometry(0.05,0.2,8),mat(acc,acc,true));c2.position.set(0.12,0.14,0);c2.rotation.z=-0.6;tg.add(c2);G.add(tg);}
+ if(sp.horns&&head){for(let i=0;i<sp.horns;i++){const hc=new THREE.Mesh(new THREE.ConeGeometry(0.08,0.26,8),mat(0xf2ead8,glow?acc:null,glow));hc.position.set((i-(sp.horns-1)/2)*0.2,headY+0.5,(i%2)*0.05);hc.rotation.z=(i-(sp.horns-1)/2)*-0.18;G.add(hc);}}
+ if(sp.wings){[-1,1].forEach(s=>{const wmat=new THREE.MeshStandardMaterial({color:acc,roughness:0.5,transparent:true,opacity:0.8,side:THREE.DoubleSide,emissive:new THREE.Color(acc),emissiveIntensity:0.15});const w=new THREE.Mesh(new THREE.BoxGeometry(0.55,0.65,0.05),wmat);w.position.set(0.55*s,1.25,-0.2);w.rotation.set(0.2*s,0.3*s,0.55*s);G.add(w);wings.push({m:w,base:0.55*s});});}
+ if(sp.tail){
+  if(sp.tail==='flame'){tail=new THREE.Mesh(new THREE.ConeGeometry(0.16,0.55,10),mat(0xff9a3c,0xff7a1e,true));tail.position.set(0,0.5,-0.95);tail.rotation.x=-0.55;}
+  else if(sp.tail==='leaf'){tail=new THREE.Mesh(new THREE.SphereGeometry(0.24,12,8),mat(acc,glow?acc:false,glow));tail.scale.set(0.35,1.1,0.7);tail.position.set(0,0.75,-0.85);tail.rotation.x=-0.7;}
+  else{tail=new THREE.Mesh(new THREE.TorusGeometry(0.3,0.06,8,20,Math.PI),mat(acc,glow?acc:false,glow));tail.position.set(0,0.62,-0.85);tail.rotation.set(Math.PI/2,0,1.2);}
+  if(tail)G.add(tail);
+ }
+ if(sp.mane){for(let i=0;i<9;i++){const a=i/9*Math.PI*2;const m=new THREE.Mesh(new THREE.SphereGeometry(0.13,10,8),mat(acc,glow?acc:false,glow));m.position.set(Math.cos(a)*0.52,headY-0.3,Math.sin(a)*0.52);G.add(m);}}
+ if(sp.aura){aura=new THREE.Mesh(new THREE.SphereGeometry(1.15,26,20),new THREE.MeshStandardMaterial({color:acc,transparent:true,opacity:0.14,emissive:new THREE.Color(acc),emissiveIntensity:0.5,depthWrite:false}));aura.position.y=1.1;G.add(aura);}
+ if(S&&S.flags.sick&&id.indexOf('ail')<0){G.traverse(n=>{if(n.isMesh&&n.material&&n.material.color)n.material.color.lerp(new THREE.Color(0x6a6f7e),0.35);});}
+ const sc=sp.scale||1;G.scale.set(sc,sc,sc);addShadow(G);G.position.y=0.04;scene.add(G);
+ autoYaw=0;userYaw=0;userPitch=0;
+ CRE={group:G,torso:torso,head:head,headY:headY,eyes:eyes,tail:tail,wings:wings,aura:aura,baseTorso:torso?torso.scale.y:1,baseHead:headY};
+ return G;
+}
+function spawnFx(tex,x,y,vy){if(fx.length>28)return;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthWrite:false}));s.scale.set(0.28,0.28,1);s.position.set(x,y,0.6);s.userData={vy:vy,t:0};scene.add(s);fx.push(s);}
+function setPhase(p){if(!ok)return;tarSky=new THREE.Color(SKY[p]);tarDir=new THREE.Color(DIRC[p]);}
+function init(canvas,cb){
+ onPetCb=cb;
+ if(!window.THREE){fallback();return;}
+ try{
+  ok=true;heartTex=texHeart();starTex=texStar();
+  renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  scene=new THREE.Scene();
+  curSky=new THREE.Color(SKY[1]);tarSky=curSky.clone();
+  scene.background=curSky;scene.fog=new THREE.Fog(curSky.getHex(),7.5,17);
+  camera=new THREE.PerspectiveCamera(42,1,0.1,60);
+  hemi=new THREE.HemisphereLight(0xbfd0ff,0x272138,0.8);scene.add(hemi);
+  dir=new THREE.DirectionalLight(0xfff0d5,1.0);dirBase=1.0;dir.position.set(3.2,5.5,3.2);dir.castShadow=true;
+  dir.shadow.mapSize.set(1024,1024);dir.shadow.camera.left=-4;dir.shadow.camera.right=4;dir.shadow.camera.top=4.5;dir.shadow.camera.bottom=-4.5;scene.add(dir);
+  tarDir=dir.color.clone();
+  rim=new THREE.PointLight(0xff8a5c,0.55,14);rim.position.set(-2.6,1.7,-2);scene.add(rim);
+  const g1=new THREE.Mesh(new THREE.CylinderGeometry(2.5,2.3,0.36,44),new THREE.MeshStandardMaterial({color:0x2b3557,roughness:0.95}));
+  g1.position.y=-0.18;g1.receiveShadow=true;scene.add(g1);
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(2.42,0.045,10,64),new THREE.MeshStandardMaterial({color:0x5a6a9c,emissive:new THREE.Color(0x28406e),emissiveIntensity:0.5,roughness:0.5}));
+  ring.rotation.x=Math.PI/2;ring.position.y=0.01;scene.add(ring);
+  for(let i=0;i<6;i++){const m=new THREE.Mesh(new THREE.IcosahedronGeometry(0.1+Math.random()*0.09,0),new THREE.MeshStandardMaterial({color:0x3b4a74,roughness:0.9,flatShading:true}));const a=Math.random()*Math.PI*2,rr=1.9+Math.random()*1.1;m.position.set(Math.cos(a)*rr,1+Math.random()*1.4,Math.sin(a)*rr);m.userData={fy:m.position.y,ph:Math.random()*7};scene.add(m);rocks.push(m);}
+  for(let i=0;i<3;i++){const cr=new THREE.Mesh(new THREE.ConeGeometry(0.1,0.5+Math.random()*0.4,6),new THREE.MeshStandardMaterial({color:0x4a5f96,emissive:new THREE.Color(0x2a4a8a),emissiveIntensity:0.4,flatShading:true,roughness:0.6}));const a=2.2+i*2.1;cr.position.set(Math.cos(a)*1.85,0.25,Math.sin(a)*1.85);cr.rotation.z=(Math.random()-0.5)*0.3;cr.receiveShadow=true;cr.castShadow=true;scene.add(cr);}
+  const pos=[];for(let i=0;i<170;i++){const x=(Math.random()-0.5)*26,y=1+Math.random()*11,z=(Math.random()-0.5)*26;pos.push(x,y,z);}
+  const sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  const st=new THREE.Points(sg,new THREE.PointsMaterial({color:0xd6e4ff,size:0.07,transparent:true,opacity:0.9}));scene.add(st);rocks.push(st);st.userData={fy:0,ph:0,isStars:true};
+  // interaction
+  canvas.addEventListener('pointerdown',e=>{dragging=true;movedDist=0;lastX=e.clientX;lastY=e.clientY;try{canvas.setPointerCapture(e.pointerId);}catch(err){}});
+  canvas.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;movedDist+=Math.abs(dx)+Math.abs(dy);userYaw+=dx*0.008;userPitch=clamp(userPitch-dy*0.006,-0.3,0.55);lastX=e.clientX;lastY=e.clientY;});
+  canvas.addEventListener('pointerup',e=>{if(!dragging)return;dragging=false;if(movedDist<12&&CRE&&onPetCb){const r=canvas.getBoundingClientRect();const mx=((e.clientX-r.left)/r.width)*2-1,my=-((e.clientY-r.top)/r.height)*2+1;const rc=new THREE.Raycaster();rc.setFromCamera({x:mx,y:my},camera);const hit=rc.intersectObject(CRE.group,true);if(hit.length)onPetCb();}});
+  t0=performance.now();
+  requestAnimationFrame(loop);
+ }catch(err){ok=false;console.error('Stardia 3D init failed',err);fallback();}
+}
+function loop(){
+ const now=performance.now();const dt=Math.min(0.05,(now-t0)/1000);t0=now;
+ const st=$('#stage');
+ if(st&&lastW!==st.clientWidth&&st.clientWidth>0){lastW=st.clientWidth;lastH=st.clientHeight;renderer.setSize(lastW,lastH,false);camera.aspect=lastW/lastH;camera.updateProjectionMatrix();}
+ // sky lerp
+ if(tarSky&&curSky){curSky.lerp(tarSky,Math.min(1,dt*2.2));scene.background=curSky;scene.fog.color.copy(curSky);}
+ if(tarDir)dir.color.lerp(tarDir,Math.min(1,dt*2.2));
+ if(!dragging)autoYaw+=dt*0.12;
+ const yy=yaw+autoYaw+userYaw,pp=clamp(pitch+userPitch,-0.15,0.85),rad=4.5;
+ camera.position.set(Math.sin(yy)*Math.cos(pp)*rad,1.05+Math.sin(pp)*rad,Math.cos(yy)*Math.cos(pp)*rad);
+ camera.lookAt(0,1.05,0);
+ const T=now/1000;
+ rocks.forEach(m=>{m.position.y=m.userData.fy+Math.sin(T*0.8+m.userData.ph)*0.12;if(m.userData.isStars)m.rotation.y+=dt*0.01;});
+ if(CRE){
+  let jy=0;
+  if(jumpT>0){jumpT-=dt;jy=Math.max(0,Math.sin((1-Math.max(0,jumpT)/0.75)*Math.PI))*0.6;}
+  CRE.group.position.y=0.04+jy+Math.sin(T*2.1)*0.045;
+  CRE.group.rotation.z=Math.sin(T*0.9)*0.02;
+  if(CRE.torso){const k=1+Math.sin(T*2.1)*0.03;CRE.torso.scale.y=CRE.baseTorso*k;}
+  if(CRE.head)CRE.head.position.y=CRE.baseHead+Math.sin(T*2.1+0.5)*0.03;
+  if(CRE.tail)CRE.tail.rotation.y=Math.sin(T*3)*0.35;
+  CRE.wings.forEach((w,i)=>{w.m.rotation.z=w.base+Math.sin(T*6+i*3)*0.25;});
+  if(CRE.aura){const a=1+Math.sin(T*3)*0.05;CRE.aura.scale.set(a,a,a);CRE.aura.rotation.y+=dt*0.6;}
+  blink-=dt;if(blink<=0){blink=1.5+Math.random()*3;blinkT=0.12;}
+  const es=blinkT>0?0.15:1;if(blinkT>0)blinkT-=dt;
+  CRE.eyes.forEach(e=>{e.scale.y=es;});
+ }
+ // fx
+ for(let i=fx.length-1;i>=0;i--){const s=fx[i];s.userData.t+=dt;s.position.y+=s.userData.vy*dt;s.position.x+=Math.sin(s.userData.t*7)*0.003;const k=s.userData.t;s.material.opacity=Math.max(0,1-k*0.8);s.scale.setScalar(0.24+k*0.1);if(k>1.3){scene.remove(s);s.material.dispose();fx.splice(i,1);}}
+ if(flashV>0){flashV=Math.max(0,flashV-dt*1.8);dir.intensity=dirBase+flashV*3;}else dir.intensity=dirBase;
+ if(rim)rim.intensity=0.5+Math.sin(T*2.4)*0.12;
+ if(lastW>0)renderer.render(scene,camera);
+ requestAnimationFrame(loop);
+}
+return {
+ ok:function(){return ok;},
+ init:init,
+ setPhase:setPhase,
+ buildCreature:buildCreature,
+ jump:function(){jumpT=0.75;},
+ hearts:function(n){if(!ok||!heartTex)return;for(let i=0;i<n;i++){const hx=(Math.random()-0.5)*1.4;spawnFx(heartTex,hx,1.2+Math.random()*0.5,0.8+Math.random()*0.5);}},
+ evolveFx:function(){if(!ok||!starTex)return;flashV=1;for(let i=0;i<12;i++){const a=Math.random()*Math.PI*2;spawnFx(starTex,Math.cos(a)*1.2,0.9+Math.random()*1.2,1+Math.random()*1.2);}}
+};
+})();
+
+/* ================= boot ================= */
+function wire(){
+$('#btnLang').addEventListener('click',()=>{SET.lang=LANGS[(LANGS.indexOf(SET.lang)+1)%LANGS.length];saveSet();SFX.click();applyLabels();if(screen==='title')renderTitle();else if(screen==='slots')buildSlots();else if(screen==='gallery')buildGallery();});
+$('#btnSound').addEventListener('click',()=>{SET.sound=!SET.sound;applySound();if(SET.sound)SFX.click();saveSet();});
+$('#btnNew').addEventListener('click',goSlots);
+$('#btnCont').addEventListener('click',()=>{SFX.click();const last=lastSlot();if(slotData(last))resumeGame(last);});
+$('#btnGal').addEventListener('click',goGallery);
+$('#btnHelpT').addEventListener('click',()=>{SFX.click();showOvl({title:L('m_help'),msg:L('help_text'),btns:[{l:'OK 笨・,cb:closeOvlNoQueue}]});});
+$('#btnSlotsBack').addEventListener('click',()=>{SFX.click();goTitle();});
+$('#btnGalBack').addEventListener('click',()=>{SFX.click();goTitle();});
+$('#btnStart').addEventListener('click',startGame);
+$('#btnEndDay').addEventListener('click',endDay);
+$('#btnSave').addEventListener('click',()=>{if(S&&!S.ended){if(saveGame()){logLine('saved_ok',null,'sys');SFX.ok();}else{logLine('save_failed',null,'sys');SFX.no();}}});
+$('#btnTitle').addEventListener('click',()=>{SFX.click();if(S)saveGame();stopBgm();goTitle();});
+}
+function boot(){
+applyLabels();
+applySound();
+wire();
+G3.init($('#c3'),()=>petPet());
+G3.setPhase(1);
+G3.buildCreature('egg');
+renderTitle();
+showScreen('title');
+}
+boot();
+
+</script>
+</body>
+</html>
