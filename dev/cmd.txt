@@ -1,0 +1,38 @@
+JSON.stringify({rs:document.readyState,t:typeof THREE,ok3:G3.ok(),scr:[...document.querySelectorAll('.screen')].filter(s=>!s.classList.contains('hidden')).map(s=>s.id)})
+document.getElementById('btnNew').textContent
+EMUL 390,844
+SHOT stardia_t1
+goNew(0)
+document.getElementById('newTitle').textContent
+SHOT stardia_new
+chosenStarter='bubble';document.getElementById('nameInput').value='テスト';startGame();JSON.stringify({day:S.day,form:S.form,acts:S.actLeft,en:S.energy})
+petPet()
+S.mood
+(()=>{const evs=[];for(let d=1;d<=64&&!S.ended;d++){if(S.flags.sick){doAction(ACTS.find(a=>a.id==='medicine'));while(ovlOpen)closeOvl();}doAction(ACTS.find(a=>a.id==='train'));doAction(ACTS.find(a=>a.id==='study'));while(ovlOpen){evs.push($('#ovTitle').textContent);const bt=$('#ovbtns').firstElementChild;if(bt)bt.click();else closeOvl();}if(!S.ended)endDay();while(ovlOpen){evs.push($('#ovTitle').textContent);const bt=$('#ovbtns').firstElementChild;if(bt)bt.click();else closeOvl();}}return JSON.stringify({day:S.day,form:S.form,ended:S.ended,pw:Math.round(S.pw),br:Math.round(S.br),ch:Math.round(S.ch),st:Math.round(S.st),sp:Math.round(S.sp),flags:S.flags,ev:evs.slice(0,8)});})()
+JSON.stringify({ended:S.ended,coll:JSON.parse(localStorage.getItem('stardia_endings')||'[]')})
+SHOT stardia_end
+closeOvlNoQueue()
+SHOT stardia_game
+goTitle()
+SHOT stardia_title2
+goGallery()
+JSON.stringify({gal:document.querySelectorAll('.galitem').length,unlocked:document.querySelectorAll('.galitem:not(.lock)').length})
+SHOT stardia_gal
+goTitle()
+SET.lang='en';applyLabels()
+document.getElementById('btnNew').textContent
+goNew(1)
+document.getElementById('newTitle').textContent
+SHOT stardia_new_en
+goTitle()
+SET.lang='zh';applyLabels()
+document.getElementById('btnNew').textContent
+SET.lang='ja';applyLabels()
+resumeGame(0)
+JSON.stringify({rs:S?{day:S.day,form:S.form,ended:S.ended,name:S.name}:null})
+closeOvlNoQueue()
+saveGame()
+(()=>{const s=JSON.parse(localStorage.getItem('stardia_save0'));return JSON.stringify({keys:Object.keys(s).length,form:s.form,day:s.day});})()
+EMULOFF
+SHOT stardia_wide
+'FINALDONE'

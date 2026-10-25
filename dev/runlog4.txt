@@ -1,0 +1,21 @@
+loaded: complete 68 win=1024,640
+EMUL 390x844
+R> JSON.stringify({three:typeof THREE,ok3:G3.ok()})
+   {"three":"object","ok3":true}
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\fin_title.png
+R> goNew(0)
+   [undefined]
+R> chosenStarter='bubble';document.getElementById('nameInput').value='シオ';startGame
+   [undefined]
+R> doAction(ACTS.find(a=>a.id==='adventure'))
+   [undefined]
+R> (()=>{while(ovlOpen){const bt=$('#ovbtns').firstElementChild;if(bt)bt.click();el
+   cleared
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\fin_game.png
+R> petPet()
+   [undefined]
+R> JSON.stringify({emojiHidden:getComputedStyle(document.getElementById('stage-emoj
+   {"emojiHidden":"none","noteHidden":true}
+R> 'FINALDONE'
+   FINALDONE
+DONE

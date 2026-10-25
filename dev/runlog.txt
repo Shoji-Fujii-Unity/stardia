@@ -1,0 +1,68 @@
+loaded: complete 68 win=1024,640
+R> JSON.stringify({rs:document.readyState,t:typeof THREE,ok3:G3.ok(),scr:[...docume
+   {"rs":"complete","t":"object","ok3":true,"scr":["screen-title"]}
+R> document.getElementById('btnNew').textContent
+   新しくそだてる
+EMUL 390x844
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\stardia_t1.png
+R> goNew(0)
+   [undefined]
+R> document.getElementById('newTitle').textContent
+   相棒をえらぼう
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\stardia_new.png
+R> chosenStarter='bubble';document.getElementById('nameInput').value='テスト';startGam
+   {"day":1,"form":"bubble0","acts":2,"en":70}
+R> petPet()
+   [undefined]
+R> S.mood
+   72
+R> (()=>{const evs=[];for(let d=1;d<=64&&!S.ended;d++){if(S.flags.sick){doAction(AC
+   {"day":60,"form":"bubble2_p","ended":"champion","pw":99,"br":99,"ch":52,"st":99,"sp":9,"flags":{"sick":false,"tired":false,"love":false,"rival":true,"champion":true},"ev":["内気な訪問者","内気な訪問者","ひらめきの瞬間","つちの中からキラリ","ライバルあらわる！","いちばの日！","大会の日！","いちばの日！"]}
+R> JSON.stringify({ended:S.ended,coll:JSON.parse(localStorage.getItem('stardia_endi
+   {"ended":"champion","coll":["champion"]}
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\stardia_end.png
+R> closeOvlNoQueue()
+   [undefined]
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\stardia_game.png
+R> goTitle()
+   [undefined]
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\stardia_title2.png
+R> goGallery()
+   [undefined]
+R> JSON.stringify({gal:document.querySelectorAll('.galitem').length,unlocked:docume
+   {"gal":21,"unlocked":1}
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\stardia_gal.png
+R> goTitle()
+   [undefined]
+R> SET.lang='en';applyLabels()
+   [undefined]
+R> document.getElementById('btnNew').textContent
+   New Journey
+R> goNew(1)
+   [undefined]
+R> document.getElementById('newTitle').textContent
+   Choose your partner
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\stardia_new_en.png
+R> goTitle()
+   [undefined]
+R> SET.lang='zh';applyLabels()
+   [undefined]
+R> document.getElementById('btnNew').textContent
+   开始新旅程
+R> SET.lang='ja';applyLabels()
+   [undefined]
+R> resumeGame(0)
+   [undefined]
+R> JSON.stringify({rs:S?{day:S.day,form:S.form,ended:S.ended,name:S.name}:null})
+   {"rs":{"day":60,"form":"bubble2_p","ended":"champion","name":"テスト"}}
+R> closeOvlNoQueue()
+   [undefined]
+R> saveGame()
+   [undefined]
+R> (()=>{const s=JSON.parse(localStorage.getItem('stardia_save0'));return JSON.stri
+   {"keys":20,"form":"bubble2_p","day":60}
+EMUL off
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\stardia_wide.png
+R> 'FINALDONE'
+   FINALDONE
+DONE

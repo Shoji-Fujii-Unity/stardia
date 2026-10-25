@@ -1,0 +1,36 @@
+EMUL 390,844
+goNew(0)
+chosenStarter='ember';document.getElementById('nameInput').value='ポチ';startGame()
+doAction(ACTS.find(a=>a.id==='train'))
+JSON.stringify({en:S.energy,acts:S.actLeft,form:S.form,mood:S.mood})
+SHOT stardia_g1
+doAction(ACTS.find(a=>a.id==='play'))
+openShop()
+document.getElementById('ovTitle').textContent
+SHOT stardia_shop
+closeOvl()
+S.day=19;S.pw=55;S.br=20;S.ch=10;tryEvolve();renderPending()
+JSON.stringify({form:S.form,ov:document.getElementById('ovTitle').textContent})
+SHOT stardia_evo
+closeOvl()
+S.flags.sick=true;S.day=44;tryEvolve();renderPending()
+closeOvl()
+S.form
+S.flags.sick=false;S.form='ember2_p';S.day=50;G3.buildCreature('ember2_p');G3.setPhase(3);renderHUD();renderActs()
+SHOT stardia_stage2
+S.day=56;S.actLeft=0;endDay()
+JSON.stringify({day:S.day,ov:ovlOpen?document.getElementById('ovTitle').textContent:'none'})
+SHOT stardia_cup
+(()=>{const bt=$('#ovbtns').firstElementChild;if(bt)bt.click();return document.getElementById('ovTitle').textContent;})()
+SHOT stardia_cup2
+closeOvlNoQueue()
+S.day=60;endDay()
+JSON.stringify({ended:S.ended,form:S.form})
+SHOT stardia_end
+closeOvlNoQueue()
+goTitle()
+goGallery()
+JSON.stringify({unlocked:[...document.querySelectorAll('.galitem:not(.lock)')].length})
+SHOT stardia_gal2
+goTitle()
+'FINALDONE'

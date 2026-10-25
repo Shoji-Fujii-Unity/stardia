@@ -1,0 +1,11 @@
+EMUL 390,844
+JSON.stringify({three:typeof THREE,ok3:G3.ok()})
+SHOT fin_title
+goNew(0)
+chosenStarter='bubble';document.getElementById('nameInput').value='シオ';startGame()
+doAction(ACTS.find(a=>a.id==='adventure'))
+(()=>{while(ovlOpen){const bt=$('#ovbtns').firstElementChild;if(bt)bt.click();else break;}return 'cleared';})()
+SHOT fin_game
+petPet()
+JSON.stringify({emojiHidden:getComputedStyle(document.getElementById('stage-emoji')).display,noteHidden:document.getElementById('offnote').classList.contains('hidden')})
+'FINALDONE'

@@ -1,0 +1,17 @@
+EMUL 390,844
+SHOT fb_title
+(()=>{const e=document.createElement('script');e.src='missing_three_xyz.js';document.head.appendChild(e);return 'injected';})()
+WAIT 1500
+JSON.stringify({three:typeof THREE,ok3:G3.ok(),noteShown:!document.getElementById('offnote').classList.contains('hidden'),stageCls:document.getElementById('stage').className,emoji:document.getElementById('stage-emoji').textContent})
+SHOT fb_title2
+goNew(0)
+chosenStarter='ember';document.getElementById('nameInput').value='ヒノ';startGame()
+JSON.stringify({form:S.form,acts:S.actLeft,emoji:document.getElementById('stage-emoji').textContent})
+(()=>{for(let d=1;d<=60&&!S.ended;d++){doAction(ACTS.find(a=>a.id==='train'));if(S.actLeft>0)doAction(ACTS.find(a=>a.id==='study'));while(ovlOpen){closeOvlNoQueue();}endDay();while(ovlOpen){closeOvlNoQueue();}}return JSON.stringify({day:S.day,form:S.form,ended:S.ended,pw:Math.round(S.pw),br:Math.round(S.br)});})()
+(()=>{for(let i=0;i<5;i++){const bt=$('#ovbtns')?$('#ovbtns').firstElementChild:null;if(bt&&ovlOpen){bt.click();}else break;}return ovlOpen;})()
+SHOT fb_end
+closeOvlNoQueue()
+(()=>{const e=document.createElement('script');e.src='missing_three_xyz2.js';document.head.appendChild(e);return 1;})()
+WAIT 800
+JSON.stringify({ok3b:G3.ok(),emoji:document.getElementById('stage-emoji').textContent})
+'FINALDONE'

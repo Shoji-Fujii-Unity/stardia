@@ -1,0 +1,32 @@
+loaded: complete 68 win=1024,640
+EMUL 390x844
+R> goNew(0)
+   [undefined]
+R> chosenStarter='ember';document.getElementById('nameInput').value='ほむら';startGame
+   [undefined]
+R> doAction(ACTS.find(a=>a.id==='train'))
+   [undefined]
+R> (()=>{userYawReset=0;return 'wait';})()
+   wait
+R> G3.jump()
+   [undefined]
+R> (()=>new Promise(r=>setTimeout(()=>r('shot-now'),900)))()
+   shot-now
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\stardia_face.png
+R> S.day=19;S.pw=60;tryEvolve();renderPending()
+   [undefined]
+R> (()=>{const bt=$('#ovbtns').firstElementChild;if(bt)bt.click();return S.form;})(
+   ember1_p
+R> (()=>new Promise(r=>setTimeout(()=>r('ok'),900)))()
+   ok
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\stardia_s1.png
+R> localStorage.setItem('stardia_endings',JSON.stringify(['legendary','champion','s
+   [undefined]
+R> goGallery()
+   [undefined]
+R> JSON.stringify({unlocked:document.querySelectorAll('.galitem:not(.lock)').length
+   {"unlocked":6}
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\stardia_gal3.png
+R> 'FINALDONE'
+   FINALDONE
+DONE

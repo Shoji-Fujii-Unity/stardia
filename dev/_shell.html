@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0c0f1d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Stardia −星のともだち育成日記−</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:"Segoe UI","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans CJK SC","Microsoft YaHei","Yu Gothic",system-ui,sans-serif;background:radial-gradient(120% 90% at 50% 0%,#1b2140 0%,#0c0f1d 55%,#070912 100%);color:#e8ecf8;min-height:100dvh;display:flex;justify-content:center;-webkit-user-select:none;user-select:none;overscroll-behavior:none}
+#app{width:100%;max-width:470px;height:100dvh;display:flex;flex-direction:column;position:relative;padding:0 10px}
+#topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 2px;gap:6px;flex:0 0 auto}
+#daylbl{font-weight:700;font-size:14px;letter-spacing:.4px}
+.tbtns{display:flex;gap:6px}
+.tb{border:1px solid #3a4468;background:#1a2138;color:#dfe6ff;border-radius:9px;padding:6px 10px;font-size:12px;cursor:pointer;font-family:inherit}
+.tb:active{transform:scale(.95)}
+#stage{position:relative;flex:1 1 auto;min-height:200px;border-radius:14px;overflow:hidden;background:linear-gradient(#232c50,#141a30)}
+#stage.off{display:none}
+#c3{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#stage-emoji{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:110px;pointer-events:none}
+#stage.off3 #c3{display:none}
+#stage.off3 #stage-emoji{display:flex}
+#main{flex:1 1 auto;display:flex;flex-direction:column;min-height:0}
+.screen{flex:1 1 auto;display:flex;flex-direction:column;min-height:0}
+.hidden{display:none!important}
+.scroller{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 2px 10px}
+#hud{display:flex;flex-direction:column;gap:6px;padding:8px 10px;background:#141a2e;border:1px solid #2a3352;border-radius:12px;flex:0 0 auto}
+.hudrow{display:flex;gap:8px}
+.chip{flex:1 1 auto;background:#1d2642;border-radius:9px;padding:5px 8px;font-size:12.5px;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden}
+.bar{height:8px;background:#0d1222;border-radius:6px;overflow:hidden;flex:1 1 auto}
+.bar i{display:block;height:100%;border-radius:6px;transition:width .35s}
+#bE i{background:linear-gradient(90deg,#35d07f,#8ef0b6)}
+#bM i{background:linear-gradient(90deg,#ff9f68,#ffd08a)}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-top:2px}
+.stat{display:flex;align-items:center;gap:5px;font-size:11.5px}
+.stat b{min-width:26px;text-align:left}
+.stat .bar{height:6px}
+#b0 i{background:#ff6b81}#b1 i{background:#5aa2ff}#b2 i{background:#ff8fd0}#b3 i{background:#48d2a8}#b4 i{background:#ffd166}
+.stat em{font-style:normal;width:24px;text-align:right;color:#aeb8dd}
+#acts{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0;flex:0 0 auto}
+.abtn{background:linear-gradient(180deg,#243056,#1a2340);border:1px solid #3a4a7a;color:#eef2ff;border-radius:11px;padding:8px 8px;text-align:left;cursor:pointer;font-family:inherit;min-height:52px}
+.abtn .ai{font-size:17px}
+.abtn .an{display:block;font-weight:700;font-size:13px;margin:1px 0}
+.abtn .ac{display:block;font-size:10.5px;color:#93a0c8}
+.abtn:active{transform:scale(.96)}
+.abtn.dis{opacity:.35;pointer-events:none}
+.endrow{display:flex;gap:7px;flex:0 0 auto}
+.bigbtn{flex:1;background:linear-gradient(180deg,#4c3a7d,#332757);border:1px solid #6f57ae;color:#fff;border-radius:11px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.ghbtn{flex:0 0 auto;background:#1a2138;border:1px solid #3a4468;color:#cfd8f5;border-radius:11px;padding:11px 13px;font-size:13px;cursor:pointer;font-family:inherit}
+.bigbtn:active,.ghbtn:active{transform:scale(.97)}
+#glog{flex:1 1 auto;min-height:110px;overflow-y:auto;background:#101526;border:1px solid #26304e;border-radius:12px;padding:8px 10px;font-size:12.5px;line-height:1.75}
+#glog p{margin:0;padding:1px 0;border-bottom:1px dashed #1d2540}
+#glog .sep{color:#5a6690;text-align:center;border:0}
+#glog .ev{color:#8fd7ff}
+#glog .evo{color:#ffd166;font-weight:700}
+#glog .sys{color:#93a0c8}
+.titlewrap{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:16px 6px}
+.logo{font-size:46px;font-weight:800;letter-spacing:3px;background:linear-gradient(180deg,#ffe9a8,#ff9d6b);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 30px rgba(255,190,110,.25)}
+.tag{color:#aeb8dd;font-size:14px;line-height:1.7}
+#screen-title .btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:300px;margin-top:6px}
+.big{padding:14px;border-radius:14px;border:0;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;color:#fff;background:linear-gradient(180deg,#ff9d5c,#e2612f);box-shadow:0 6px 20px rgba(226,97,47,.35)}
+.big2{padding:14px;border-radius:14px;border:1px solid #3a4a7a;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;color:#dfe6ff;background:#1a2340}
+.rowbtns{display:flex;gap:10px}
+.rowbtns .tb{flex:1;padding:11px;font-size:13px}
+.hint{color:#6a76a0;font-size:11.5px;margin-top:4px}
+.cardlist{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px;margin:0 auto;padding:10px 4px}
+.slot{background:#151c31;border:1px solid #2a3352;border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;color:#e8ecf8;font-family:inherit}
+.slot .semo{font-size:34px}
+.slot .sinfo{flex:1 1 auto;min-width:0}
+.slot .st1{font-weight:700;font-size:14px}
+.slot .st2{font-size:11.5px;color:#93a0c8;margin-top:2px}
+.slot .sbtns{display:flex;gap:6px;align-items:center}
+.slot .go{background:#2f6b46;border:0;color:#fff;border-radius:9px;padding:8px 12px;font-weight:700;cursor:pointer;font-family:inherit}
+.slot .del{background:#5b2430;border:0;color:#ffd7dd;border-radius:9px;padding:8px 10px;cursor:pointer;font-family:inherit}
+.stitle{font-size:19px;font-weight:800;margin:14px 0 2px;text-align:center}
+.ssub{text-align:center;color:#93a0c8;font-size:12px;margin-bottom:8px}
+.starter{display:flex;align-items:center;gap:12px;width:100%;max-width:340px;margin:0 auto;background:#151c31;border:2px solid #2a3352;border-radius:14px;padding:12px;cursor:pointer;color:#e8ecf8;text-align:left;font-family:inherit}
+.starter.sel{border-color:#ffb45c;background:#22192e;box-shadow:0 0 18px rgba(255,180,92,.15)}
+.starter .semo{font-size:40px}
+.starter b{font-size:15px}
+.starter span{display:block;font-size:11.5px;color:#93a0c8}
+.namebox{max-width:340px;margin:10px auto 0;width:100%}
+.namebox label{font-size:12px;color:#93a0c8;display:block;margin-bottom:4px}
+.namebox input{width:100%;padding:11px 12px;border-radius:11px;border:1px solid #3a4468;background:#0d1222;color:#fff;font-size:15px;font-family:inherit}
+#ov{position:absolute;inset:0;background:rgba(5,8,18,.74);display:flex;align-items:center;justify-content:center;padding:14px;z-index:30;backdrop-filter:blur(3px)}
+#ovcard{width:100%;max-width:380px;background:linear-gradient(180deg,#1a2140,#131a2e);border:1px solid #3a4674;border-radius:16px;padding:18px 16px;text-align:center;max-height:88%;overflow-y:auto;box-shadow:0 14px 50px rgba(0,0,0,.5)}
+#ovcard h3{font-size:18px;margin-bottom:8px}
+#ovcard p{font-size:13.5px;line-height:1.85;color:#cfd8f5}
+#ovcard .eemo{font-size:72px;line-height:1.25;margin:2px 0 6px;filter:drop-shadow(0 0 16px rgba(255,210,120,.35))}
+#ovbtns{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+#ovbtns button{padding:12px;border-radius:11px;border:1px solid #3a4a7a;background:#20294a;color:#eef2ff;font-size:14px;cursor:pointer;font-family:inherit}
+#ovbtns button:active{transform:scale(.97)}
+#ovbtns button.hi{background:linear-gradient(180deg,#ff9d5c,#e2612f);border:0;color:#fff;font-weight:700}
+#ovbtns .res{color:#8fd7ff;font-size:12.5px}
+#ovcard .rank{display:inline-block;font-weight:800;padding:3px 12px;border-radius:9px;margin:2px 0 8px;font-size:15px}
+.rankS{background:#ffd166;color:#3a2b00}.rankA{background:#7ee0a3;color:#0c3320}.rankB{background:#7fb4ff;color:#0c2142}.rankC{background:#a9b2cf;color:#1c2338}.rankD{background:#57607f;color:#dfe6ff}
+.endstats{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px}
+.endstats span{background:#1d2642;border-radius:8px;padding:4px 9px;font-size:11.5px}
+.gal{display:flex;flex-direction:column;gap:7px;width:100%;max-width:340px;margin:0 auto}
+.galitem{background:#151c31;border:1px solid #2a3352;border-radius:11px;padding:9px 11px;text-align:left;font-size:13px}
+.galitem.lock{color:#5a6690}
+.galitem .gr{display:inline-block;min-width:20px;text-align:center;border-radius:6px;font-weight:800;font-size:12px;padding:2px 6px;margin-right:8px}
+.notec{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:11px;color:#8a94b8;pointer-events:none}
+.notec span{background:rgba(10,14,26,.7);padding:3px 10px;border-radius:8px}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+#ovcard{animation:pop .28s ease-out}
+.evoanim #stage{box-shadow:0 0 0 2px #ffd166,0 0 40px rgba(255,209,102,.5)}
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="topbar">
+    <div id="daylbl">Stardia ✦</div>
+    <div class="tbtns">
+      <button id="btnLang" class="tb"></button>
+      <button id="btnSound" class="tb"></button>
+    </div>
+  </header>
+  <div id="stage"><canvas id="c3"></canvas><div id="stage-emoji">🥚</div><div id="offnote" class="notec hidden"><span></span></div></div>
+  <div id="flash"></div>
+  <main id="main">
+    <section id="screen-title" class="screen">
+      <div class="titlewrap">
+        <h1 class="logo">Stardia</h1>
+        <p class="tag" id="titleTag"></p>
+        <div class="btns">
+          <button id="btnNew" class="big"></button>
+          <button id="btnCont" class="big2 hidden"></button>
+          <button id="btnGal" class="tb" style="padding:11px"></button>
+          <div class="rowbtns">
+            <button id="btnHelpT" class="tb"></button>
+          </div>
+          <p class="hint" id="titleHint"></p>
+        </div>
+      </div>
+    </section>
+    <section id="screen-slots" class="screen hidden">
+      <div class="scroller">
+        <h2 class="stitle" id="slotsTitle"></h2>
+        <p class="ssub" id="slotsSub"></p>
+        <div class="cardlist" id="slotsList"></div>
+        <div style="max-width:340px;margin:12px auto"><button class="big2" id="btnSlotsBack" style="width:100%"></button></div>
+      </div>
+    </section>
+    <section id="screen-new" class="screen hidden">
+      <div class="scroller">
+        <h2 class="stitle" id="newTitle"></h2>
+        <p class="ssub" id="newSub"></p>
+        <div id="starterList" class="cardlist"></div>
+        <div class="namebox"><label id="nameLabel"></label><input id="nameInput" maxlength="10"></div>
+        <div style="max-width:340px;margin:14px auto"><button id="btnStart" class="big" style="width:100%"></button></div>
+      </div>
+    </section>
+    <section id="screen-game" class="screen hidden">
+      <div id="hud">
+        <div class="hudrow">
+          <div class="chip" id="hForm"></div>
+          <div class="chip" id="hCoins">🪙 0</div>
+        </div>
+        <div class="hudrow">
+          <div class="chip">⚡<div class="bar" id="bE"><i></i></div><em id="vE">0</em></div>
+          <div class="chip">♥<div class="bar" id="bM"><i></i></div><em id="vM">0</em></div>
+        </div>
+        <div class="statgrid" id="statgrid"></div>
+        <div class="hint" id="hNote"></div>
+      </div>
+      <div id="acts"></div>
+      <div class="endrow">
+        <button id="btnEndDay" class="bigbtn"></button>
+        <button id="btnSave" class="ghbtn"></button>
+        <button id="btnTitle" class="ghbtn"></button>
+      </div>
+      <div id="glog"></div>
+    </section>
+    <section id="screen-gallery" class="screen hidden">
+      <div class="scroller">
+        <h2 class="stitle" id="galTitle"></h2>
+        <p class="ssub" id="galSub"></p>
+        <div id="galList" class="gal"></div>
+        <div style="max-width:340px;margin:12px auto"><button class="big2" id="btnGalBack" style="width:100%"></button></div>
+      </div>
+    </section>
+  </main>
+  <div id="ov" class="hidden"><div id="ovcard">
+    <div id="ovemo" class="eemo hidden"></div>
+    <h3 id="ovTitle"></h3>
+    <p id="ovMsg"></p>
+    <div id="ovbtns"></div>
+  </div></div>
+</div>
+<script>
+document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>');
+</script>
+<script src="three.min.js"></script>
+<script>
+"use strict";

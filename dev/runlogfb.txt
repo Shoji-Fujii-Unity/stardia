@@ -1,0 +1,30 @@
+loaded: complete 73 win=1024,640
+EMUL 390x844
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\fb_title.png
+LOG: Failed to load resource: net::ERR_FILE_NOT_FOUND
+R> (()=>{const e=document.createElement('script');e.src='missing_three_xyz.js';docu
+   injected
+R> JSON.stringify({three:typeof THREE,ok3:G3.ok(),noteShown:!document.getElementByI
+   {"three":"undefined","ok3":false,"noteShown":true,"stageCls":"off3","emoji":"🥚"}
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\fb_title2.png
+R> goNew(0)
+   [undefined]
+R> chosenStarter='ember';document.getElementById('nameInput').value='ヒノ';startGame(
+   [undefined]
+R> JSON.stringify({form:S.form,acts:S.actLeft,emoji:document.getElementById('stage-
+   {"form":"ember0","acts":2,"emoji":"🔥"}
+R> (()=>{for(let d=1;d<=60&&!S.ended;d++){doAction(ACTS.find(a=>a.id==='train'));if
+   {"day":60,"form":"ail2","ended":"sickailment","pw":99,"br":34}
+R> (()=>{for(let i=0;i<5;i++){const bt=$('#ovbtns')?$('#ovbtns').firstElementChild:
+   False
+SHOT C:\Users\s-fuj\Documents\Strata\Workspace\fb_end.png
+R> closeOvlNoQueue()
+   [undefined]
+LOG: Failed to load resource: net::ERR_FILE_NOT_FOUND
+R> (()=>{const e=document.createElement('script');e.src='missing_three_xyz2.js';doc
+   1
+R> JSON.stringify({ok3b:G3.ok(),emoji:document.getElementById('stage-emoji').textCo
+   {"ok3b":false,"emoji":"🥀"}
+R> 'FINALDONE'
+   FINALDONE
+DONE

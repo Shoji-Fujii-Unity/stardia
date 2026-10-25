@@ -1,0 +1,17 @@
+EMUL 390,844
+goNew(0)
+chosenStarter='ember';document.getElementById('nameInput').value='ほむら';startGame()
+doAction(ACTS.find(a=>a.id==='train'))
+(()=>{userYawReset=0;return 'wait';})()
+G3.jump()
+(()=>new Promise(r=>setTimeout(()=>r('shot-now'),900)))()
+SHOT stardia_face
+S.day=19;S.pw=60;tryEvolve();renderPending()
+(()=>{const bt=$('#ovbtns').firstElementChild;if(bt)bt.click();return S.form;})()
+(()=>new Promise(r=>setTimeout(()=>r('ok'),900)))()
+SHOT stardia_s1
+localStorage.setItem('stardia_endings',JSON.stringify(['legendary','champion','scholar','family','sickailment','companion']))
+goGallery()
+JSON.stringify({unlocked:document.querySelectorAll('.galitem:not(.lock)').length})
+SHOT stardia_gal3
+'FINALDONE'
